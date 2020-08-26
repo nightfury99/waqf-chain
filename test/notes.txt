@@ -1,0 +1,25 @@
+async loadWeb() {
+    window.addEventListener('load', async () => {
+      if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+          // Request accounts access if needed
+          await ethereum.enable();
+          // Acount now exposed
+          web3.eth.sendTransaction({/** */});
+        } catch (error) {
+          // User denied account access
+        }
+      }
+      //Legacy dapp browser ...
+      else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider);
+        // Account always exposed
+        web3.eth.sendTransaction({ /** */ });
+      }
+      // Non-dapp browser...
+      else {
+        console.log('Non-ethereum browser detected. You should consider trying metamask');
+      }
+    });
+  }
