@@ -3,9 +3,9 @@ pragma solidity ^0.5.0;
 contract WaqfChain {
     string public name;
     uint public productCount = 0;
- 
+    // APPLY ONLY OWNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     modifier onlyOwner {
-        require(msg.sender == 0xaF8Ee7b8a7ceE30DF29239418B4407D7C19214AB, 'You are not an admin');
+        require(msg.sender == 0xc8136a608036C7FbbF7d052a70b76EDeAB864Ab4, 'You are not an admin');
         _;
     }
 

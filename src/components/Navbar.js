@@ -3,20 +3,28 @@ import React, { Component } from 'react';
 class Navbar extends Component {
   render() {
     return (
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow text-white">
-            <a
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="http://www.dappuniversity.com/bootcamp"
-            target="_blank"
-            rel="noopener noreferrer"
-            >
-            Waqf Chain
-            </a>
-            <ul className="navbar-nav px-3">
-                <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-                    <small className="text-white"><span id="account">{this.props.account}</span></small>
-                </li>
-            </ul>
+
+        <nav className="navbar navbar-expand-md bg-dark navbar-dark">
+	        <a className="navbar-brand" href="#">HIT eCOB</a>
+	
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+	
+	        <div className="collapse navbar-collapse" id="collapsibleNavbar">
+		        <ul className="navbar-nav mr-auto">
+			        <li className="nav-item">
+                        <a className="nav-link <?= $active ?>" href="<?= PORTAL?><?= $menu->url ?>">
+                            <span className="<?= $menu->icon ?>"></span>
+                        </a>
+			        </li>
+		        </ul>
+		        <ul className="navbar-nav text-white">
+			        <li className="nav-item ml-auto">
+                        <small>{ this.props.account }</small>
+			        </li>
+		        </ul>
+	        </div>
         </nav>
     );
   }

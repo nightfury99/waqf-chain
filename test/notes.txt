@@ -28,3 +28,80 @@ async loadWeb() {
       }
     });
   }
+
+==================================================================================================================
+
+<div>
+        <Navbar account={this.state.account} />
+        <div className="container-fluid mt-5">
+          <div className="row">
+            <main role="main" className="col-lg-12 d-flex text-center">
+              <div className="content mr-auto ml-auto">
+                <a
+                  href="http://www.dappuniversity.com/bootcamp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={logo} className="App-logo" alt="logo" />
+                </a>
+                <p>
+                  Edit <code>src/components/App.js</code> and save to reload.
+                </p>
+                <a
+                  className="App-link"
+                  href="http://www.dappuniversity.com/bootcamp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  LEARN BLOCKCHAIN <u><b>NOW! </b></u>
+                </a>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+
+
+  
+============================================================================================================
+
+        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow text-white">
+            <a
+            className="navbar-brand col-sm-3 col-md-2 mr-0"
+            href="http://www.dappuniversity.com/bootcamp"
+            target="_blank"
+            rel="noopener noreferrer"
+            >
+            Waqf Chain
+            </a>
+            <ul className="navbar-nav px-3">
+                <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
+                    <small className="text-white"><span id="account">{this.props.account}</span></small>
+                </li>
+            </ul>
+        </nav>
+
+
+===========================================================================================================
+
+<form>
+                    <div className="form-row">
+                        <div className="form-group col-md-6">
+                            <label>Title</label>
+                            <input type="text" className="form-control" id="waqf_title" placeholder="Title"></input>
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label>Product Types</label>
+                            <select defaultValue={'DEFAULT'} id="waqf_type" className="form-control">
+                                <option value='"DEFAULT' disabled>Choose</option>
+                                <option value="1">Education</option>
+                                <option value="1">Foster</option>
+                                <option value="1">Warzone</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label>Waqf Details</label>
+                        <input type="text" className="form-control" id="waqf_details" placeholder="Details"></input>
+                    </div>
+                </form>
