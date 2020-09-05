@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import Web3 from 'web3';
 import Apps from './App'
 
 class CreateWaqf extends Component {
     async componentWillMount() {
-    //    await this.createWaqf();
         await this.debugging();
         await this.onChangeLink.bind(this);
     }
@@ -46,6 +46,9 @@ class CreateWaqf extends Component {
                 
                 <div className="card-body">
                     <form onSubmit={(event) => {
+                        const price = this.waqfPrice.value * 0.00061;
+                        alert(price);
+                        const prices = window.web3.utils.toWei(this.waqfPrice.value.toString(), 'Ether');
                         //this.props.CreateWaqf(this.waqfTitle.value, this.waqfDetails.value, this.waqfTypes.value, this.waqfPrice.value);
                     }}>
                         <div className="form-row col-md-12">
