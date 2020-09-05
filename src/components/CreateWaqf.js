@@ -6,6 +6,7 @@ class CreateWaqf extends Component {
     async componentWillMount() {
         await this.debugging();
         await this.onChangeLink.bind(this);
+        window.web3 = new Web3(window.web3.currentProvider);
     }
 
     async debugging() {
@@ -46,15 +47,20 @@ class CreateWaqf extends Component {
                 
                 <div className="card-body">
                     <form onSubmit={(event) => {
+                        event.preventDefault();
                         const price = this.waqfPrice.value * 0.00061;
-                        alert(price);
-                        const prices = window.web3.utils.toWei(this.waqfPrice.value.toString(), 'Ether');
-                        //this.props.CreateWaqf(this.waqfTitle.value, this.waqfDetails.value, this.waqfTypes.value, this.waqfPrice.value);
+                        const prices = window.web3.utils.toWei(price.toString(), 'Ether');
+                        
+                        const waqf_title = this.waqfTitle.value;
+                        const waqf_detail = this.waqfDetails.value;
+                        const waqf_type = this.waqfTypes.value;
+                        //alert(waqf_title.value);
+                        this.props.createWaqf(waqf_title, waqf_detail, waqf_type, prices);
                     }}>
                         <div className="form-row col-md-12">
                             <div className="form-group col-md-6">
                                 <label>Title</label>
-                                <input type="text" className="form-control" id="waqf_title" placeholder="Title" ref={(input) => { this.waqfName = input }}></input>
+                                <input type="text" className="form-control" id="waqf_title" placeholder="Title" ref={(input) => { this.waqfTitle = input }}></input>
                             </div>
                             <div className="form-group col-md-6">
                                 <label>Product Types</label>
@@ -75,7 +81,7 @@ class CreateWaqf extends Component {
                             <input type="text" className="form-control" id="waqf_details" placeholder="Price" ref={(input) => { this.waqfPrice = input }}></input>
                         </div>
                         <div className="col-md-12">
-                        <button type="submit" className="btn btn-primary">Sign in</button>
+                        <button type="submit" className="btn btn-primary">Create</button>
                         </div>
                     </form>
                 </div>
