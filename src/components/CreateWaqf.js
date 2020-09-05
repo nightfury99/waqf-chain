@@ -5,7 +5,7 @@ import Apps from './App'
 class CreateWaqf extends Component {
     async componentWillMount() {
         await this.debugging();
-        await this.onChangeLink.bind(this);
+        //await this.onChangeLink.bind(this);
         window.web3 = new Web3(window.web3.currentProvider);
     }
 
@@ -13,6 +13,7 @@ class CreateWaqf extends Component {
         console.log(this.props.debug);
         this.setState({ debug: 'changed' });
         console.log(this.state.debug);
+        window.web3 = new Web3(window.web3.currentProvider);
     }
 /*
     createWaqf(title, details, types, price) {
@@ -30,7 +31,8 @@ class CreateWaqf extends Component {
           //productCount: 0,
           //products: [],
           loading: this.props.loading,
-          debug: this.props.debug
+          debug: this.props.debug,
+          koboi: '🤠'
         }
     }
     
@@ -42,20 +44,17 @@ class CreateWaqf extends Component {
         return (
             <div className="card">
                 <div className="card-header text-center">
-                    <h1 className="card-title">Create Waqf Event</h1>
+                    <h1 className="card-title"><span className='ec ec-tired-face'></span> Create Waqf Event &#128518;</h1>
                 </div>
-                
                 <div className="card-body">
                     <form onSubmit={(event) => {
                         event.preventDefault();
-                        const price = this.waqfPrice.value * 0.00061;
-                        const prices = window.web3.utils.toWei(price.toString(), 'Ether');
-                        
+                        const price = this.waqfPrice.value;
                         const waqf_title = this.waqfTitle.value;
                         const waqf_detail = this.waqfDetails.value;
                         const waqf_type = this.waqfTypes.value;
                         //alert(waqf_title.value);
-                        this.props.createWaqf(waqf_title, waqf_detail, waqf_type, prices);
+                        this.props.createWaqf(waqf_title, waqf_detail, waqf_type, price);
                     }}>
                         <div className="form-row col-md-12">
                             <div className="form-group col-md-6">
@@ -85,8 +84,31 @@ class CreateWaqf extends Component {
                         </div>
                     </form>
                 </div>
+                
+                <div className="card">
+                    <h1 className="card-header text-center">Waqf Event {this.state.koboi}</h1>
+                    <div className="card-body">
+                        <div className="col-md-12">
+                            {this.props.products.map((product, key) => {
+                                
+                                return(
+                                    <div className="card" key={key}>
+                                        <h4 className="card-header text-left">{product.name}</h4>
+                                        <div className="card-body">
+                                            <p>{product.details}</p>
+                                            <p>{product.product_type}</p>
+                                            <p>RM {product.price.toString()}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+
+                
             </div>
-            
+                    
         );
     }
 }

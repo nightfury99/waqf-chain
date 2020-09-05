@@ -39,6 +39,15 @@ class App extends Component {
     if(networkData) {
       const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);
       this.setState({ waqfchain });
+      const productCount = await waqfchain.methods.productCount().call();
+      this.setState({ productCount });
+      // load waqf event
+      for(var i = 1; i <= productCount; i++) {
+        const waqf = await waqfchain.methods.waqfEvents(i).call();
+        this.setState({
+          products: [...this.state.products, waqf]
+        });
+      }
       this.setState({ loading: false });
     } else {
       window.alert('WaqfChain contract is not deployed to detected network');
@@ -59,10 +68,17 @@ class App extends Component {
 
   createWaqf(title, details, types, price) {
     this.setState({ loading: true });
+    
     this.state.waqfchain.methods.createProduct(title, details, types, price).send({ from: this.state.account })
     .once('receipt', (receipt) => {
       this.setState({ loading: false });
-    });  
+    });
+    
+    /*
+    const receipt = this.state.waqfchain.methods.createProduct(title, details, types, price).send({ from: this.state.account });
+    let txHash = receipt.transactionHash;
+    this.setState({ loading: false });
+    */
   }
 
   onChangedLink(newDebug) {
@@ -78,8 +94,10 @@ class App extends Component {
   render() {
     return (
       <div>
+        <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
+        <link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'></link>
         <Navbar account={this.state.account} />
-        <h1>{this.state.debug}</h1>
+        
         { this.state.loading 
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div> 
                 : <CreateWaqf 
@@ -89,9 +107,9 @@ class App extends Component {
                   debug={this.state.debug} 
                   onLinking={this.onChangedLink.bind(this)}
                   createWaqf={this.createWaqf}
+                  products={this.state.products}
                 /> 
-              }
-              
+              }              
       </div>
     );
   }
