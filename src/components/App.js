@@ -5,6 +5,11 @@ import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
 import Navbar from './Navbar';
 import CreateWaqf from './CreateWaqf';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Debug from './Debug';
+import WaqfEvents from './WaqfEvents';
+import WaqfDetails from './WaqfDetails';
+
 
 class App extends Component {
   async componentWillMount() {
@@ -61,7 +66,7 @@ class App extends Component {
       productCount: 0,
       products: [],
       loading: true,
-      debug: 'normal'
+      debug: 'RECEIVED'
     }
     this.createWaqf = this.createWaqf.bind(this);
   }
@@ -96,11 +101,20 @@ class App extends Component {
       <div>
         <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
         <link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'></link>
-        <Navbar account={this.state.account} />
+        <Router>
+        <Navbar 
+          debug={this.state.debug} 
+          onLinking={this.onChangedLink.bind(this)}
+          account={this.state.account} 
+          waqfchain={this.state.waqfchain} 
+          loading={this.state.loading}
+          createWaqf={this.createWaqf}
+          products={this.state.products}
+        />
         
         { this.state.loading 
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div> 
-                : <CreateWaqf 
+                : /*<CreateWaqf 
                   waqfchain={this.state.waqfchain} 
                   loading={this.state.loading} 
                   account={this.state.account} 
@@ -108,11 +122,26 @@ class App extends Component {
                   onLinking={this.onChangedLink.bind(this)}
                   createWaqf={this.createWaqf}
                   products={this.state.products}
-                /> 
-              }              
+                /> */
+                <Switch>
+                  <Route path="/" exact component={HomePage}/>
+                  <Route path="/debug" component={Debug}/>
+                  <Route path="/create-waqf" component={CreateWaqf}/>
+                  <Route path="/waqf-events" exact component={WaqfEvents}/>
+                  <Route path="/waqf-events/:id" component={WaqfDetails}/>
+                </Switch>
+              }
+        </Router>
       </div>
+      
     );
   }
 }
+
+const HomePage = () => (
+  <div>
+    <h1>This is a HomePage</h1>
+  </div>
+);
 
 export default App;

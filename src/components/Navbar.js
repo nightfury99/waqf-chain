@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
   render() {
+    const navStyle = {
+      liststyle: 'none'
+    }
     return (
 
         <nav className="navbar navbar-expand-md bg-dark navbar-dark">
@@ -12,12 +16,35 @@ class Navbar extends Component {
             </button>
 	
 	        <div className="collapse navbar-collapse" id="collapsibleNavbar">
-		        <ul className="navbar-nav mr-auto">
+		        <ul className="navbar-nav mr-auto text-white">
+            
 			        <li className="nav-item">
-                        <a className="nav-link <?= $active ?>" href="<?= PORTAL?><?= $menu->url ?>">
-                            <span className="<?= $menu->icon ?>"></span>
-                        </a>
+                <a className="nav-link">
+                <Link style={navStyle} to={{
+                  pathname: '/create-waqf', 
+                  account: this.props.account, 
+                  waqfchain: this.props.waqfchain,
+                  loading: this.props.loading,
+                  createWaqf: this.props.createWaqf,
+                  products: this.props.products
+                }}>
+                  Create Waqf
+                </Link>
+                  </a>
 			        </li>
+            
+            <Link to={{
+                  pathname: '/waqf-events', 
+                  account: this.props.account, 
+                  waqfchain: this.props.waqfchain,
+                  loading: this.props.loading,
+                  createWaqf: this.props.createWaqf,
+                  products: this.props.products
+            }}>
+              <li className="nav-item">
+              <a className="nav-link">View Waqf</a>
+			        </li>
+            </Link>
 		        </ul>
 		        <ul className="navbar-nav text-white">
 			        <li className="nav-item ml-auto">

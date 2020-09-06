@@ -10,9 +10,9 @@ class CreateWaqf extends Component {
     }
 
     async debugging() {
-        console.log(this.props.debug);
+        /*
         this.setState({ debug: 'changed' });
-        console.log(this.state.debug);
+        console.log(this.state.debug);*/
         window.web3 = new Web3(window.web3.currentProvider);
     }
 /*
@@ -27,11 +27,10 @@ class CreateWaqf extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          account: this.props.account,
+          account: this.props.location.account,
           //productCount: 0,
-          //products: [],
-          loading: this.props.loading,
-          debug: this.props.debug,
+          products: this.props.location.products,
+          loading: this.props.location.loading,
           koboi: '🤠'
         }
     }
@@ -54,7 +53,7 @@ class CreateWaqf extends Component {
                         const waqf_detail = this.waqfDetails.value;
                         const waqf_type = this.waqfTypes.value;
                         //alert(waqf_title.value);
-                        this.props.createWaqf(waqf_title, waqf_detail, waqf_type, price);
+                        this.props.location.createWaqf(waqf_title, waqf_detail, waqf_type, price);
                     }}>
                         <div className="form-row col-md-12">
                             <div className="form-group col-md-6">
@@ -83,30 +82,7 @@ class CreateWaqf extends Component {
                         <button type="submit" className="btn btn-primary">Create</button>
                         </div>
                     </form>
-                </div>
-                
-                <div className="card">
-                    <h1 className="card-header text-center">Waqf Event {this.state.koboi}</h1>
-                    <div className="card-body">
-                        <div className="col-md-12">
-                            {this.props.products.map((product, key) => {
-                                
-                                return(
-                                    <div className="card" key={key}>
-                                        <h4 className="card-header text-left">{product.name}</h4>
-                                        <div className="card-body">
-                                            <p>{product.details}</p>
-                                            <p>{product.product_type}</p>
-                                            <p>RM {product.price.toString()}</p>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
-
-                
+                </div>                
             </div>
                     
         );
