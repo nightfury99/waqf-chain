@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Debug from './Debug';
 import WaqfEvents from './WaqfEvents';
 import WaqfDetails from './WaqfDetails';
-
+import Register from './Register';
 
 class App extends Component {
   async componentWillMount() {
@@ -69,6 +69,15 @@ class App extends Component {
       debug: 'RECEIVED'
     }
     this.createWaqf = this.createWaqf.bind(this);
+    this.createAccountz = this.createAccountz.bind(this);
+  }
+
+  createAccountz(name, username, email, password) {
+    this.setState({ loading: true });
+    this.state.waqfchain.methods.createAccounts(name, username, email, password).send({ from: this.state.account })
+    .once('receipt', (receipt) => {
+      this.setState({ laoding: false });
+    });
   }
 
   createWaqf(title, details, types, price) {
@@ -110,6 +119,7 @@ class App extends Component {
           loading={this.state.loading}
           createWaqf={this.createWaqf}
           products={this.state.products}
+          createAccountz={this.createAccountz}
         />
         
         { this.state.loading 
@@ -129,6 +139,7 @@ class App extends Component {
                   <Route path="/create-waqf" component={CreateWaqf}/>
                   <Route path="/waqf-events" exact component={WaqfEvents}/>
                   <Route path="/waqf-events/:id" component={WaqfDetails}/>
+                  <Route path="/sign-up" component={Register}/>
                 </Switch>
               }
         </Router>

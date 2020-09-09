@@ -45,7 +45,18 @@ class Navbar extends Component {
               <a className="nav-link">View Waqf</a>
 			        </li>
             </Link>
-		        </ul>
+            <Link to={{
+                  pathname: '/sign-up', 
+                  account: this.props.account, 
+                  waqfchain: this.props.waqfchain,
+                  loading: this.props.loading,
+                  createAccountz: this.props.createAccountz
+            }}>
+              <li className="nav-item">
+              <a className="nav-link">Login</a>
+			        </li>
+            </Link>
+		      </ul>
 		        <ul className="navbar-nav text-white">
 			        <li className="nav-item ml-auto">
                         <small>{ this.props.account }</small>

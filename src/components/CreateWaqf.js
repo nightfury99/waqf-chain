@@ -1,43 +1,78 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import Apps from './App'
+import WaqfChain from '../abis/WaqfChain.json';
+
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 class CreateWaqf extends Component {
     async componentWillMount() {
-        await this.debugging();
-        //await this.onChangeLink.bind(this);
-        window.web3 = new Web3(window.web3.currentProvider);
-    }
-
-    async debugging() {
-        /*
-        this.setState({ debug: 'changed' });
-        console.log(this.state.debug);*/
-        window.web3 = new Web3(window.web3.currentProvider);
-    }
-/*
-    createWaqf(title, details, types, price) {
-        this.setState({ loading: true });
-        this.props.waqfchain.methods.createProduct(title, details, types, price).send({ from: this.state.account })
-        .once('receipt', (receipt) => {
-            this.setState({ loading: false });
-        });
-    }
-*/  
-    constructor(props) {
+        await this.loadWeb3();
+        await this.loadBlockchainData();
+      }
+    
+      async loadWeb3() {
+        if(window.ethereum) {
+          await window.ethereum.enable();
+        }
+        else if (window.web3) {
+          window.web3 = new Web3(window.web3.currentProvider);
+        }
+        else {
+          window.alert('Non-ethereum briwser detected. You should try Metamask man!');
+        }
+      } 
+    
+      async loadBlockchainData() {
+        const WEB3 = window.web3;
+        const web3 = new Web3(Web3.givenProvider);
+        // Load account
+        const accounts = await WEB3.eth.accounts;
+        this.setState({ account: accounts[0] });
+        
+        const networkId = await web3.eth.net.getId();
+        const networkData = WaqfChain.networks[networkId];
+        // check if we are on developed network
+        if(networkData) {
+          const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);
+          this.setState({ waqfchain });
+          const productCount = await waqfchain.methods.productCount().call();
+          this.setState({ productCount });
+          // load waqf event
+          
+          
+        } else {
+          window.alert('WaqfChain contract is not deployed to detected network');
+        }
+      }
+      
+      constructor(props) {
         super(props);
         this.state = {
-          account: this.props.location.account,
-          //productCount: 0,
-          products: this.props.location.products,
-          loading: this.props.location.loading,
-          koboi: '🤠'
+          account: '',
+          productCount: 0,
+          products: [],
+          loading: true,
+          debug: 'RECEIVED'
         }
-    }
+        this.createWaqf = this.createWaqf.bind(this);
+      }
     
-    onChangeLink() {
-        this.props.onLinking(this.state.debug);
-    }
+      createWaqf(title, details, types, price) {
+        this.setState({ loading: true });
+        
+        this.state.waqfchain.methods.createProduct(title, details, types, price).send({ from: this.state.account })
+        .once('receipt', (receipt) => {
+          this.setState({ loading: false });
+        });
+        
+        /*
+        const receipt = this.state.waqfchain.methods.createProduct(title, details, types, price).send({ from: this.state.account });
+        let txHash = receipt.transactionHash;
+        this.setState({ loading: false });
+        */
+      }
+    
 
     render() {
         return (
@@ -48,12 +83,13 @@ class CreateWaqf extends Component {
                 <div className="card-body">
                     <form onSubmit={(event) => {
                         event.preventDefault();
-                        const price = this.waqfPrice.value;
+                        const price = parseInt(this.waqfPrice.value);
+                        console.log('price ', typeof(price));
                         const waqf_title = this.waqfTitle.value;
                         const waqf_detail = this.waqfDetails.value;
                         const waqf_type = this.waqfTypes.value;
                         //alert(waqf_title.value);
-                        this.props.location.createWaqf(waqf_title, waqf_detail, waqf_type, price);
+                        this.createWaqf(waqf_title, waqf_detail, waqf_type, price);
                     }}>
                         <div className="form-row col-md-12">
                             <div className="form-group col-md-6">
