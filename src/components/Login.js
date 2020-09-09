@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import Apps from './App'
 import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
     async componentWillMount() {
@@ -66,16 +67,21 @@ class Login extends Component {
     }
 
     checkCredentials(username, password) {
+        //const history = useHistory();
         this.setState({ loading: true });
         let passed = 0;
         this.state.accounts.map((acc, key) => {
-            if(username == acc.username.toString() && password == acc.password.toString()) {
+            if(username === acc.username.toString() && password === acc.password.toString()) {
                 console.log('cred found');
                 passed = 1;
-                return;
+                window.location.replace("http://localhost:3000/");
             }
         });
-        console.log('out of loop');
+        if(passed === 1) {
+            return <Redirect to="/" />;
+        } else {
+            return <Redirect to="/sign-in" />;
+        }
     }
 
     render() {

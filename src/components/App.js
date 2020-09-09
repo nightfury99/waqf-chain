@@ -5,7 +5,7 @@ import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
 import Navbar from './Navbar';
 import CreateWaqf from './CreateWaqf';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import Debug from './Debug';
 import WaqfEvents from './WaqfEvents';
 import WaqfDetails from './WaqfDetails';
@@ -16,6 +16,7 @@ class App extends Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
+    
     //await this.debugging();
     //console.log(window.web3);
   }

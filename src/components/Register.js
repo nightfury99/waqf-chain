@@ -61,7 +61,7 @@ class Register extends Component {
         this.setState({ loading: true });
         this.state.waqfchain.methods.createAccounts(name, username, email, password).send({ from: this.state.account })
         .once('receipt', (receipt) => {
-          this.setState({ laoding: false });
+          this.setState({ loading: false });
         });
       }
 
