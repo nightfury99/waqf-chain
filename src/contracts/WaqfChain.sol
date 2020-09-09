@@ -4,6 +4,7 @@ contract WaqfChain {
     string public name;
     uint public productCount = 0;
     uint public sendCount = 0;
+    uint public accountCount = 0;
     // APPLY ONLY OWNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     modifier onlyOwner {
         require(msg.sender == 0xc8136a608036C7FbbF7d052a70b76EDeAB864Ab4, 'You are not an admin');
@@ -20,6 +21,15 @@ contract WaqfChain {
         bool closed;
     }
 
+    struct CreateAccount {
+        uint id;
+        string name;
+        string username;
+        string email;
+        string password;
+        address userAddress;
+    }
+
     event WaqfEventCreated(
         uint id,
         string name,
@@ -28,6 +38,15 @@ contract WaqfChain {
         uint price,
         address payable owner,
         bool closed
+    );
+
+    event accountCreated(
+        uint id,
+        string name,
+        string username,
+        string email,
+        string password,
+        address userAddress
     );
 
     event SendWaqfCreated(
@@ -40,9 +59,20 @@ contract WaqfChain {
     );
 
     mapping(uint => WaqfEvent) public waqfEvents;
+    mapping(uint => CreateAccount) public createAccount;
 
     constructor() public {
         name = "WaqfChain";
+    }
+
+    function createAccounts(string memory _name, string memory _username, string memory _email, string memory _password) public {
+        require(bytes(_name).length > 0, 'name is empty');
+        require(bytes(_username).length > 0, 'username is empty');
+        require(bytes(_email).length > 0, 'email is empty');
+        require(bytes(_password).length > 0, 'password is empty');
+        accountCount++;
+        createAccount[accountCount] = CreateAccount(accountCount, _name, _username, _email, _password, msg.sender);
+        emit accountCreated(accountCount, _name, _username, _email, _password, msg.sender);
     }
 
     function createProduct(string memory _name, string memory _details, string memory _product_types, uint _price) public {
