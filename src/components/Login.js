@@ -69,18 +69,22 @@ class Login extends Component {
     checkCredentials(username, password) {
         //const history = useHistory();
         this.setState({ loading: true });
+        console.log(this.state.account);
+        
         let passed = 0;
         this.state.accounts.map((acc, key) => {
-            if(username === acc.username.toString() && password === acc.password.toString()) {
-                console.log('cred found');
-                passed = 1;
-                window.location.replace("http://localhost:3000/");
-            }
+          if(username === acc.username.toString() && password === acc.password.toString() && this.state.account === acc.userAddress.toLowerCase()) {
+              console.log('cred found');
+              passed = 1;
+              localStorage.setItem("u_role", "one_1");
+          }
         });
+        
         if(passed === 1) {
-            return <Redirect to="/" />;
+          window.location.replace("http://localhost:3000/");
         } else {
-            return <Redirect to="/sign-in" />;
+          alert('wrong');
+          window.location.replace("http://localhost:3000/sign-in")
         }
     }
 
@@ -89,7 +93,7 @@ class Login extends Component {
             <div className="wrapper fadeInDown">
                 <br></br><br></br><br></br>
             <div id="formContent">
-              <h2 className="active"> Sign Up </h2>
+              <h2 className="active"> Sign In </h2>
               <br></br><br></br>
 
               <div className="fadeIn first">
@@ -107,7 +111,7 @@ class Login extends Component {
                 <input type="password" id="password" className="fadeIn third" name="login" placeholder="password" ref={(input) => { this.password = input }}></input>
                 <br></br>
                 <br></br>
-                <input type="submit" className="fadeIn fourth" value="Register"></input>
+                <input type="submit" className="fadeIn fourth" value="Login"></input>
               </form>
           
               <div id="formFooter">

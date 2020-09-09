@@ -97,6 +97,14 @@ class App extends Component {
     */
   }
 
+  checkLogin() {
+    if(localStorage.getItem("u_role") === "one_1"){
+      return true;
+    }else {
+      return false;
+    }
+  }
+
   onChangedLink(newDebug) {
     this.setState({
       debug: newDebug
@@ -155,6 +163,7 @@ class App extends Component {
 const HomePage = () => (
   <div>
     <h1>This is a HomePage</h1>
+    {console.log()}
   </div>
 );
 
