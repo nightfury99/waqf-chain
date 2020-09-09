@@ -5,24 +5,23 @@ import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
 
 class Register extends Component {
-    async componentWillMount() {
-        await this.loadWeb3();
-        await this.loadBlockchainData();
-        
+  async componentWillMount() {
+    await this.loadWeb3();
+    await this.loadBlockchainData();
+  }
+    
+  async loadWeb3() {
+    if(window.ethereum) {
+      await window.ethereum.enable();
     }
-    
-    async loadWeb3() {
-        if(window.ethereum) {
-          await window.ethereum.enable();
-        }
-        else if (window.web3) {
-          window.web3 = new Web3(window.web3.currentProvider);
-        }
-        else {
-          window.alert('Non-ethereum briwser detected. You should try Metamask man!');
-        }
-    } 
-    
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    }
+    else {
+      window.alert('Non-ethereum briwser detected. You should try Metamask man!');
+    }
+  } 
+
       async loadBlockchainData() {
         const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
