@@ -18,20 +18,18 @@ class Navbar extends Component {
 	        <div className="collapse navbar-collapse" id="collapsibleNavbar">
 		        <ul className="navbar-nav mr-auto text-white">
             
-			        <li className="nav-item">
-                <a className="nav-link">
-                <Link style={navStyle} to={{
+            <Link to={{
                   pathname: '/create-waqf', 
                   account: this.props.account, 
                   waqfchain: this.props.waqfchain,
                   loading: this.props.loading,
                   createWaqf: this.props.createWaqf,
                   products: this.props.products
-                }}>
-                  Create Waqf
-                </Link>
-                  </a>
+            }}>
+              <li className="nav-item">
+              <a className="nav-link">Create Waqf</a>
 			        </li>
+            </Link>
             
             <Link to={{
                   pathname: '/waqf-events', 
@@ -53,7 +51,7 @@ class Navbar extends Component {
                   createAccountz: this.props.createAccountz
             }}>
               <li className="nav-item">
-              <a className="nav-link">Login</a>
+              <a className="nav-link">Register</a>
 			        </li>
             </Link>
 		      </ul>

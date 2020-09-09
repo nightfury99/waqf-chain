@@ -64,33 +64,29 @@ class CreateWaqf extends Component {
     render() {
         return (
             <div className="card">
-                <div className="card-header text-center">
-                    <h1 className="card-title"><span className='ec ec-tired-face'></span> Create Waqf Event &#128518;</h1>
-                </div>
-                <div className="card">
-                    <h1 className="card-header text-center">Waqf Event {this.state.koboi}</h1>
-                    <div className="card-body">
-                        <div className="col-md-12">
-                            {this.state.products.map((product, key) => {
-                                return(
-                                    <div className="card" key={key}>
-                                        <h4 className="card-header text-left"><Link to={{
-                                            pathname: `/waqf-events/${product.id}`,
-                                            Id: `${product.id}`,
-                                            Products: this.state.products
-                                            }}>{product.name}</Link></h4>
-                                        <div className="card-body">
-                                            <p>{product.details}</p>
-                                            <p>{product.product_type}</p>
-                                            <p>RM {product.price.toString()}</p>
-                                        </div>
+                <h1 className="card-header text-center">Waqf Event {this.state.koboi}</h1>
+                <div className="card-body">
+                    <div className="col-md-12">
+                        {this.state.products.map((product, key) => {
+                            return(
+                                <div className="card" key={key}>
+                                    <h4 className="card-header text-left"><Link to={{
+                                        pathname: `/waqf-events/${product.id}`,
+                                        Id: `${product.id}`,
+                                        Products: this.state.products
+                                        }}>{product.name}</Link></h4>
+                                    <div className="card-body">
+                                        <p>{product.details}</p>
+                                        <p>{product.product_type}</p>
+                                        <p>RM {product.price.toString()}</p>
                                     </div>
-                                );
-                            })}
-                        </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
-            </div>      
+            </div>
+                 
         );
     }
 }

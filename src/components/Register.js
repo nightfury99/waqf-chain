@@ -8,7 +8,7 @@ class Register extends Component {
     async componentWillMount() {
         await this.loadWeb3();
         await this.loadBlockchainData();
-        console.log("this -> ", this.state.account);
+        
     }
     
     async loadWeb3() {
