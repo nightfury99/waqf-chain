@@ -7,8 +7,6 @@ class Logout extends Component {
     async componentWillMount() {
         await this.loadWeb3();
         await this.loadBlockchainData();
-        await this.setCookie();
-       
     }
     
     async loadWeb3() {
@@ -79,6 +77,7 @@ class Logout extends Component {
     render() {
         return (
             <div className="wrapper fadeInDown">
+                { this.setCookie() }
             {   this.state.loading 
                 ? <div id="loader" className="text-center"><p className="text-center">Logging out...</p></div> 
                 : <div id="loader" className="text-center"><p className="text-center">Logged Out...</p></div>

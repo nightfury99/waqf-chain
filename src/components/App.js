@@ -103,7 +103,7 @@ class App extends Component {
     const allCookie = document.cookie;
     let huhu = allCookie.split('=');
     const cook = huhu[1];
-    
+ 
     if(cook != '') {
       return true;
     } else {
@@ -138,6 +138,7 @@ class App extends Component {
         <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
         <link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'></link>
         <Router>
+          {console.log()}
         <Navbar 
           debug={this.state.debug} 
           onLinking={this.onChangedLink.bind(this)}
@@ -148,7 +149,6 @@ class App extends Component {
           products={this.state.products}
           createAccountz={this.createAccountz}
         />
-        { this.checkLogin() ? console.log('logged in') : console.log('not logged in')}
         
         { this.state.loading 
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div> 

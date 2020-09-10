@@ -45,7 +45,7 @@ class Navbar extends Component {
 	
 	        <div className="collapse navbar-collapse" id="collapsibleNavbar">
 		        <ul className="navbar-nav mr-auto text-white">
-            { (this.checkAdmin() && this.checkLogin())
+            { (this.checkAdmin() && this.checkLogin())   // ADMIN
               ? <Link to={{
                 pathname: '/create-waqf', 
                 account: this.props.account, 
@@ -60,7 +60,10 @@ class Navbar extends Component {
               </Link>
           : <div></div>
             }
-            {(this.checkLogin() && !this.checkAdmin())}
+            {(this.checkLogin() && !this.checkAdmin())  // NORMAL USER
+              ? console.log('normal')
+              : <div></div>
+            }   
             <Link to={{
                   pathname: '/waqf-events', 
                   account: this.props.account, 
@@ -84,6 +87,7 @@ class Navbar extends Component {
               <a className="nav-link">Register</a>
 			        </li>
             </Link>
+
             <Link to={{
                   pathname: '/sign-in', 
                   account: this.props.account
@@ -92,14 +96,18 @@ class Navbar extends Component {
               <a className="nav-link">Login</a>
 			        </li>
             </Link>
-            <Link to={{
-                  pathname: '/sign-out', 
-                  account: this.props.account
-            }}>
-              <li className="nav-item">
-              <a className="nav-link">Logout</a>
-			        </li>
-            </Link>
+
+            {this.checkLogin()
+              ? <Link to={{
+                pathname: '/sign-out', 
+                account: this.props.account
+              }}>
+                <li className="nav-item">
+                <a className="nav-link">Logout</a>
+                </li>
+              </Link>
+            : <div></div>
+            }
 		      </ul>
 		        <ul className="navbar-nav text-white">
 			        <li className="nav-item ml-auto">
