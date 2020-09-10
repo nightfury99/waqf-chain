@@ -10,7 +10,7 @@ contract WaqfChain {
         require(msg.sender == 0xc8136a608036C7FbbF7d052a70b76EDeAB864Ab4, 'You are not an admin');
         _;
     }
-
+// nama user => {id waqf}
     struct WaqfEvent {
         uint id;
         string name;

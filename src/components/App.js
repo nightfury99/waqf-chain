@@ -11,12 +11,13 @@ import WaqfEvents from './WaqfEvents';
 import WaqfDetails from './WaqfDetails';
 import Register from './Register';
 import Login from './Login';
+import Logout from './Logout';
 
 class App extends Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
-    
+    await this.checkLogin();
     //await this.debugging();
     //console.log(window.web3);
   }
@@ -98,9 +99,25 @@ class App extends Component {
   }
 
   checkLogin() {
-    if(localStorage.getItem("u_role") === "one_1"){
+    //const username = getCookie('username');
+    const allCookie = document.cookie;
+    let huhu = allCookie.split('=');
+    const cook = huhu[1];
+    
+    if(cook != '') {
       return true;
-    }else {
+    } else {
+      return false;
+    }
+  }
+
+  checkAdmin() {
+    const allCookie = document.cookie;
+    let huhu = allCookie.split('=');
+    const cook = huhu[1];
+    if(cook === 'admin') {
+      return true;
+    } else {
       return false;
     }
   }
@@ -131,27 +148,36 @@ class App extends Component {
           products={this.state.products}
           createAccountz={this.createAccountz}
         />
+        { this.checkLogin() ? console.log('logged in') : console.log('not logged in')}
         
         { this.state.loading 
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div> 
-                : /*<CreateWaqf 
-                  waqfchain={this.state.waqfchain} 
-                  loading={this.state.loading} 
-                  account={this.state.account} 
-                  debug={this.state.debug} 
-                  onLinking={this.onChangedLink.bind(this)}
-                  createWaqf={this.createWaqf}
-                  products={this.state.products}
-                /> */
-                <Switch>
-                  <Route path="/" exact component={HomePage}/>
-                  <Route path="/debug" component={Debug}/>
-                  <Route path="/waqf-events" exact component={WaqfEvents}/>
-                  <Route path="/create-waqf" component={CreateWaqf}/>
-                  <Route path="/waqf-events/:id" component={WaqfDetails}/>
-                  <Route path="/sign-up" component={Register}/>
-                  <Route path="/sign-in" component={Login}/>
-                </Switch>
+                : this.checkLogin() 
+                  ? this.checkAdmin() 
+                    ? <Switch>
+                        <Route path="/" exact component={HomePage}/>
+                        <Route path="/debug" component={Debug}/>
+                        <Route path="/waqf-events" exact component={WaqfEvents}/>
+                        <Route path="/create-waqf" component={CreateWaqf}/>
+                        <Route path="/waqf-events/:id" component={WaqfDetails}/>
+                        <Route path="/sign-in" component={Login}/>
+                        <Route path="/sign-out" component={Logout} />
+                      </Switch>
+                    : <Switch>
+                        <Route path="/" exact component={HomePage}/>
+                        <Route path="/debug" component={Debug}/>
+                        <Route path="/waqf-events" exact component={WaqfEvents}/>
+                        <Route path="/waqf-events/:id" component={WaqfDetails}/>
+                        <Route path="/sign-in" component={Login}/>
+                        <Route path="/sign-out" component={Logout} />
+                      </Switch>
+                  : 
+                  <Switch>
+                    <Route path="/" exact component={HomePage}/>
+                    <Route path="/waqf-events" exact component={WaqfEvents}/>
+                    <Route path="/sign-up" component={Register}/>
+                    <Route path="/sign-in" component={Login}/>
+                  </Switch>
               }
         </Router>
       </div>

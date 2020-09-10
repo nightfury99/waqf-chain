@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import Apps from './App'
 import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
-import { Redirect } from 'react-router-dom';
+
 
 class Login extends Component {
     async componentWillMount() {
         await this.loadWeb3();
         await this.loadBlockchainData();
+        
     }
     
     async loadWeb3() {
@@ -66,25 +66,36 @@ class Login extends Component {
         }   
     }
 
+    setCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      var expires = "expires="+ d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
     checkCredentials(username, password) {
         //const history = useHistory();
         this.setState({ loading: true });
-        console.log(this.state.account);
         
         let passed = 0;
         this.state.accounts.map((acc, key) => {
-          if(username === acc.username.toString() && password === acc.password.toString() && this.state.account === acc.userAddress.toLowerCase()) {
-              console.log('cred found');
-              passed = 1;
-              localStorage.setItem("u_role", "one_1");
+          if(username === 'admin' && password === acc.password && this.state.account.toString() === acc.userAddress.toLowerCase()) {
+            passed = 1;
+            this.setCookie('username', acc.username, 1);
+          }else if(username === acc.username.toString() && password === acc.password.toString() && this.state.account === acc.userAddress.toLowerCase()) {
+            console.log('cred found');
+            passed = 1;
+            this.setCookie('username', acc.username, 1);
           }
+          
+          
         });
         
         if(passed === 1) {
           window.location.replace("http://localhost:3000/");
         } else {
           alert('wrong');
-          window.location.replace("http://localhost:3000/sign-in")
+          //window.location.replace("http://localhost:3000/sign-in")
         }
     }
 
