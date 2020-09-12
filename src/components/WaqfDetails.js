@@ -6,7 +6,6 @@ import WaqfChain from '../abis/WaqfChain.json';
 
 class WaqfDetails extends Component {
     async componentWillMount() {
-        const data = this.props.location.Product;
         await this.loadBlockchainData();
         await this.debugging();
         //await this.onChangeLink.bind(this);
@@ -17,9 +16,8 @@ class WaqfDetails extends Component {
         /*
         this.setState({ debug: 'changed' });
         console.log(this.state.debug);*/
-        const hem = this.props.location.Products;
-        console.log(hem);
-        console.log(this.props.location.Products.id);
+        const WEB3 = window.web3;
+        const web3 = new Web3(Web3.givenProvider); 
     }
 
     async loadBlockchainData() {
@@ -44,6 +42,7 @@ class WaqfDetails extends Component {
             products: [...this.state.products, waqf]
           });
         }
+        
         this.setState({ loading: false });
       } else {
         window.alert('WaqfChain contract is not deployed to detected network');
@@ -58,8 +57,19 @@ class WaqfDetails extends Component {
           account: this.props.location.account,
           //productCount: 0,
           products: [],
+          hem: [],
           koboi: '🤠'
         }
+    }
+
+    sendWaqf(id, price, prices) {
+      this.setState({ loading: true });
+      const price_wei = window.web3.utils.toWei(price.toString(), 'Ether');
+     
+      this.state.waqfchain.methods.sendWaqf(id, prices).send({ from: this.state.account, value: price_wei})
+      .once('receipt', (receipt) => {
+        this.setState({ loading: false });
+      });
     }
     
     onChangeLink() {
@@ -69,15 +79,53 @@ class WaqfDetails extends Component {
     render() {
         return(
           <div>
+            <br></br><br></br>
             {this.state.products.map((product, key) => {
-              if(product.id==this.props.location.Id) { 
+              if(parseInt(product.id)==this.props.match.params.id) { 
                 return(
-                  <div key={key}>
-                     <p>{product.details}</p> 
+                  <div className="container" key={key} >
+                    <div className="card">
+                      <div className="card-header text-center">
+                        <h1>{product.name}</h1>
+                      </div>
+                    
+                      <div className="card-body">
+                        <h4>name:</h4>
+                        <p>{product.name}</p>
+
+                        <h4>Details:</h4>
+                        <p>{product.details}</p>
+
+                        <h4>Type:</h4>
+                        <p>{product.product_type}</p>
+
+                        <h4>Target Price:</h4>
+                        <p>RM {parseInt(product.price)}</p>
+
+                        <form onSubmit={(event) => {
+                          event.preventDefault();
+                          let price = parseInt(this.price.value);
+                          let ether = price * 0.00066;
+                          this.sendWaqf(parseInt(product.id), ether, price);
+                        }}>
+                          <div className="form-col col-md-12">
+                            <label>DONATE: </label>
+                            <input type="text" className="form-control" id="waqf_title" placeholder="price" ref={(input) => { this.price = input }}></input>
+                          </div>
+                          <hr></hr><br></br>
+                          <div className="col-md-12 text-center">
+                            <button type="submit" className="btn btn-primary">Donate</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                   </div>
                 );
               }
             })}
+            
+
+            
           </div>
         );
     }

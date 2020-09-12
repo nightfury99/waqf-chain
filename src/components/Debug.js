@@ -33,16 +33,21 @@ class Debug extends Component {
         const networkData = WaqfChain.networks[networkId];
         // check if we are on developed network
         if(networkData) {
+            
             const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);
             this.setState({ waqfchain });
             const accountCount = await waqfchain.methods.accountCount().call();
             this.setState({ accountCount });
             // load logs event
-            waqfchain.getPastEvents('WaqfEventCreated', {
+            waqfchain.getPastEvents('SendWaqfCreated', {
                 fromBlock: 0,
                 toBlock: 'latest'
             }, (err, events) => {
-                console.log(events[0].returnValues.name.toString());
+                //console.log(events[0].returnValues.name.toString());
+                for(let i = 0; i < events.length; i++) {
+                    console.log(events[i]);
+                }
+
             });
             //console.log(this.state.accounts);
             this.setState({ loading: false });
@@ -66,9 +71,12 @@ class Debug extends Component {
     }
     render() {
         return (
-            <div>
-                <p><span className="ec ec-nerd-face"></span></p>
-            </div>        
+            <div className="container">
+                <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+                <div className="col-md-12 text-center">
+                    <p><span className="ec ec-nerd-face"></span></p>
+                </div>        
+            </div>
         );
     }
 }

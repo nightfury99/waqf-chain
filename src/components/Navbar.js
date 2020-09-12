@@ -45,6 +45,19 @@ class Navbar extends Component {
 	
 	        <div className="collapse navbar-collapse" id="collapsibleNavbar">
 		        <ul className="navbar-nav mr-auto text-white">
+            <Link to={{
+                  pathname: '/waqf-events', 
+                  account: this.props.account, 
+                  waqfchain: this.props.waqfchain,
+                  loading: this.props.loading,
+                  createWaqf: this.props.createWaqf,
+                  products: this.props.products
+            }}>
+              <li className="nav-item">
+              <a className="nav-link">View Waqf</a>
+			        </li>
+            </Link>
+            
             { (this.checkAdmin() && this.checkLogin())   // ADMIN
               ? <Link to={{
                 pathname: '/create-waqf', 
@@ -60,42 +73,34 @@ class Navbar extends Component {
               </Link>
           : <div></div>
             }
-            {(this.checkLogin() && !this.checkAdmin())  // NORMAL USER
-              ? console.log('normal')
-              : <div></div>
-            }   
-            <Link to={{
-                  pathname: '/waqf-events', 
-                  account: this.props.account, 
-                  waqfchain: this.props.waqfchain,
-                  loading: this.props.loading,
-                  createWaqf: this.props.createWaqf,
-                  products: this.props.products
-            }}>
-              <li className="nav-item">
-              <a className="nav-link">View Waqf</a>
-			        </li>
-            </Link>
-            <Link to={{
+            {(!this.checkLogin() && !this.checkAdmin())  // NORMAL USER
+              ? <Link to={{
                   pathname: '/sign-up', 
                   account: this.props.account, 
                   waqfchain: this.props.waqfchain,
                   loading: this.props.loading,
                   createAccountz: this.props.createAccountz
-            }}>
-              <li className="nav-item">
-              <a className="nav-link">Register</a>
-			        </li>
-            </Link>
+                }}>
+                  <li className="nav-item">
+                  <a className="nav-link">Register</a>
+                  </li>
+                </Link>
+              : <div></div>
+            }
 
-            <Link to={{
+            {(!this.checkLogin() && !this.checkAdmin())  // NORMAL USER
+              ? 
+                <Link to={{
                   pathname: '/sign-in', 
                   account: this.props.account
-            }}>
-              <li className="nav-item">
-              <a className="nav-link">Login</a>
-			        </li>
-            </Link>
+                }}>
+                  <li className="nav-item">
+                  <a className="nav-link">Login</a>
+                  </li>
+                </Link>
+
+              : <div></div>
+            }
 
             {this.checkLogin()
               ? <Link to={{

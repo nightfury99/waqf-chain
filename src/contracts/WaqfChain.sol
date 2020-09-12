@@ -31,31 +31,33 @@ contract WaqfChain {
     }
 
     event WaqfEventCreated(
-        uint id,
+        uint indexed id,
         string name,
         string details,
         string product_type,
         uint price,
         address payable owner,
+        address indexed ownerAddress,
         bool closed
     );
 
     event accountCreated(
-        uint id,
+        uint indexed id,
         string name,
         string username,
         string email,
         string password,
-        address userAddress
+        address indexed userAddress
     );
 
     event SendWaqfCreated(
-        uint id,
-        uint waqfId,
+        uint indexed id,
+        uint indexed waqfId,
         string name,
         uint price,
         address payable seller,
-        address payable buyer
+        address payable sender, 
+        address indexed senderAddress
     );
 
     mapping(uint => WaqfEvent) public waqfEvents;
@@ -82,14 +84,14 @@ contract WaqfChain {
         require(_price > 0, 'prices types is empty');
         productCount ++;
         waqfEvents[productCount] = WaqfEvent(productCount, _name, _details, _product_types, _price, msg.sender, false);
-        emit WaqfEventCreated(productCount, _name, _details, _product_types, _price, msg.sender, false);
+        emit WaqfEventCreated(productCount, _name, _details, _product_types, _price, msg.sender, msg.sender, false);
     }
 
-    function sendWaqf(uint _id) public payable{
+    function sendWaqf(uint _id, uint _price) public payable{
         WaqfEvent memory _waqfevent = waqfEvents[_id];
         address payable _owner = _waqfevent.owner;
         address(_owner).transfer(msg.value);
         sendCount ++;
-        emit SendWaqfCreated(sendCount, _id, _waqfevent.name, _waqfevent.price, _owner, msg.sender);
+        emit SendWaqfCreated(sendCount, _id, _waqfevent.name, _price, _owner, msg.sender, msg.sender);
     }   
 }

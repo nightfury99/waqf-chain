@@ -168,7 +168,6 @@ class App extends Component {
                         <Route path="/debug" component={Debug}/>
                         <Route path="/waqf-events" exact component={WaqfEvents}/>
                         <Route path="/waqf-events/:id" component={WaqfDetails}/>
-                        <Route path="/sign-in" component={Login}/>
                         <Route path="/sign-out" component={Logout} />
                       </Switch>
                   : 

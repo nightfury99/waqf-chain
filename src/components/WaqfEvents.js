@@ -71,7 +71,7 @@ class CreateWaqf extends Component {
                                 <div className="card" key={key}>
                                     <h4 className="card-header text-left"><Link to={{
                                         pathname: `/waqf-events/${product.id}`,
-                                        Id: `${product.id}`,
+                                        Id: product.id,
                                         Products: this.state.products
                                         }}>{product.name}</Link></h4>
                                     <div className="card-body">
