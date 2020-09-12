@@ -5,9 +5,10 @@ contract WaqfChain {
     uint public productCount = 0;
     uint public sendCount = 0;
     uint public accountCount = 0;
+    uint public updateCount = 0;
     // APPLY ONLY OWNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     modifier onlyOwner {
-        require(msg.sender == 0xc8136a608036C7FbbF7d052a70b76EDeAB864Ab4, 'You are not an admin');
+        require(msg.sender == 0x733fDe1c969640a7F70511cbc42879b127a0e27E, 'You are not an admin');
         _;
     }
 // nama user => {id waqf}
@@ -28,6 +29,18 @@ contract WaqfChain {
         string email;
         string password;
         address userAddress;
+    }
+
+    struct UpdateWaqfEvent {
+        uint id;
+        uint waqfId;
+        string manageData;
+        string manageDate;
+        string developData;
+        string developDate;
+        string completedData;
+        string completedDate;
+        address admin;
     }
 
     event WaqfEventCreated(
@@ -60,11 +73,33 @@ contract WaqfChain {
         address indexed senderAddress
     );
 
+    event updatedWaqfCreated(
+        uint indexed id,
+        uint indexed waqfId,
+        string manageData,
+        string manageDate,
+        string developData,
+        string developDate,
+        string completedData,
+        string completedDate,
+        address admin
+    );
+    
+    mapping(uint => UpdateWaqfEvent) public updateWaqfEvents;
     mapping(uint => WaqfEvent) public waqfEvents;
     mapping(uint => CreateAccount) public createAccount;
 
     constructor() public {
         name = "WaqfChain";
+    }
+
+    function updateWaqfManage(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
+        require(_waqfId > 0, 'waqf id is invalid');
+        require(bytes(_data).length > 0, 'data is empty');
+        require(bytes(_date).length > 0, 'date is empty');
+        updateCount++;
+        updateWaqfEvents[updateCount] = UpdateWaqfEvent(updateCount, _waqfId, _data, _date, '', '', '', '', msg.sender);
+        emit updatedWaqfCreated(updateCount, _waqfId, _data, _date, '', '', '', '', msg.sender);
     }
 
     function createAccounts(string memory _name, string memory _username, string memory _email, string memory _password) public {
@@ -77,7 +112,7 @@ contract WaqfChain {
         emit accountCreated(accountCount, _name, _username, _email, _password, msg.sender);
     }
 
-    function createProduct(string memory _name, string memory _details, string memory _product_types, uint _price) public {
+    function createProduct(string memory _name, string memory _details, string memory _product_types, uint _price) onlyOwner public {
         require(bytes(_name).length > 0, 'name is empty');
         require(bytes(_details).length > 0, 'details is empty');
         require(bytes(_product_types).length > 0, 'product types is empty');
