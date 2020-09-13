@@ -6,9 +6,10 @@ contract WaqfChain {
     uint public sendCount = 0;
     uint public accountCount = 0;
     uint public updateCount = 0;
+    address public adminAccount = 0x733fDe1c969640a7F70511cbc42879b127a0e27E;
     // APPLY ONLY OWNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     modifier onlyOwner {
-        require(msg.sender == 0x733fDe1c969640a7F70511cbc42879b127a0e27E, 'You are not an admin');
+        require(msg.sender == adminAccount, 'You are not an admin');
         _;
     }
 // nama user => {id waqf}
@@ -73,7 +74,7 @@ contract WaqfChain {
         address indexed senderAddress
     );
 
-    event updatedWaqfCreated(
+    event updatedWaqf(
         uint indexed id,
         uint indexed waqfId,
         string manageData,
@@ -91,15 +92,6 @@ contract WaqfChain {
 
     constructor() public {
         name = "WaqfChain";
-    }
-
-    function updateWaqfManage(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
-        require(_waqfId > 0, 'waqf id is invalid');
-        require(bytes(_data).length > 0, 'data is empty');
-        require(bytes(_date).length > 0, 'date is empty');
-        updateCount++;
-        updateWaqfEvents[updateCount] = UpdateWaqfEvent(updateCount, _waqfId, _data, _date, '', '', '', '', msg.sender);
-        emit updatedWaqfCreated(updateCount, _waqfId, _data, _date, '', '', '', '', msg.sender);
     }
 
     function createAccounts(string memory _name, string memory _username, string memory _email, string memory _password) public {
@@ -120,6 +112,8 @@ contract WaqfChain {
         productCount ++;
         waqfEvents[productCount] = WaqfEvent(productCount, _name, _details, _product_types, _price, msg.sender, false);
         emit WaqfEventCreated(productCount, _name, _details, _product_types, _price, msg.sender, msg.sender, false);
+        updateWaqfEvents[productCount] = UpdateWaqfEvent(productCount, productCount, '', '', '', '', '', '', msg.sender);
+        emit updatedWaqf(productCount, productCount, '', '', '', '', '', '', msg.sender);
     }
 
     function sendWaqf(uint _id, uint _price) public payable{
@@ -128,5 +122,41 @@ contract WaqfChain {
         address(_owner).transfer(msg.value);
         sendCount ++;
         emit SendWaqfCreated(sendCount, _id, _waqfevent.name, _price, _owner, msg.sender, msg.sender);
-    }   
+    }
+
+    function updateWaqfManage(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
+        require(_waqfId > 0, 'waqf id is invalid');
+        require(bytes(_data).length > 0, 'data is empty');
+        require(bytes(_date).length > 0, 'date is empty');
+        
+        UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
+        _waqfevent.manageData = _data;
+        _waqfevent.manageDate = _date;
+        updateWaqfEvents[_waqfId] = _waqfevent;
+        emit updatedWaqf(_waqfevent.id, _waqfId, _data, _date, '', '', '', '', msg.sender);
+    }
+
+    function updateWaqfDevelop(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
+        require(_waqfId > 0, 'waqf id is invalid');
+        require(bytes(_data).length > 0, 'data is empty');
+        require(bytes(_date).length > 0, 'date is empty');
+        
+        UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
+        _waqfevent.developData = _data;
+        _waqfevent.developDate = _date;
+        updateWaqfEvents[_waqfId] = _waqfevent;
+        emit updatedWaqf(_waqfevent.id, _waqfId, _waqfevent.manageData,_waqfevent.manageDate, _data, _date, '', '', msg.sender);
+    }
+
+    function updateWaqfCompleted(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
+        require(_waqfId > 0, 'waqf id is invalid');
+        require(bytes(_data).length > 0, 'data is empty');
+        require(bytes(_date).length > 0, 'date is empty');
+        
+        UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
+        _waqfevent.completedData = _data;
+        _waqfevent.completedDate = _date;
+        updateWaqfEvents[_waqfId] = _waqfevent;
+        emit updatedWaqf(_waqfevent.id, _waqfId, _waqfevent.manageData,_waqfevent.manageDate, _waqfevent.developData,_waqfevent.developDate, _data, _date, msg.sender);
+    }
 }

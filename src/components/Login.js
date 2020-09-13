@@ -74,7 +74,6 @@ class Login extends Component {
     }
 
     checkCredentials(username, password) {
-        //const history = useHistory();
         this.setState({ loading: true });
         
         let passed = 0;
@@ -87,8 +86,6 @@ class Login extends Component {
             passed = 1;
             this.setCookie('username', acc.username, 1);
           }
-          
-          
         });
         
         if(passed === 1) {
