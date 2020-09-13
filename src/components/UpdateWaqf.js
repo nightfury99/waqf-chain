@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import './App.css';
+import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-class CreateWaqf extends Component {
+class UpdateWaqf extends Component {
     async componentWillMount() {
         await this.debugging();
         await this.loadBlockchainData();
@@ -62,32 +62,32 @@ class CreateWaqf extends Component {
 
     render() {
         return (
-            <div className="card">
-                <h1 className="card-header text-center">Waqf Event {this.state.koboi}</h1>
-                <div className="card-body">
-                    <div className="col-md-12">
-                        {this.state.products.map((product, key) => {
-                            return(
-                                <div className="card" key={key}>
-                                    <h4 className="card-header text-left"><Link to={{
-                                        pathname: `/waqf-events/${product.id}`,
-                                        Id: product.id,
-                                        Products: this.state.products
-                                        }}>{product.name}</Link></h4>
-                                    <div className="card-body">
-                                        <p>{product.details}</p>
-                                        <p>{product.product_type}</p>
-                                        <p>RM {product.price.toString()}</p>
-                                    </div>
+            <div className="container">
+                {this.state.products.map((product, key) => {
+                    return(
+                        <div>
+                            <br></br><br></br>
+                            <div className="card text-center" key={key}>
+                                <div className="card-header">
+                                    {product.name}
                                 </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </div>
-                 
+                                <div className="card-body">
+                                    <h5 className="card-title">Update {product.name}</h5>
+                                    
+                                    <Link to={{
+                                        pathname: `update-waqf/${product.id}`
+                                    }}>
+                                        <a className="btn btn-primary">Update</a>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+                <div className="wrapper fadeInDown"></div>
+            </div>     
         );
     }
 }
 
-export default CreateWaqf;
+export default UpdateWaqf;

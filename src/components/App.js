@@ -12,6 +12,9 @@ import WaqfDetails from './WaqfDetails';
 import Register from './Register';
 import Login from './Login';
 import Logout from './Logout';
+import UpdateWaqf from './UpdateWaqf';
+import UpdateWaqfDetail from './UpdateWaqfDetail';
+
 
 class App extends Component {
   async componentWillMount() {
@@ -162,6 +165,8 @@ class App extends Component {
                         <Route path="/waqf-events/:id" component={WaqfDetails}/>
                         <Route path="/sign-in" component={Login}/>
                         <Route path="/sign-out" component={Logout} />
+                        <Route path="/update-waqf" exact component={UpdateWaqf} />
+                        <Route path="/update-waqf/:id" component={UpdateWaqfDetail}></Route>
                       </Switch>
                     : <Switch>
                         <Route path="/" exact component={HomePage}/>

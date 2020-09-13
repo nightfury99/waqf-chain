@@ -71,8 +71,25 @@ class Navbar extends Component {
                 <a className="nav-link">Create Waqf</a>
                 </li>
               </Link>
-          : <div></div>
+              : <div></div>
             }
+
+            { (this.checkAdmin() && this.checkLogin())   // ADMIN
+              ? <Link to={{
+                pathname: '/update-waqf', 
+                account: this.props.account, 
+                waqfchain: this.props.waqfchain,
+                loading: this.props.loading,
+                createWaqf: this.props.createWaqf,
+                products: this.props.products
+              }}>
+                <li className="nav-item">
+                <a className="nav-link">Update Waqf</a>
+                </li>
+              </Link>
+              : <div></div>
+            }
+
             {(!this.checkLogin() && !this.checkAdmin())  // NORMAL USER
               ? <Link to={{
                   pathname: '/sign-up', 
