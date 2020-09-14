@@ -17,3 +17,6 @@
 ### [.] make loading for all page
 ### [.] make sure all function that write to blockchain must have catch function
 ### [.] display on waqf event about waqf status, active or not
+### check if form is empty
+### user can print
+### update develop part and completed

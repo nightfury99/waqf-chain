@@ -192,9 +192,12 @@ class App extends Component {
 }
 
 const HomePage = () => (
-  <div>
-    <h1>This is a HomePage</h1>
-    {console.log()}
+  <div className="container">
+    <div className="col-md-12 text-center wrapper fadeInDown">
+      <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+      <br></br><br></br><br></br>
+      <h1>This is Waqf HomePage</h1>
+    </div>
   </div>
 );
 

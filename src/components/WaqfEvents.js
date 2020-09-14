@@ -67,19 +67,22 @@ class CreateWaqf extends Component {
                         <div className="column">
                         {this.state.products.map((product, key) => {
                             return(
-                                <div className="card" key={key}>
-                                    <h4 className="card-header text-left">
-                                        <Link to={{
-                                            pathname: `/waqf-events/${product.id}`,
-                                            Id: product.id,
-                                            account: this.props.location.account
-                                            }}>{product.name}
-                                        </Link>
-                                    </h4>
-                                    <div className="card-body">
-                                        <p>{product.details}</p>
-                                        <p>{product.product_type}</p>
-                                        <p>RM {product.price.toString()}</p>
+                                <div key={key}>
+                                    <br></br><br></br>
+                                    <div className="card">
+                                        <h4 className="card-header text-left">
+                                            <Link to={{
+                                                pathname: `/waqf-events/${product.id}`,
+                                                Id: product.id,
+                                                account: this.props.location.account
+                                                }}>{product.name}
+                                            </Link>
+                                        </h4>
+                                        <div className="card-body">
+                                            <p>{product.details}</p>
+                                            <p>{product.product_type}</p>
+                                            <p>RM {product.price.toString()}</p>
+                                        </div>
                                     </div>
                                 </div>
                             );

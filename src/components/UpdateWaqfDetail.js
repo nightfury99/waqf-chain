@@ -33,8 +33,29 @@ class UpdateWaqfDetail extends Component {
           this.setState({ productCount });
           // load waqf event
           const waqf = await waqfchain.methods.waqfEvents(this.props.match.params.id).call();
+          const waqfUpdate = await waqfchain.methods.updateWaqfEvents(this.props.match.params.id).call();
           this.setState({ products: waqf });
           this.setState({ closed: waqf.closed });
+          this.setState({ manage: waqfUpdate.manageData });
+          this.setState({ develop: waqfUpdate.developData });
+          this.setState({ completed: waqfUpdate.completedData });
+          this.setState({ manageD: waqfUpdate.manageDate });
+          this.setState({ developD: waqfUpdate.developDate });
+          this.setState({ completedD: waqfUpdate.completedDate });
+          
+
+          if(waqfUpdate.manageData != '') {
+            this.setState({manageData: true});
+          }
+
+          if(waqfUpdate.developData != '') {
+            this.setState({developData: true});
+          }
+
+          if(waqfUpdate.completedData != '') {
+            this.setState({completedData: true});
+          }
+
           waqfchain.getPastEvents('SendWaqfCreated', {
             fromBlock: 0,
             toBlock: 'latest'
@@ -69,7 +90,16 @@ class UpdateWaqfDetail extends Component {
           totalAccount: 0,
           totalPrice: 0,
           loading: true,
-          closed: true
+          closed: true,
+          manageData: false,
+          developData: false,
+          completedData: false,
+          manage: '',
+          develop: '',
+          completed: '',
+          manageD: '',
+          developD: '',
+          completedD: ''
         }
     }
     
@@ -82,9 +112,16 @@ class UpdateWaqfDetail extends Component {
       }).catch((error) => {
         window.alert("cannot load your account, Please refresh the page!");
       });
-      
     }
 
+    updateManage(waqfId, data, date) {
+      this.setState({ loading: true });
+
+      this.state.waqfchain.methods.updateWaqfManage(waqfId, data, date).send({ from: this.state.account })
+      .once('receipt', (receipt) => {
+        window.alert("cannot load your account, Please refresh the page!");
+      });
+    }
 
     render() {
         return (
@@ -153,8 +190,123 @@ class UpdateWaqfDetail extends Component {
                   </p>
                 }
                 <div className="wrapper fadeInDown"></div>
-                </div>
+                <hr></hr>
+
+                { this.state.manageData
+                  ? 
+                  <form>
+                    <h4>Update Manage</h4>
+                    <div className="form-group">
+                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
+                      <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" placeholder={this.state.manage} disabled></textarea>
+                    </div>
+                    <label htmlFor="dateofbirth">Date</label>
+                    <input name="dateofbirth" id="dateofbirth" placeholder={this.state.manageD} disabled></input>
+                    <br></br><br></br>
+                    <div>
+                      <button type="submit" className="btn btn-primary" disabled><i className="fas fa-paper-plane"></i> Update</button>
+                    </div>
+                  </form>
+                  :
+                  <form onSubmit={(event) => {
+                    event.preventDefault();
+                    const date = document.getElementById("dateofbirth").value;
+                    const data = this.waqfData.value;
+                    
+                    this.updateManage(parseInt(this.props.match.params.id),  data, date);
+                  }}>
+                    <h4>Update Manage</h4>
+                    <div className="form-group">
+                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
+                      <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" ref={(input) => { this.waqfData = input }} placeholder="Update details..."></textarea>
+                    </div>
+                    <label htmlFor="dateofbirth">Date</label>
+                    <input type="date" name="dateofbirth" id="dateofbirth" ref={(input) => { this.waqfDate = input }}></input>
+                    <br></br><br></br>
+                    <div>
+                      <button type="submit" className="btn btn-primary"><i className="fas fa-paper-plane"></i> Update</button>
+                    </div>
+                  </form>
+                }
+                <hr></hr>
+                <br></br><br></br>
+                { this.state.developData
+                  ? 
+                  <form>
+                    <h4>Update Develop</h4>
+                    <div className="form-group">
+                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
+                      <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" placeholder={this.state.develop} disabled></textarea>
+                    </div>
+                    <label htmlFor="dateofbirth">Date</label>
+                    <input name="dateofbirth" id="dateofbirth" placeholder={this.state.developD} disabled></input>
+                    <br></br><br></br>
+                    <div>
+                      <button type="submit" className="btn btn-primary" disabled><i className="fas fa-paper-plane"></i> Update</button>
+                    </div>
+                  </form>
+                  :
+                  <form onSubmit={(event) => {
+                    event.preventDefault();
+                    const date = document.getElementById("dateofbirth").value;
+                    const data = this.waqfData.value;
+                    
+                    //this.updateManage(parseInt(this.props.match.params.id),  data, date);
+                  }}>
+                    <h4>Update Develop</h4>
+                    <div className="form-group">
+                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
+                      <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" ref={(input) => { this.waqfData = input }} placeholder="Update details..."></textarea>
+                    </div>
+                    <label htmlFor="dateofbirth">Date</label>
+                    <input type="date" name="dateofbirth" id="dateofbirth" ref={(input) => { this.waqfDate = input }}></input>
+                    <br></br><br></br>
+                    <div>
+                      <button type="submit" className="btn btn-primary"><i className="fas fa-paper-plane"></i> Update</button>
+                    </div>
+                  </form>
+                }
+                <hr></hr>
+                <br></br><br></br>
+                { this.state.completedData
+                  ? 
+                  <form>
+                    <h4>Update complete</h4>
+                    <div className="form-group">
+                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
+                      <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" placeholder={this.state.completed} disabled></textarea>
+                    </div>
+                    <label htmlFor="dateofbirth">Date</label>
+                    <input name="dateofbirth" id="dateofbirth" placeholder={this.state.completedD} disabled></input>
+                    <br></br><br></br>
+                    <div>
+                      <button type="submit" className="btn btn-primary" disabled><i className="fas fa-paper-plane"></i> Update</button>
+                    </div>
+                  </form>
+                  :
+                  <form onSubmit={(event) => {
+                    event.preventDefault();
+                    const date = document.getElementById("dateofbirth").value;
+                    const data = this.waqfData.value;
+                    
+                    //this.updateManage(parseInt(this.props.match.params.id),  data, date);
+                  }}>
+                    <h4>Update Completed</h4>
+                    <div className="form-group">
+                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
+                      <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" ref={(input) => { this.waqfData = input }} placeholder="Update details..."></textarea>
+                    </div>
+                    <label htmlFor="dateofbirth">Date</label>
+                    <input type="date" name="dateofbirth" id="dateofbirth" ref={(input) => { this.waqfDate = input }}></input>
+                    <br></br><br></br>
+                    <div>
+                      <button type="submit" className="btn btn-primary"><i className="fas fa-paper-plane"></i> Update</button>
+                    </div>
+                  </form>
+                }
+              </div>
             }
+            <br></br><br></br><br></br><br></br>
             </div>     
         );
     }
