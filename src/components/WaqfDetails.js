@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import Apps from './App';
 import './App.css';
 import WaqfChain from '../abis/WaqfChain.json';
 
@@ -24,6 +23,7 @@ class WaqfDetails extends Component {
       const WEB3 = window.web3;
       const web3 = new Web3(Web3.givenProvider);
       // Load account
+      //swindow.ethereum.enable();
       const accounts = await WEB3.eth.accounts;
       this.setState({ account: accounts[0] });
       
@@ -49,29 +49,29 @@ class WaqfDetails extends Component {
       }
     }
 
-    
-
-    constructor(props) {
-        super(props);
-        this.state = {
-          account: this.props.location.account,
-          //productCount: 0,
-          products: [],
-          hem: [],
-          koboi: '🤠'
-        }
-    }
-
-    sendWaqf(id, price, prices) {
+    sendWaqf(id, price, prices) { 
       this.setState({ loading: true });
       const price_wei = window.web3.utils.toWei(price.toString(), 'Ether');
      
       this.state.waqfchain.methods.sendWaqf(id, prices).send({ from: this.state.account, value: price_wei})
       .once('receipt', (receipt) => {
         this.setState({ loading: false });
+      }).catch((error) => {
+        window.alert('cannot load your address, please refresh again!');
       });
     }
     
+    constructor(props) {
+      super(props);
+      this.state = {
+        account: this.props.location.account,
+        //productCount: 0,
+        products: [],
+        hem: [],
+        koboi: '🤠'
+      }
+  }
+
     onChangeLink() {
         this.props.onLinking(this.state.debug);
     }
@@ -106,7 +106,7 @@ class WaqfDetails extends Component {
                           event.preventDefault();
                           let price = parseInt(this.price.value);
                           let ether = price * 0.00066;
-                          this.sendWaqf(parseInt(product.id), ether, price);
+                          this.sendWaqf(product.id, ether, price);
                         }}>
                           <div className="form-col col-md-12">
                             <label>DONATE: </label>

@@ -28,7 +28,7 @@ contract('WaqfChain', ([deployer, seller, buyer]) => {
     });
 
     describe('update waqf', async () => {
-        let productCounts, result;
+        let productCounts, result, closeCount, closeResult;
         before(async () => {
             result = await waqfChain.createProduct('1 waqf event for children', 'Lorem ipsum the quick brown fox', 'educatio', web3.utils.toWei('0.62', 'Ether'), { from: seller });
             result = await waqfChain.createProduct('2 waqf event for children', 'Lorem ipsum the quick brown fox', 'educatio', web3.utils.toWei('0.62', 'Ether'), { from: seller });
@@ -38,13 +38,15 @@ contract('WaqfChain', ([deployer, seller, buyer]) => {
             result = await waqfChain.updateWaqfDevelop(2, 'barang sedang dibuat', '24/3/2012', { from: seller });
             result = await waqfChain.updateWaqfCompleted(2, 'barang sudah', '2/6/2012', { from: seller });
             productCounts = await waqfChain.productCount();
+            closeResult = await waqfChain.closeWaqfStatus(1, { from: seller });
+            closeCount = await waqfChain.closeCount();
         });
 
         it('update manage part', async () => {
             assert.equal(productCounts, 4);
             const event = result.logs[0].args;
             const product = await waqfChain.updateWaqfEvents(2);
-            console.log(product);
+            //console.log(product);
             assert.equal(event.id.toNumber(), 2, 'id is invalid');
             assert.equal(event.waqfId.toNumber(), 2, 'waqf id is incorrect');
             assert.equal(event.manageData, 'barang sedang dibeli', 'manage data is incorrect');
@@ -54,8 +56,14 @@ contract('WaqfChain', ([deployer, seller, buyer]) => {
             assert.equal(event.completedData, 'barang sudah', 'completed data is incorrect');
             assert.equal(event.completedDate, '2/6/2012', 'completed date is incorrect');
         });
+
+        it('closed waqf', async () => {
+            assert.equal(closeCount, 1, 'closed count is invalid');
+            const event = await waqfChain.waqfEvents(1);
+            assert.equal(event.closed, true, 'not closed');
+        });
     });
-    /*
+    
     describe('products', async () => {
         let result, productCount, sendCount;
         before(async () => {
@@ -107,5 +115,4 @@ contract('WaqfChain', ([deployer, seller, buyer]) => {
             assert.equal(event.senderAddress, buyer, 'buyer address is valid');
         });
     });
-    */
 });

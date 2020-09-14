@@ -27,6 +27,7 @@ class CreateWaqf extends Component {
         const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
+        //window.ethereum.enable();
         const accounts = await WEB3.eth.accounts;
         this.setState({ account: accounts[0] });
         
@@ -64,6 +65,8 @@ class CreateWaqf extends Component {
         this.state.waqfchain.methods.createProduct(title, details, types, price).send({ from: this.state.account })
         .once('receipt', (receipt) => {
           this.setState({ loading: false });
+        }).catch((error) => {
+          window.alert('cannot load your address, please refresh again!');
         });
         
         /*

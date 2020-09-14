@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
   async componentWillMount() {
-
+   
   }
 
   checkLogin() {
@@ -12,7 +12,8 @@ class Navbar extends Component {
     let huhu = allCookie.split('=');
     const cook = huhu[1];
     
-    if(cook != '') {
+    var lastname = localStorage.getItem("key");
+    if(lastname != '') {
       return true;
     } else {
       return false;
@@ -23,7 +24,8 @@ class Navbar extends Component {
     const allCookie = document.cookie;
     let huhu = allCookie.split('=');
     const cook = huhu[1];
-    if(cook === 'admin') {
+    var lastname = localStorage.getItem("key");
+    if(lastname === 'admin') {
       return true;
     } else {
       return false;

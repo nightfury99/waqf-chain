@@ -25,6 +25,7 @@ class Logout extends Component {
         const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
+        //window.ethereum.enable();
         const accounts = await WEB3.eth.accounts;
         this.setState({ account: accounts[0] });
         
@@ -67,7 +68,8 @@ class Logout extends Component {
     setCookie() {
         const cname = "username";
         const cvalue = "";
-        document.cookie = cname + "=" + cvalue + ";";
+        //document.cookie = cname + "=" + cvalue + ";";
+        localStorage.setItem("key", "");
     }
 
     goToHome() {

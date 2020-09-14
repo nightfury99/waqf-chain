@@ -13,15 +13,13 @@ class CreateWaqf extends Component {
     } 
 
     async debugging() {
-        /*
-        this.setState({ debug: 'changed' });
-        console.log(this.state.debug);*/
     }
 
     async loadBlockchainData() {
         const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
+        //window.ethereum.enable();
         const accounts = await WEB3.eth.accounts;
         this.setState({ account: accounts[0] });
         
@@ -66,14 +64,18 @@ class CreateWaqf extends Component {
                 <h1 className="card-header text-center">Waqf Event {this.state.koboi}</h1>
                 <div className="card-body">
                     <div className="col-md-12">
+                        <div className="column">
                         {this.state.products.map((product, key) => {
                             return(
                                 <div className="card" key={key}>
-                                    <h4 className="card-header text-left"><Link to={{
-                                        pathname: `/waqf-events/${product.id}`,
-                                        Id: product.id,
-                                        Products: this.state.products
-                                        }}>{product.name}</Link></h4>
+                                    <h4 className="card-header text-left">
+                                        <Link to={{
+                                            pathname: `/waqf-events/${product.id}`,
+                                            Id: product.id,
+                                            account: this.props.location.account
+                                            }}>{product.name}
+                                        </Link>
+                                    </h4>
                                     <div className="card-body">
                                         <p>{product.details}</p>
                                         <p>{product.product_type}</p>
@@ -82,6 +84,7 @@ class CreateWaqf extends Component {
                                 </div>
                             );
                         })}
+                        </div>
                     </div>
                 </div>
             </div>

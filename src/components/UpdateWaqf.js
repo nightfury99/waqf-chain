@@ -22,6 +22,7 @@ class UpdateWaqf extends Component {
         const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
+        //window.ethereum.enable();
         const accounts = await WEB3.eth.accounts;
         this.setState({ account: accounts[0] });
         
@@ -65,9 +66,9 @@ class UpdateWaqf extends Component {
             <div className="container">
                 {this.state.products.map((product, key) => {
                     return(
-                        <div>
+                        <div  key={key}>
                             <br></br><br></br>
-                            <div className="card text-center" key={key}>
+                            <div className="card text-center">
                                 <div className="card-header">
                                     {product.name}
                                 </div>

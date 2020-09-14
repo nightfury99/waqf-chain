@@ -5,7 +5,7 @@ contract WaqfChain {
     uint public productCount = 0;
     uint public sendCount = 0;
     uint public accountCount = 0;
-    uint public updateCount = 0;
+    uint public closeCount = 0;
     address public adminAccount = 0x733fDe1c969640a7F70511cbc42879b127a0e27E;
     // APPLY ONLY OWNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     modifier onlyOwner {
@@ -85,6 +85,12 @@ contract WaqfChain {
         string completedDate,
         address admin
     );
+
+    event waqfClosedCreated(
+        uint id,
+        uint waqfId,
+        address sender
+    );
     
     mapping(uint => UpdateWaqfEvent) public updateWaqfEvents;
     mapping(uint => WaqfEvent) public waqfEvents;
@@ -158,5 +164,14 @@ contract WaqfChain {
         _waqfevent.completedDate = _date;
         updateWaqfEvents[_waqfId] = _waqfevent;
         emit updatedWaqf(_waqfevent.id, _waqfId, _waqfevent.manageData,_waqfevent.manageDate, _waqfevent.developData,_waqfevent.developDate, _data, _date, msg.sender);
+    }
+
+    function closeWaqfStatus(uint _waqfId) onlyOwner public {
+        require(_waqfId > 0, 'waf id is invalid');
+        closeCount++;
+        WaqfEvent memory _waqfevent = waqfEvents[_waqfId];
+        _waqfevent.closed = true;
+        waqfEvents[_waqfId] = _waqfevent;
+        emit waqfClosedCreated(closeCount, _waqfId, msg.sender);
     }
 }

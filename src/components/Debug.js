@@ -45,11 +45,15 @@ class Debug extends Component {
             }, (err, events) => {
                 //console.log(events[0].returnValues.name.toString());
                 for(let i = 0; i < events.length; i++) {
-                    console.log(events[i]);
+                    let waqfId = parseInt(events[i].returnValues.waqfId);
+                    if(waqfId == 2) {
+                        console.log(parseInt(events[i].returnValues.price))
+                    }
+                }
+                if(err) {
+                    console.log(err);
                 }
             });
-            
-
             this.setState({ loading: false });
           
         } else {

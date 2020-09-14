@@ -41,6 +41,7 @@ class App extends Component {
     const WEB3 = window.web3;
     const web3 = new Web3(Web3.givenProvider);
     // Load account
+    //window.ethereum.enable();
     const accounts = await WEB3.eth.accounts;
     this.setState({ account: accounts[0] });
     
@@ -102,12 +103,11 @@ class App extends Component {
   }
 
   checkLogin() {
-    //const username = getCookie('username');
     const allCookie = document.cookie;
     let huhu = allCookie.split('=');
     const cook = huhu[1];
- 
-    if(cook != '') {
+    var lastname = localStorage.getItem("key");
+    if(lastname != '') {
       return true;
     } else {
       return false;
@@ -118,7 +118,8 @@ class App extends Component {
     const allCookie = document.cookie;
     let huhu = allCookie.split('=');
     const cook = huhu[1];
-    if(cook === 'admin') {
+    var lastname = localStorage.getItem("key");
+    if(lastname === 'admin') {
       return true;
     } else {
       return false;
@@ -141,7 +142,6 @@ class App extends Component {
         <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
         <link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'></link>
         <Router>
-          {console.log()}
         <Navbar 
           debug={this.state.debug} 
           onLinking={this.onChangedLink.bind(this)}
@@ -161,12 +161,12 @@ class App extends Component {
                         <Route path="/" exact component={HomePage}/>
                         <Route path="/debug" component={Debug}/>
                         <Route path="/waqf-events" exact component={WaqfEvents}/>
-                        <Route path="/create-waqf" component={CreateWaqf}/>
                         <Route path="/waqf-events/:id" component={WaqfDetails}/>
+                        <Route path="/create-waqf" component={CreateWaqf}/>
                         <Route path="/sign-in" component={Login}/>
                         <Route path="/sign-out" component={Logout} />
                         <Route path="/update-waqf" exact component={UpdateWaqf} />
-                        <Route path="/update-waqf/:id" component={UpdateWaqfDetail}></Route>
+                        <Route path="/update-waqf/:id" component={UpdateWaqfDetail} />
                       </Switch>
                     : <Switch>
                         <Route path="/" exact component={HomePage}/>

@@ -27,6 +27,7 @@ class Login extends Component {
         const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
+        //window.ethereum.enable();
         const accounts = await WEB3.eth.accounts;
         this.setState({ account: accounts[0] });
         
@@ -80,11 +81,13 @@ class Login extends Component {
         this.state.accounts.map((acc, key) => {
           if(username === 'admin' && password === acc.password && this.state.account.toString() === acc.userAddress.toLowerCase()) {
             passed = 1;
-            this.setCookie('username', acc.username, 1);
+            localStorage.setItem("key", "admin");
+            //this.setCookie('username', acc.username, 1);
           }else if(username === acc.username.toString() && password === acc.password.toString() && this.state.account === acc.userAddress.toLowerCase()) {
             console.log('cred found');
+            localStorage.setItem("key", acc.username.toString());
             passed = 1;
-            this.setCookie('username', acc.username, 1);
+            //this.setCookie('username', acc.username, 1);
           }
         });
         
