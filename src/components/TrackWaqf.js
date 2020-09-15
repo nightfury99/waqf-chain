@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
+import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-
-class Debug extends Component {
+class TrackWaqf extends Component {
     async componentWillMount() {
-        await this.loadWeb3();
+        
+        await this.debugging();
         await this.loadBlockchainData();
-    }
-    
-    async loadWeb3() {
-        if(window.ethereum) {
-          await window.ethereum.enable();
-        }
-        else if (window.web3) {
-          window.web3 = new Web3(window.web3.currentProvider);
-        }
-        else {
-          window.alert('Non-ethereum briwser detected. You should try Metamask man!');
-        }
+        //await this.onChangeLink.bind(this);
+        window.web3 = new Web3(window.web3.currentProvider);
     } 
-    
+
+    async debugging() {
+    }
+
     async loadBlockchainData() {
         const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
+        window.ethereum.enable();
         const accounts = await WEB3.eth.accounts;
         this.setState({ account: accounts[0] });
         
@@ -34,8 +30,6 @@ class Debug extends Component {
         if(networkData) {
             const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);
             this.setState({ waqfchain });
-            const accountCount = await waqfchain.methods.accountCount().call();
-            this.setState({ accountCount });
             const productCount = await waqfchain.methods.productCount().call();
             this.setState({ productCount });
             // load waqf event
@@ -46,7 +40,7 @@ class Debug extends Component {
                 });
             }
             // load logs event
-            
+        
             waqfchain.getPastEvents('SendWaqfCreated', {
                 fromBlock: 0,
                 toBlock: 'latest'
@@ -76,14 +70,13 @@ class Debug extends Component {
                     console.log(err);
                 }
             });
-
             this.setState({ loading: false });
         } else {
-            window.alert('WaqfChain contract is not deployed to detected network');
+          window.alert('WaqfChain contract is not deployed to detected network');
         }
-    }
+      }
       
-    constructor(props) {
+      constructor(props) {
         super(props);
         this.state = {
           account: '',
@@ -96,21 +89,48 @@ class Debug extends Component {
           waqfProducts: []
         }   
     }
+
     render() {
         return (
-            <div className="container">
-                <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-                <div className="col-md-12 text-center">
-                    <p><span className="ec ec-nerd-face"></span></p>
-                    { this.state.waqfProducts.map((waqf, key) => {
-                        return(
-                        <p key={key}>{parseInt(waqf.id)}</p>
-                        );
-                    })}
-                </div>        
+            <div className="card">
+                { this.state.loading
+                    ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div> 
+                    :
+                    <div>
+                        <h1 className="card-header text-center">My Event <span class="ec ec-dizzy-face"></span></h1>
+                        <div className="card-body">
+                            <div className="col-md-12">
+                                <div className="column">
+                                {this.state.waqfProducts.map((product, key) => {
+                                    return(
+                                        <div key={key}>
+                                            <br></br><br></br>
+                                            <div className="card">
+                                                <h4 className="card-header text-left">
+                                                    <Link to={{
+                                                        pathname: `/track-waqf/${product.id}`,
+                                                        Id: product.id,
+                                                        account: this.props.location.account
+                                                        }}>{product.name}
+                                                    </Link>
+                                                </h4>
+                                                <div className="card-body">
+                                                    <p>{product.details}</p>
+                                                    <p>{product.product_type}</p>
+                                                    <p>RM {product.price.toString()}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         );
     }
 }
 
-export default Debug;
+export default TrackWaqf;

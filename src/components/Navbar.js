@@ -32,6 +32,14 @@ class Navbar extends Component {
     }
   }
 
+  checkBoth() {
+    if(this.checkAdmin() || this.checkLogin()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
     const navStyle = {
       liststyle: 'none'
@@ -119,6 +127,18 @@ class Navbar extends Component {
                 </Link>
 
               : <div></div>
+            }
+
+            { this.checkBoth()
+              ? <Link to={{
+                pathname: '/track-waqf', 
+                account: this.props.account
+              }}>
+                <li className="nav-item">
+                <a className="nav-link">Track Waqf</a>
+                </li>
+              </Link>
+            : <div></div>
             }
 
             {this.checkLogin()

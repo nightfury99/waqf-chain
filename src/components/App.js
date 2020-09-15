@@ -14,7 +14,8 @@ import Login from './Login';
 import Logout from './Logout';
 import UpdateWaqf from './UpdateWaqf';
 import UpdateWaqfDetail from './UpdateWaqfDetail';
-
+import TrackWaqf from './TrackWaqf';
+import TrackWaqfDetails from './TrackWaqfDetails';
 
 class App extends Component {
   async componentWillMount() {
@@ -167,12 +168,16 @@ class App extends Component {
                         <Route path="/sign-out" component={Logout} />
                         <Route path="/update-waqf" exact component={UpdateWaqf} />
                         <Route path="/update-waqf/:id" component={UpdateWaqfDetail} />
+                        <Route path="/track-waqf" exact component={TrackWaqf} />
+                        <Route path="/track-waqf/:id" component={TrackWaqfDetails} />
                       </Switch>
                     : <Switch>
                         <Route path="/" exact component={HomePage}/>
                         <Route path="/debug" component={Debug}/>
                         <Route path="/waqf-events" exact component={WaqfEvents}/>
                         <Route path="/waqf-events/:id" component={WaqfDetails}/>
+                        <Route path="/track-waqf" exact component={TrackWaqf} />
+                        <Route path="/track-waqf/:id" component={TrackWaqfDetails} />
                         <Route path="/sign-out" component={Logout} />
                       </Switch>
                   : 

@@ -78,7 +78,7 @@ class UpdateWaqf extends Component {
                                     <Link to={{
                                         pathname: `update-waqf/${product.id}`
                                     }}>
-                                        <a className="btn btn-primary">Update</a>
+                                        <button className="btn btn-success"><i className="fas fa-pen"></i> Update</button>
                                     </Link>
                                 </div>
                             </div>
