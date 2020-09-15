@@ -4,9 +4,7 @@
 ### [x] _indexed 
 ### [x] admin can run specific smart contract
 ### [x] can pay
-### [.] admin update waqf //PRIORITY
-###    -> make sure waqf event is closed
-###    -> make sure waqf event is closed
+### [x] admin update waqf //PRIORITY
 
 ### [.] user can track waqf
 ### [.] only specific user role can request specific page and data
@@ -17,6 +15,6 @@
 ### [.] make loading for all page
 ### [.] make sure all function that write to blockchain must have catch function
 ### [.] display on waqf event about waqf status, active or not
-### check if form is empty
-### user can print
-### update develop part and completed
+### [.] check if form is empty
+### [.] user can print
+### [x] update develop part and completed
