@@ -18,3 +18,6 @@
 ### [.] check if form is empty
 ### [.] user can print
 ### [x] update develop part and completed
+### [.] fix font
+### [.] put location on update phase
+### [.] track waqf page must have proper reload data, because once go back from child page, the data was gone, must be refresh to get all data
