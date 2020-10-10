@@ -6,7 +6,7 @@ contract WaqfChain {
     uint public sendCount = 0;
     uint public accountCount = 0;
     uint public closeCount = 0;
-    address public adminAccount = 0x39705346dceC9822D353AF654D0fdCE712d6A8B7;
+    address public adminAccount = 0x514C533A845166A7cDef40114473F89E3E359A5c;
     // APPLY ONLY OWNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     modifier onlyOwner {
         require(msg.sender == adminAccount, 'You are not an admin');

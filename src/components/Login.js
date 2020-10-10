@@ -8,7 +8,6 @@ class Login extends Component {
     async componentWillMount() {
         await this.loadWeb3();
         await this.loadBlockchainData();
-        
     }
     
     async loadWeb3() {
@@ -76,14 +75,14 @@ class Login extends Component {
 
     checkCredentials(username, password) {
         this.setState({ loading: true });
-        
+        var realAccount = localStorage.getItem("account");
         let passed = 0;
         this.state.accounts.map((acc, key) => {
-          if(username === 'admin' && password === acc.password && this.state.account.toString() === acc.userAddress.toLowerCase()) {
+          if(username === 'admin' && password === acc.password && realAccount === acc.userAddress.toLowerCase()) {
             passed = 1;
             localStorage.setItem("key", "admin");
             //this.setCookie('username', acc.username, 1);
-          }else if(username === acc.username.toString() && password === acc.password.toString() && this.state.account === acc.userAddress.toLowerCase()) {
+          }else if(username === acc.username.toString() && password === acc.password.toString() && realAccount === acc.userAddress.toLowerCase()) {
             console.log('cred found');
             localStorage.setItem("key", acc.username.toString());
             passed = 1;

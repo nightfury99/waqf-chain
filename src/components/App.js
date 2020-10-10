@@ -22,8 +22,6 @@ class App extends Component {
     await this.loadWeb3();
     await this.loadBlockchainData();
     await this.checkLogin();
-    //await this.debugging();
-    //console.log(window.web3);
   }
 
   async loadWeb3() {
@@ -45,6 +43,7 @@ class App extends Component {
     //window.ethereum.enable();
     const accounts = await WEB3.eth.accounts;
     this.setState({ account: accounts[0] });
+    localStorage.setItem("account", accounts[0]);
     
     const networkId = await web3.eth.net.getId();
     const networkData = WaqfChain.networks[networkId];
@@ -106,7 +105,7 @@ class App extends Component {
   checkLogin() {
     const allCookie = document.cookie;
     let huhu = allCookie.split('=');
-    const cook = huhu[1];
+    //const cook = huhu[1];
     var lastname = localStorage.getItem("key");
     if(lastname != '') {
       return true;
@@ -118,7 +117,7 @@ class App extends Component {
   checkAdmin() {
     const allCookie = document.cookie;
     let huhu = allCookie.split('=');
-    const cook = huhu[1];
+    //const cook = huhu[1];
     var lastname = localStorage.getItem("key");
     if(lastname === 'admin') {
       return true;
@@ -187,6 +186,7 @@ class App extends Component {
                     <Route path="/sign-up" component={Register}/>
                     <Route path="/sign-in" component={Login}/>
                     <Route path="/debug" component={Debug} />
+                    <Route component={Debug} />
                   </Switch>
               }
         </Router>
@@ -195,6 +195,7 @@ class App extends Component {
     );
   }
 }
+
 
 const HomePage = () => (
   <div className="container">

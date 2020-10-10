@@ -101,6 +101,7 @@ class Debug extends Component {
             <div className="container">
                 <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                 <div className="col-md-12 text-center">
+                    <h1>404</h1>
                     <p><span className="ec ec-nerd-face"></span></p>
                     { this.state.waqfProducts.map((waqf, key) => {
                         return(
