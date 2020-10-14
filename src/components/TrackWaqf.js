@@ -6,12 +6,11 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 class TrackWaqf extends Component {
     async componentWillMount() {
-        
         await this.debugging();
         await this.loadBlockchainData();
         //await this.onChangeLink.bind(this);
         window.web3 = new Web3(window.web3.currentProvider);
-    } 
+    }
 
     async debugging() {
     }
@@ -26,6 +25,7 @@ class TrackWaqf extends Component {
         
         const networkId = await web3.eth.net.getId();
         const networkData = WaqfChain.networks[networkId];
+        var acc = localStorage.getItem("account");
         // check if we are on developed network
         if(networkData) {
             const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);
@@ -45,19 +45,19 @@ class TrackWaqf extends Component {
                 fromBlock: 0,
                 toBlock: 'latest'
             }, (err, events) => {
-                //console.log(events[0].returnValues.name.toString());
                 for(let i = 0; i < events.length; i++) {
+                    console.log("adasd: ", events[i].returnValues);
                     let waqfAddress = events[i].returnValues.senderAddress;
-                    if(waqfAddress.toLowerCase() == this.state.account){
+                    if(waqfAddress.toLowerCase() === acc){
                         this.setState({ 
-                            IdWaqf: [...this.state.IdWaqf, events[i].returnValues.id]
+                            IdWaqf: [...this.state.IdWaqf, events[i].returnValues.waqfId]
                         });
                     }
                 }
                 //const uniqueNames = Array.from(new Set(this.state.waqfId));
                 this.state.IdWaqf.forEach((value) => {
-                    console.log();
                     for(let i = 0; i < this.state.products.length; i++) {
+                        console.log(this.state.products[i].id);
                         if(parseInt(value) === parseInt(this.state.products[i].id)) {
                             this.setState({ 
                                 waqfProducts: [...this.state.waqfProducts, this.state.products[i]]
@@ -87,7 +87,7 @@ class TrackWaqf extends Component {
           loading: true,
           IdWaqf: [],
           waqfProducts: []
-        }   
+        }
     }
 
     render() {

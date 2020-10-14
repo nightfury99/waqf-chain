@@ -3,6 +3,7 @@ pragma solidity ^0.5.0;
 contract WaqfChain {
     string public name;
     uint public productCount = 0;
+    uint public updateCount = 0;
     uint public sendCount = 0;
     uint public accountCount = 0;
     uint public closeCount = 0;
@@ -35,12 +36,10 @@ contract WaqfChain {
     struct UpdateWaqfEvent {
         uint id;
         uint waqfId;
-        string manageData;
-        string manageDate;
-        string developData;
-        string developDate;
-        string completedData;
-        string completedDate;
+        string data_1;
+        string date_1;
+        string location;
+        string moneyUsed;
         address admin;
     }
 
@@ -74,15 +73,13 @@ contract WaqfChain {
         address indexed senderAddress
     );
 
-    event updatedWaqf(
+    event updateWaqf(
         uint indexed id,
         uint indexed waqfId,
-        string manageData,
-        string manageDate,
-        string developData,
-        string developDate,
-        string completedData,
-        string completedDate,
+        string data_1,
+        string date_1,
+        string location,
+        string moneyUsed,
         address admin
     );
 
@@ -92,9 +89,9 @@ contract WaqfChain {
         address sender
     );
     
-    mapping(uint => UpdateWaqfEvent) public updateWaqfEvents;
     mapping(uint => WaqfEvent) public waqfEvents;
     mapping(uint => CreateAccount) public createAccount;
+    mapping(uint => UpdateWaqfEvent) public updateWaqfEvents;
 
     constructor() public {
         name = "WaqfChain";
@@ -116,10 +113,13 @@ contract WaqfChain {
         require(bytes(_product_types).length > 0, 'product types is empty');
         require(_price > 0, 'prices types is empty');
         productCount ++;
+        //updateCount ++;
         waqfEvents[productCount] = WaqfEvent(productCount, _name, _details, _product_types, _price, msg.sender, false);
         emit WaqfEventCreated(productCount, _name, _details, _product_types, _price, msg.sender, msg.sender, false);
-        updateWaqfEvents[productCount] = UpdateWaqfEvent(productCount, productCount, '', '', '', '', '', '', msg.sender);
-        emit updatedWaqf(productCount, productCount, '', '', '', '', '', '', msg.sender);
+        // updateWaqfEvents[updateCount] = UpdateWaqfEvent(updateCount, productCount, '', '', '', '', msg.sender);
+        // emit updateWaqf(updateCount, productCount, '', '', '', '', msg.sender);
+        //updateWaqfEvents[productCount] = UpdateWaqfEvent(productCount, productCount, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', msg.sender);
+        //emit updatedWaqf(productCount, productCount, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', msg.sender);
     }
 
     function sendWaqf(uint _id, uint _price) public payable{
@@ -130,48 +130,61 @@ contract WaqfChain {
         emit SendWaqfCreated(sendCount, _id, _waqfevent.name, _price, _owner, msg.sender, msg.sender);
     }
 
-    function updateWaqfManage(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
-        require(_waqfId > 0, 'waqf id is invalid');
-        require(bytes(_data).length > 0, 'data is empty');
-        require(bytes(_date).length > 0, 'date is empty');
-        
-        UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
-        _waqfevent.manageData = _data;
-        _waqfevent.manageDate = _date;
-        updateWaqfEvents[_waqfId] = _waqfevent;
-        emit updatedWaqf(_waqfevent.id, _waqfId, _data, _date, '', '', '', '', msg.sender);
-    }
-
-    function updateWaqfDevelop(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
-        require(_waqfId > 0, 'waqf id is invalid');
-        require(bytes(_data).length > 0, 'data is empty');
-        require(bytes(_date).length > 0, 'date is empty');
-        
-        UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
-        _waqfevent.developData = _data;
-        _waqfevent.developDate = _date;
-        updateWaqfEvents[_waqfId] = _waqfevent;
-        emit updatedWaqf(_waqfevent.id, _waqfId, _waqfevent.manageData,_waqfevent.manageDate, _data, _date, '', '', msg.sender);
-    }
-
-    function updateWaqfCompleted(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
-        require(_waqfId > 0, 'waqf id is invalid');
-        require(bytes(_data).length > 0, 'data is empty');
-        require(bytes(_date).length > 0, 'date is empty');
-        
-        UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
-        _waqfevent.completedData = _data;
-        _waqfevent.completedDate = _date;
-        updateWaqfEvents[_waqfId] = _waqfevent;
-        emit updatedWaqf(_waqfevent.id, _waqfId, _waqfevent.manageData,_waqfevent.manageDate, _waqfevent.developData,_waqfevent.developDate, _data, _date, msg.sender);
-    }
-
     function closeWaqfStatus(uint _waqfId) onlyOwner public {
-        require(_waqfId > 0, 'waf id is invalid');
+        require(_waqfId > 0, 'waqf id is invalid');
         closeCount++;
         WaqfEvent memory _waqfevent = waqfEvents[_waqfId];
         _waqfevent.closed = true;
         waqfEvents[_waqfId] = _waqfevent;
         emit waqfClosedCreated(closeCount, _waqfId, msg.sender);
     }
+
+    function updatingWaqf(uint _waqfId, string memory _data, string memory _date, string memory _location, string memory _usedMoney) onlyOwner public {
+        require(_waqfId > 0, 'waqf id is invalid');
+        require(_waqfId > 0, 'waqf id is invalid');
+        require(bytes(_data).length > 0, 'data is empty');
+        require(bytes(_date).length > 0, 'date is empty');
+        require(bytes(_location).length > 0, 'location is empty');
+        require(bytes(_usedMoney).length > 0, 'used money is empty');
+        updateCount ++;
+        
+        updateWaqfEvents[updateCount] = UpdateWaqfEvent(updateCount, _waqfId, _data, _date, _location, _usedMoney, msg.sender);
+        emit updateWaqf(updateCount, _waqfId, _data, _date, _location, _usedMoney, msg.sender);
+    }
+
+    // function updateWaqfManage(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
+    //     require(_waqfId > 0, 'waqf id is invalid');
+    //     require(bytes(_data).length > 0, 'data is empty');
+    //     require(bytes(_date).length > 0, 'date is empty');
+        
+    //     UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
+    //     _waqfevent.manageData = _data;
+    //     _waqfevent.manageDate = _date;
+    //     updateWaqfEvents[_waqfId] = _waqfevent;
+    //     emit updatedWaqf(_waqfevent.id, _waqfId, _data, _date, '', '', '', '', msg.sender);
+    // }
+
+    // function updateWaqfDevelop(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
+    //     require(_waqfId > 0, 'waqf id is invalid');
+    //     require(bytes(_data).length > 0, 'data is empty');
+    //     require(bytes(_date).length > 0, 'date is empty');
+        
+    //     UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
+    //     _waqfevent.developData = _data;
+    //     _waqfevent.developDate = _date;
+    //     updateWaqfEvents[_waqfId] = _waqfevent;
+    //     emit updatedWaqf(_waqfevent.id, _waqfId, _waqfevent.manageData,_waqfevent.manageDate, _data, _date, '', '', msg.sender);
+    // }
+
+    // function updateWaqfCompleted(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
+    //     require(_waqfId > 0, 'waqf id is invalid');
+    //     require(bytes(_data).length > 0, 'data is empty');
+    //     require(bytes(_date).length > 0, 'date is empty');
+        
+    //     UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
+    //     _waqfevent.completedData = _data;
+    //     _waqfevent.completedDate = _date;
+    //     updateWaqfEvents[_waqfId] = _waqfevent;
+    //     emit updatedWaqf(_waqfevent.id, _waqfId, _waqfevent.manageData,_waqfevent.manageDate, _waqfevent.developData,_waqfevent.developDate, _data, _date, msg.sender);
+    // }
 }

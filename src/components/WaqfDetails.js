@@ -51,9 +51,10 @@ class WaqfDetails extends Component {
 
     sendWaqf(id, price, prices) { 
       this.setState({ loading: true });
+      var acc = localStorage.getItem("account");
       const price_wei = window.web3.utils.toWei(price.toString(), 'Ether');
      
-      this.state.waqfchain.methods.sendWaqf(id, prices).send({ from: this.state.account, value: price_wei})
+      this.state.waqfchain.methods.sendWaqf(id, prices).send({ from: acc, value: price_wei})
       .once('receipt', (receipt) => {
         this.setState({ loading: false });
       }).catch((error) => {

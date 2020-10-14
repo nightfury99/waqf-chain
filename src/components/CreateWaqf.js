@@ -61,8 +61,8 @@ class CreateWaqf extends Component {
     
       createWaqf(title, details, types, price) {
         this.setState({ loading: true });
-        
-        this.state.waqfchain.methods.createProduct(title, details, types, price).send({ from: this.state.account })
+        var acc = localStorage.getItem("account");
+        this.state.waqfchain.methods.createProduct(title, details, types, price).send({ from: acc })
         .once('receipt', (receipt) => {
           this.setState({ loading: false });
         }).catch((error) => {

@@ -58,11 +58,13 @@ class Register extends Component {
       }
       
     createAccountz(name, username, email, password) {
+        var acc = localStorage.getItem("account");
         this.setState({ loading: true });
-        this.state.waqfchain.methods.createAccounts(name, username, email, password).send({ from: this.state.account })
+        this.state.waqfchain.methods.createAccounts(name, username, email, password).send({ from: acc })
         .once('receipt', (receipt) => {
           this.setState({ loading: false });
         });
+        //this.state.account
       }
 
     render() {

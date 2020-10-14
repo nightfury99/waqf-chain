@@ -105,8 +105,8 @@ class UpdateWaqfDetail extends Component {
     
     closeWaqf(waqfId) {
       this.setState({ loading: true });
-      
-      this.state.waqfchain.methods.closeWaqfStatus(waqfId).send({ from: this.state.account })
+      var acc = localStorage.getItem("account");
+      this.state.waqfchain.methods.closeWaqfStatus(waqfId).send({ from: acc })
       .once('receipt', (receipt) => {
         this.setState({ loading: false });
       }).catch((error) => {
@@ -116,8 +116,8 @@ class UpdateWaqfDetail extends Component {
 
     updateManage(waqfId, data, date) {
       this.setState({ loading: true });
-
-      this.state.waqfchain.methods.updateWaqfManage(waqfId, data, date).send({ from: this.state.account })
+      var acc = localStorage.getItem("account");
+      this.state.waqfchain.methods.updateWaqfManage(waqfId, data, date).send({ from: acc })
       .once('receipt', (receipt) => {
         this.setState({ loading: false });
       }).catch((error) => {
@@ -127,8 +127,8 @@ class UpdateWaqfDetail extends Component {
 
     updateDevelop(waqfId, data, date) {
       this.setState({ loading: true });
-
-      this.state.waqfchain.methods.updateWaqfDevelop(waqfId, data, date).send({ from: this.state.account })
+      var acc = localStorage.getItem("account");
+      this.state.waqfchain.methods.updateWaqfDevelop(waqfId, data, date).send({ from: acc })
       .once('receipt', (receipt) => {
         this.setState({ loading: false });
       }).catch((error) => {
@@ -139,15 +139,14 @@ class UpdateWaqfDetail extends Component {
 
     updateCompleted(waqfId, data, date) {
       this.setState({ loading: true });
-
-      this.state.waqfchain.methods.updateWaqfCompleted(waqfId, data, date).send({ from: this.state.account })
+      var acc = localStorage.getItem("account");
+      this.state.waqfchain.methods.updateWaqfCompleted(waqfId, data, date).send({ from: acc })
       .once('receipt', (receipt) => {
         this.setState({ loading: false });
       }).catch((error) => {
         window.alert("cannot load your account, Please refresh the page!");
       });
     }
-
 
     render() {
         return (

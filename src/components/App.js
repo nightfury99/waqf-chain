@@ -16,6 +16,7 @@ import UpdateWaqf from './UpdateWaqf';
 import UpdateWaqfDetail from './UpdateWaqfDetail';
 import TrackWaqf from './TrackWaqf';
 import TrackWaqfDetails from './TrackWaqfDetails';
+import error from "./Error";
 
 class App extends Component {
   async componentWillMount() {
@@ -81,7 +82,8 @@ class App extends Component {
 
   createAccountz(name, username, email, password) {
     this.setState({ loading: true });
-    this.state.waqfchain.methods.createAccounts(name, username, email, password).send({ from: this.state.account })
+    var acc = localStorage.getItem("account");
+    this.state.waqfchain.methods.createAccounts(name, username, email, password).send({ from: acc })
     .once('receipt', (receipt) => {
       this.setState({ laoding: false });
     });
@@ -89,8 +91,8 @@ class App extends Component {
 
   createWaqf(title, details, types, price) {
     this.setState({ loading: true });
-    
-    this.state.waqfchain.methods.createProduct(title, details, types, price).send({ from: this.state.account })
+    var acc = localStorage.getItem("account");
+    this.state.waqfchain.methods.createProduct(title, details, types, price).send({ from: acc })
     .once('receipt', (receipt) => {
       this.setState({ loading: false });
     });
@@ -163,12 +165,13 @@ class App extends Component {
                         <Route path="/waqf-events" exact component={WaqfEvents}/>
                         <Route path="/waqf-events/:id" component={WaqfDetails}/>
                         <Route path="/create-waqf" component={CreateWaqf}/>
-                        <Route path="/sign-in" component={Login}/>
+                        <Route path="/sign-in" component={Login} />
                         <Route path="/sign-out" component={Logout} />
                         <Route path="/update-waqf" exact component={UpdateWaqf} />
                         <Route path="/update-waqf/:id" component={UpdateWaqfDetail} />
                         <Route path="/track-waqf" exact component={TrackWaqf} />
                         <Route path="/track-waqf/:id" component={TrackWaqfDetails} />
+                        <Route component={error} />
                       </Switch>
                     : <Switch>
                         <Route path="/" exact component={HomePage}/>
@@ -178,6 +181,7 @@ class App extends Component {
                         <Route path="/track-waqf" exact component={TrackWaqf} />
                         <Route path="/track-waqf/:id" component={TrackWaqfDetails} />
                         <Route path="/sign-out" component={Logout} />
+                        <Route component={error} />
                       </Switch>
                   : 
                   <Switch>
@@ -186,16 +190,14 @@ class App extends Component {
                     <Route path="/sign-up" component={Register}/>
                     <Route path="/sign-in" component={Login}/>
                     <Route path="/debug" component={Debug} />
-                    <Route component={Debug} />
+                    <Route component={error} />
                   </Switch>
               }
         </Router>
       </div>
-      
     );
   }
 }
-
 
 const HomePage = () => (
   <div className="container">
