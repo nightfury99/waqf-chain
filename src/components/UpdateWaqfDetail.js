@@ -5,6 +5,7 @@ import WaqfChain from '../abis/WaqfChain.json';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 class UpdateWaqfDetail extends Component {
+ 
     async componentWillMount() {
         await this.debugging();
         await this.loadBlockchainData();
@@ -33,49 +34,58 @@ class UpdateWaqfDetail extends Component {
           this.setState({ productCount });
           // load waqf event
           const waqf = await waqfchain.methods.waqfEvents(this.props.match.params.id).call();
+          this.setState({ targetFund: waqf.price });
+          
           const waqfUpdate = await waqfchain.methods.updateWaqfEvents(this.props.match.params.id).call();
           this.setState({ products: waqf });
           this.setState({ closed: waqf.closed });
-          this.setState({ manage: waqfUpdate.manageData });
-          this.setState({ develop: waqfUpdate.developData });
-          this.setState({ completed: waqfUpdate.completedData });
-          this.setState({ manageD: waqfUpdate.manageDate });
-          this.setState({ developD: waqfUpdate.developDate });
-          this.setState({ completedD: waqfUpdate.completedDate });
           
-
-          if(waqfUpdate.manageData != '') {
-            this.setState({manageData: true});
-          }
-
-          if(waqfUpdate.developData != '') {
-            this.setState({developData: true});
-          }
-
-          if(waqfUpdate.completedData != '') {
-            this.setState({completedData: true});
-          }
-
-          waqfchain.getPastEvents('SendWaqfCreated', {
+          waqfchain.getPastEvents('updateWaqf', {
             fromBlock: 0,
             toBlock: 'latest'
           }, (err, events) => {
-            let price = 0;
-            let acc = 0;
-            for(let i = 0; i < events.length; i++) {
-                let waqfId = parseInt(events[i].returnValues.waqfId);
-                if(waqfId == this.props.match.params.id) {
-                    price = price + parseInt(events[i].returnValues.price);
-                    acc = acc + 1;
-                }
+            events.forEach((val) => {
+              let waqf_id = parseInt(val.returnValues.waqfId);
+              const Waqf_Id = parseInt(this.props.match.params.id);
+              if(Waqf_Id === waqf_id) {
+                this.setState({
+                  updateDetails: [...this.state.updateDetails, val.returnValues]
+                });
+              }
+            });
+            
+            if(this.state.updateDetails.length !== 0) {
+              this.setState({ updateEmpty: false });
+            } else {
+              this.setState({ updateEmpty: true });
             }
-            this.setState({ totalAccount: acc });
-            this.setState({ totalPrice: price });
-            if(err) {
-                console.log(err);
+
+            if(this.state.updateDetails.length === 10) {
+              this.setState({ disableButton: true });
+            }else {
+              this.setState({ disableButton: false });
             }
           });
 
+          waqfchain.getPastEvents("accountCreated", {
+            fromBlock: 0,
+            toBlock: 'latest'
+          }, (err, events) => {
+            this.state.senderAddress.forEach((addr) => {
+              for(let i = 0; i < events.length; i++) {
+                let sendAddr = events[i].returnValues.userAddress;
+                if(sendAddr === addr) {
+                  this.setState({
+                    name: [...this.state.name, events[i].returnValues.name]
+                  });
+                  this.setState({
+                    username: [...this.state.username, events[i].returnValues.username]
+                  });
+                }
+              }
+            });
+          });
+         
           this.setState({ loading: false });
         } else {
           window.alert('WaqfChain contract is not deployed to detected network');
@@ -87,60 +97,42 @@ class UpdateWaqfDetail extends Component {
         this.state = {
           account: this.props.location.account,
           products: [],
+          senderAddress: [],
+          updateDetails: [],
+          targetFund: 0,
+          name: [],
+          username: [],
+          senderFund: [],
           totalAccount: 0,
           totalPrice: 0,
+          disableButton: false,
+          updateEmpty: true,
           loading: true,
-          closed: true,
-          manageData: false,
-          developData: false,
-          completedData: false,
-          manage: '',
-          develop: '',
-          completed: '',
-          manageD: '',
-          developD: '',
-          completedD: ''
+          closed: true
         }
     }
     
     closeWaqf(waqfId) {
       this.setState({ loading: true });
-      var acc = localStorage.getItem("account");
-      this.state.waqfchain.methods.closeWaqfStatus(waqfId).send({ from: acc })
-      .once('receipt', (receipt) => {
-        this.setState({ loading: false });
-      }).catch((error) => {
-        window.alert("cannot load your account, Please refresh the page!");
-      });
+      
+      if(parseInt(this.state.totalPrice) >= parseInt(this.state.targetFund)) {
+        var acc = localStorage.getItem("account");
+        this.state.waqfchain.methods.closeWaqfStatus(waqfId).send({ from: acc })
+        .once('receipt', (receipt) => {
+          this.setState({ loading: false });
+        }).catch((error) => {
+          window.alert("cannot load your account, Please refresh the page!");
+        });
+      } else {
+        window.alert("waqf event can be closed if it reached the limit!");
+      }
+      this.setState({ loading: false });
     }
 
-    updateManage(waqfId, data, date) {
+    updatingWaqf(waqfId, data, date, location, moneyUsed) {
       this.setState({ loading: true });
       var acc = localStorage.getItem("account");
-      this.state.waqfchain.methods.updateWaqfManage(waqfId, data, date).send({ from: acc })
-      .once('receipt', (receipt) => {
-        this.setState({ loading: false });
-      }).catch((error) => {
-        window.alert("cannot load your account, Please refresh the page!");
-      });
-    }
-
-    updateDevelop(waqfId, data, date) {
-      this.setState({ loading: true });
-      var acc = localStorage.getItem("account");
-      this.state.waqfchain.methods.updateWaqfDevelop(waqfId, data, date).send({ from: acc })
-      .once('receipt', (receipt) => {
-        this.setState({ loading: false });
-      }).catch((error) => {
-        window.alert("cannot load your account, Please refresh the page!");
-        console.log(error);
-      });
-    }
-
-    updateCompleted(waqfId, data, date) {
-      this.setState({ loading: true });
-      var acc = localStorage.getItem("account");
-      this.state.waqfchain.methods.updateWaqfCompleted(waqfId, data, date).send({ from: acc })
+      this.state.waqfchain.methods.updatingWaqf(waqfId, data, date, location, moneyUsed).send({ from: acc })
       .once('receipt', (receipt) => {
         this.setState({ loading: false });
       }).catch((error) => {
@@ -149,190 +141,183 @@ class UpdateWaqfDetail extends Component {
     }
 
     render() {
+        const mystyle = {
+          overflowY: "scroll",
+          maxHeight: "600px"
+        };
+        let count_name = 0;
+        let count_fund = 0;
         return (
-            <div className="container">
+            <div className="col-md-12">
+              
             { this.state.loading
               ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div> 
               :
               <div>
                 <div className="col-md-12 text-center wrapper fadeInDown">
-                    <h1>{this.state.products.name}</h1>
-                  </div>
+                  <h1>{this.state.products.name}</h1>
+                </div>
                 <div className="row">
-                  <div className="col-md-12">
+                  <div className="col-md-8">
                     <div className="row">
                       <div className="col-md-12">
                         <hr></hr>
                       </div>
-                      <div className="col-md-4">
-                      <div className="card">
-                          <div className="card-body text-center">
-                            <h4>RM {this.state.totalPrice}</h4>
-                          </div>
-
-                          <div className="card-footer bg-dark text-white text-center">
-                              Total Donation
-                          </div>
+                      <div className="col-md-3">
+                        <div className="card">
+                            <div className="card-body text-center">
+                              <h4>{parseInt(this.state.targetFund)}</h4>
+                            </div>
+                            <div className="card-footer bg-info text-white text-center">
+                                Targeted Fund
+                            </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="card">
-                          <div className="card-body text-center">
-                            <h4>{this.state.totalAccount}</h4>
-                          </div>
-                          <div className="card-footer bg-success text-white text-center">
-                              Total Donor Transaction
-                          </div>
-                      </div>
-                    </div>
 
-                    <div className="col-md-4">
-                      <div className="card">
-                          <div className="card-body text-center">
-                            {this.state.closed
-                              ? <h4>Closed</h4>
-                              : <h4>Active</h4>
-                            }
-                          </div>
+                      <div className="col-md-3">
+                        <div className="card">
+                            <div className="card-body text-center">
+                              <h4>RM {this.state.totalPrice}</h4>
+                            </div>
 
-                          <div className="card-footer bg-warning text-black text-center">
-                              Waqf status
-                          </div>
+                            <div className="card-footer bg-dark text-white text-center">
+                                Fund Collected
+                            </div>
+                        </div>
                       </div>
-                    </div>
+                      <div className="col-md-3">
+                        <div className="card">
+                            <div className="card-body text-center">
+                              <h4>{this.state.totalAccount}</h4>
+                            </div>
+                            <div className="card-footer bg-success text-white text-center">
+                                Total Donor Transaction
+                            </div>
+                        </div>
+                      </div>
+
+                      <div className="col-md-3">
+                        <div className="card">
+                            <div className="card-body text-center">
+                              {this.state.closed
+                                ? <h4>Closed</h4>
+                                : <h4>Active</h4>
+                              }
+                            </div>
+
+                            <div className="card-footer bg-warning text-black text-center">
+                                Waqf status
+                            </div>
+                        </div>
+                      </div>
                     
+                    </div>
+                    <br></br><br></br><br></br>
+                    { this.state.products.closed
+                      ? <div></div>
+                      :
+                      <p>Close waqf: <button type="button" className="btn btn-danger" name={this.state.products.id} onClick={(event) => {
+                        this.closeWaqf(this.state.products.id);
+                      }}>close
+                      </button>
+                      </p>
+                    }
+                    <hr></hr>
+                    <h5>Waqf Status Preview</h5>
+                    <br></br>
+                    
+                    {!this.state.updateEmpty
+                    ? 
+                    <div>
+                      {this.state.updateDetails.map((value, key) => {
+                        return(
+                          <div class="col-md-12 shadow p-3 mb-5 bg-white rounded" key={key}>
+                            Details: {value.data_1} <br></br>
+                            Date: {value.date_1} <br></br>
+                            Location: {value.location} <br></br>
+                            Money Used: {value.moneyUsed}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    : 
+                    <div>
+                      <div className="alert alert-warning" role="alert">
+                        There is no waqf update yet
+                      </div>
+                      <br></br>
+                    </div>
+                    }
+                    <hr></hr>
+                    {this.state.disableButton
+                    ? <div class="alert alert-danger" role="alert">
+                        You've reached the limit. Only 10 updates is allowed!
+                      </div>
+                    :
+                    <div className="container">
+                      <form onSubmit={(event) => {
+                        event.preventDefault();
+                        const date = event.target.dateofbirth.value;
+                        const data = event.target.dataDetails.value;
+                        const location = event.target.location.value;
+                        const moneyUsed = event.target.moneyUsed.value;
+
+                        this.updatingWaqf(parseInt(this.props.match.params.id),  data, date, location, moneyUsed);
+                      }}>
+                        <h5>Update Waqf Status</h5>
+                        <br></br>
+                        <div className="form-group">
+                          <label htmlFor="exampleFormControlTextarea1">Detail</label>
+                          <textarea className="form-control" name="dataDetails" id="exampleFormControlTextarea1" rows="4" placeholder="Update details..."></textarea>
+                        </div>
+
+                        <label htmlFor="dateofbirth">Date</label>
+                        <input type="date" name="dateofbirth" id="dateofbirth"></input>
+                        
+                        <br></br><br></br>
+                        <label>Location</label>
+                        <input name="location" id="location"></input>
+
+                        <br></br><br></br>
+                        <label>Money Used</label>
+                        RM <input type="number" name="moneyUsed" id="moneyUsed"></input>
+
+                        <br></br><br></br>
+                        <div>
+                          <button type="submit" className="btn btn-primary"><i className="fas fa-paper-plane"></i> Update</button>
+                        </div>
+                      </form>
+                    </div>
+                    }
+                  </div>
+                  
+                  <div className="col-md-4">
+                    <div className="card">
+                    <div class="card-header text-white bg-secondary mb-3">
+                      <h5>List of Sender</h5>
+                    </div>
+                    <div className="card-body" style={mystyle}>
+                      <div className="list-group">
+                        {this.state.username.map((value, key) => {
+                          return(
+                            <div class="list-group-item" key={key}>
+                              {value}<br></br>
+                              <small>{this.state.name[count_name++]}</small><br></br>
+                              RM {parseInt(this.state.senderFund[count_fund++])}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                     </div>
                   </div>
                 </div>
-                <br></br>  
-                { this.state.products.closed
-                  ? <div></div>
-                  :
-                  <p>Close waqf: <button type="button" className="btn btn-danger" name={this.state.products.id} onClick={(event) => {
-                    this.closeWaqf(this.state.products.id);
-                  }}>close
-                  </button>
-                  </p>
-                }
-                <div className="wrapper fadeInDown"></div>
-                <hr></hr>
-          {/**######################################################################################################################################### */}
-                { this.state.manageData
-                  ? 
-                  <form>
-                    <h4>Update Manage</h4>
-                    <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
-                      <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" placeholder={this.state.manage} disabled></textarea>
-                    </div>
-                    <label htmlFor="dateofbirth">Date</label>
-                    <input name="dateofbirth" id="dateofbirth" placeholder={this.state.manageD} disabled></input>
-                    <br></br><br></br>
-                    <div>
-                      <button type="submit" className="btn btn-primary" disabled><i className="fas fa-paper-plane"></i> Update</button>
-                    </div>
-                  </form>
-                  :
-                  <form onSubmit={(event) => {
-                    event.preventDefault();
-                    const date = document.getElementById("dateofbirth").value;
-                    const data = document.getElementById("exampleFormControlTextarea1").value;
-                    
-                    this.updateManage(parseInt(this.props.match.params.id),  data, date);
-                  }}>
-                    <h4>Update Manage</h4>
-                    <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
-                      <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Update details..." ref={(input) => { this.waqfData = input }}></textarea>
-                    </div>
-                    <label htmlFor="dateofbirth">Date</label>
-                    <input type="date" name="dateofbirth" id="dateofbirth"></input>
-                    <br></br><br></br>
-                    <div>
-                      <button type="submit" className="btn btn-primary"><i className="fas fa-paper-plane"></i> Update</button>
-                    </div>
-                  </form>
-                }
-                <hr></hr>
-                <br></br><br></br>
-                { this.state.developData
-                  ? 
-                  <form>
-                    <h4>Update Develop</h4>
-                    <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
-                      <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" placeholder={this.state.develop} disabled></textarea>
-                    </div>
-                    <label htmlFor="dateofbirth">Date</label>
-                    <input name="dateofbirth" id="dateofbirth" placeholder={this.state.developD} disabled></input>
-                    <br></br><br></br>
-                    <div>
-                      <button type="submit" className="btn btn-primary" disabled><i className="fas fa-paper-plane"></i> Update</button>
-                    </div>
-                  </form>
-                  :
-                  <form onSubmit={(event) => {
-                    event.preventDefault();
-                    const date = event.target.dateofbirth.value;
-                    const data = event.target.dataDetails.value;
-                    
-                    this.updateDevelop(parseInt(this.props.match.params.id),  data, date);
-                  }}>
-                    <h4>Update Develop</h4>
-                    <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
-                      <textarea className="form-control" id="exampleFormControlTextarea1" name="dataDetails" rows="4" placeholder="Update details..." ref={(input) => { this.waqfData = input }}></textarea>
-                    </div>
-                    <label htmlFor="dateofbirth" ref={(input) => { this.waqfDate = input }}>Date</label>
-                    <input type="date" name="dateofbirth" id="dateofbirth"></input>
-                    <br></br><br></br>
-                    <div>
-                      <button type="submit" className="btn btn-primary"><i className="fas fa-paper-plane"></i> Update</button>
-                    </div>
-                  </form>
-                }
-                <hr></hr>
-                <br></br><br></br>
-                { this.state.completedData
-                  ? 
-                  <form>
-                    <h4>Update complete</h4>
-                    <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
-                      <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" placeholder={this.state.completed} disabled></textarea>
-                    </div>
-                    <label htmlFor="dateofbirth">Date</label>
-                    <input name="dateofbirth" id="dateofbirth" placeholder={this.state.completedD} disabled></input>
-                    <br></br><br></br>
-                    <div>
-                      <button type="submit" className="btn btn-primary" disabled><i className="fas fa-paper-plane"></i> Update</button>
-                    </div>
-                  </form>
-                  :
-                  <form onSubmit={(event) => {
-                    event.preventDefault();
-                    const date = event.target.dateofbirth.value;
-                    const data = event.target.dataDetails.value;
-                    
-                    this.updateCompleted(parseInt(this.props.match.params.id),  data, date);
-                  }}>
-                    <h4>Update Completed</h4>
-                    <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Detail</label>
-                      <textarea className="form-control" name="dataDetails" id="exampleFormControlTextarea1" rows="4" placeholder="Update details..."></textarea>
-                    </div>
-                    <label htmlFor="dateofbirth">Date</label>
-                    <input type="date" name="dateofbirth" id="dateofbirth"></input>
-                    <br></br><br></br>
-                    <div>
-                      <button type="submit" className="btn btn-primary"><i className="fas fa-paper-plane"></i> Update</button>
-                    </div>
-                  </form>
-                }
+                {/**######################################################################################################################################### */}
+               
               </div>
             }
             <br></br><br></br><br></br><br></br>
-            </div>     
+          </div>     
         );
     }
 }

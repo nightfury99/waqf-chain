@@ -42,6 +42,29 @@ class WaqfDetails extends Component {
             products: [...this.state.products, waqf]
           });
         }
+
+        waqfchain.getPastEvents('SendWaqfCreated', {
+          fromBlock: 0,
+          toBlock: 'latest'
+        }, (err, events) => {
+          let price = 0;
+          let acc = 0;
+
+          events.forEach(element => {
+            let waqfId = parseInt(element.returnValues.waqfId);
+            if(waqfId === parseInt(this.props.match.params.id)) {
+              price = price + parseInt(element.returnValues.price);
+              acc = acc + 1;
+            }
+          });
+          
+          this.setState({ totalAccount: acc });
+          this.setState({ totalPrice: price });
+
+          if(err) {
+              console.log(err);
+          }
+        });
         
         this.setState({ loading: false });
       } else {
@@ -68,6 +91,8 @@ class WaqfDetails extends Component {
         account: this.props.location.account,
         //productCount: 0,
         products: [],
+        totalAccount: 0,
+        totalPrice: 0,
         hem: [],
         koboi: '🤠'
       }
@@ -103,6 +128,9 @@ class WaqfDetails extends Component {
                         <h4>Target Price:</h4>
                         <p>RM {parseInt(product.price)}</p>
 
+                        <h4>Fund Collected:</h4>
+                        <p>RM {this.state.totalPrice}</p>
+
                         <form onSubmit={(event) => {
                           event.preventDefault();
                           let price = parseInt(this.price.value);
@@ -124,9 +152,6 @@ class WaqfDetails extends Component {
                 );
               }
             })}
-            
-
-            
           </div>
         );
     }

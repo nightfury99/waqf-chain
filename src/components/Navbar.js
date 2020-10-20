@@ -47,8 +47,7 @@ class Navbar extends Component {
     return (
 
         <nav className="navbar navbar-expand-md bg-dark navbar-dark">
-	        <a className="navbar-brand" href="#">HIT eCOB</a>
-	
+	        <a className="navbar-brand" href="#">Waqf Home</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -129,7 +128,7 @@ class Navbar extends Component {
               : <div></div>
             }
 
-            { this.checkBoth()
+            {(this.checkLogin() && !this.checkAdmin())  // NORMAL USER
               ? <Link to={{
                 pathname: '/track-waqf', 
                 account: this.props.account
@@ -139,6 +138,10 @@ class Navbar extends Component {
                 </li>
               </Link>
             : <div></div>
+            }
+
+            { this.checkBoth()
+              
             }
 
             {this.checkLogin()

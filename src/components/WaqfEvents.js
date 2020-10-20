@@ -38,6 +38,35 @@ class CreateWaqf extends Component {
               products: [...this.state.products, waqf]
             });
           }
+
+          waqfchain.getPastEvents('SendWaqfCreated', {
+            fromBlock: 0,
+            toBlock: 'latest'
+          }, (err, events) => {
+            let price = 0;
+            let acc = 0;
+            
+            for(let j = 1; j <= parseInt(productCount); j++) {
+                events.forEach(element => {
+                    let waqfId = parseInt(element.returnValues.waqfId);
+                    if(waqfId === j) {
+                      price = price + parseInt(element.returnValues.price);
+                      acc = acc + 1;
+                    }
+                });
+                
+                this.setState({
+                    totalPrice: [...this.state.totalPrice, price]
+                });
+            }
+
+            console.log(this.state.totalPrice);
+            
+            if(err) {
+                console.log(err);
+            }
+          });
+
           this.setState({ loading: false });
         } else {
           window.alert('WaqfChain contract is not deployed to detected network');
@@ -49,6 +78,7 @@ class CreateWaqf extends Component {
         this.state = {
           account: this.props.location.account,
           //productCount: 0,
+          totalPrice: [],
           products: [],
           koboi: '🤠'
         }
@@ -59,6 +89,7 @@ class CreateWaqf extends Component {
     }
 
     render() {
+        let i = 0;
         return (
             <div className="card">
                 <h1 className="card-header text-center">Waqf Event {this.state.koboi}</h1>
@@ -66,6 +97,7 @@ class CreateWaqf extends Component {
                     <div className="col-md-12">
                         <div className="column">
                         {this.state.products.map((product, key) => {
+                            
                             return(
                                 <div key={key}>
                                     <br></br><br></br>
@@ -82,6 +114,7 @@ class CreateWaqf extends Component {
                                             <p>{product.details}</p>
                                             <p>{product.product_type}</p>
                                             <p>RM {product.price.toString()}</p>
+                                            <p>Collected Fund: RM {this.state.totalPrice[i++]}</p>
                                         </div>
                                     </div>
                                 </div>

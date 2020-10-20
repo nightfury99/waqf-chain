@@ -20,10 +20,28 @@
 ### [x] update develop part and completed
 ### [.] fix font
 ### [.] put location on update phase
-### [.] track waqf page must have proper reload data, because once go back from child page, the data was gone, must be refresh to get all data
+### [x] track waqf page must have proper reload data, because once go back from child page, the data was gone, must be refresh to get all data
+### [.] if track waqf is empty, display no waqf 
 
-### [.] waqf can be closed if it donated funds reached the limit.
-### [.] on dashboard, must have to display total target, and display name
-### [.] on update or tracking, user wanna know how much they spend on every specific updates
-### [.] the limit for updating on waqf event is 10
-### [.] Update waqf using event
+### [x] waqf can be closed if it donated funds reached the limit.
+### [x] on dashboard, must have to display total target, and display name
+### [x] on update or tracking, user wanna know how much they spend on every specific updates
+### [x] the limit for updating on waqf event is 10
+### [.] Use sweet alert for popup
+### [.] :id link must be number
+### [.] If waqf is closed, user cannot donate
+### [.] waqfDetails can make it more efficient on calling waqfEvents 
+
+1. Normal user
+- project
+- targeted fund 
+- fund collected 
+
+2. Registered user 
+- project
+- donator’s “fake name” with amount 
+Cth: user 1 400, user 2, 300
+donator 1
+
+3. Admin
+- nampak semua detail

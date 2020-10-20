@@ -169,7 +169,6 @@ class App extends Component {
                         <Route path="/sign-out" component={Logout} />
                         <Route path="/update-waqf" exact component={UpdateWaqf} />
                         <Route path="/update-waqf/:id" component={UpdateWaqfDetail} />
-                        <Route path="/track-waqf" exact component={TrackWaqf} />
                         <Route path="/track-waqf/:id" component={TrackWaqfDetails} />
                         <Route component={error} />
                       </Switch>

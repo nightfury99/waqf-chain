@@ -37,16 +37,20 @@ class TrackWaqfDetails extends Component {
           this.setState({ WaqfUpdate: waqfUpdate });
           this.setState({ loading: false });
           
-          if(waqfUpdate.manageData != '') {
-            this.setState({ manageBool: true });
-          }
-          if(waqfUpdate.developData != '') {
-            this.setState({ developBool: true });
-          }
-
-          if(waqfUpdate.completedData != '') {
-            this.setState({ completedBool: true });
-          }
+          waqfchain.getPastEvents('updateWaqf', {
+            fromBlock: 0,
+            toBlock: 'latest'
+          }, (err, events) => {
+            events.forEach((val) => {
+              let waqf_id = parseInt(val.returnValues.waqfId);
+              const Waqf_Id = parseInt(this.props.match.params.id);
+              if(Waqf_Id === waqf_id) {
+                this.setState({
+                  updateDetails: [...this.state.updateDetails, val.returnValues]
+                });
+              }
+            });
+          });
 
         } else {
           window.alert('WaqfChain contract is not deployed to detected network');
@@ -58,6 +62,7 @@ class TrackWaqfDetails extends Component {
         this.state = {
           account: this.props.location.account,
           products: [],
+          updateDetails: [],
           totalAccount: 0,
           totalPrice: 0,
           loading: true,
@@ -109,75 +114,31 @@ class TrackWaqfDetails extends Component {
                     </div>
                   </div>
                 </div>
-
-                <br></br><br></br>
-                {this.state.manageBool
-                  ? 
-                  <div class="col-md-12 shadow p-3 mb-5 bg-white rounded">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <div className="row-mb-4">
-                        <div className="col-md-8 p-2">
-                          <img src="/img2.png" className="trying" alt="..." class="rounded img-fluid"></img>
+                { this.state.updateDetails.map((value, key) => {
+                  return(
+                    <div key={key}>
+                      <br></br><br></br>
+                      <div class="col-md-12 shadow p-3 mb-5 bg-white rounded">
+                        <div className="row">
+                          <div className="col-md-4">
+                            <div className="row-mb-4">
+                              <div className="col-md-8 p-2">
+                                <img src="/img1.png" className="trying" alt="..." class="rounded img-fluid"></img>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-md-8">
+                            <h5>{value.data_1}</h5>
+                            <br></br>
+                            <p>Date: {value.date_1}</p>
+                            <p>Location: {value.location}</p>
+                            <p>Used: RM {value.moneyUsed}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-8">
-                      <h4>Managing Asset</h4>
-                      <br></br>
-                      <p>{this.state.WaqfUpdate.manageData}</p>
-                      <p>{this.state.WaqfUpdate.manageDate}</p>
-                    </div>
-                  </div>
-                </div>
-                : <div></div>
-                }
-
-                <br></br><br></br>
-                {this.state.developBool
-                  ?
-                  <div class="col-md-12 shadow p-3 mb-5 bg-white rounded">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <div className="row-mb-4">
-                        <div className="col-md-8 p-2">
-                          <img src="/img3.png" className="trying" alt="..." class="rounded img-fluid"></img>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-8">
-                      <h4>Developing Asset</h4>
-                      <br></br>
-                      <p>{this.state.WaqfUpdate.developData}</p>
-                      <p>{this.state.WaqfUpdate.developDate}</p>
-                    </div>
-                  </div>
-                </div>
-                : <div></div>
-                }
-
-                <br></br><br></br>
-                {this.state.completedBool
-                  ?
-                  <div class="col-md-12 shadow p-3 mb-5 bg-white rounded">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <div className="row-mb-4">
-                        <div className="col-md-8 p-2">
-                          <img src="/img3.png" className="trying" alt="..." class="rounded img-fluid"></img>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-8">
-                      <h4>Project Completed</h4>
-                      <br></br>
-                      <p>{this.state.WaqfUpdate.developData}</p>
-                      <p>{this.state.WaqfUpdate.developDate}</p>
-                    </div>
-                  </div>
-                </div>
-                : <div></div>
-                }
+                  );
+                })}
               </div>
             }
             <br></br><br></br><br></br><br></br>

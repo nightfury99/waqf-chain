@@ -46,7 +46,6 @@ class TrackWaqf extends Component {
                 toBlock: 'latest'
             }, (err, events) => {
                 for(let i = 0; i < events.length; i++) {
-                    console.log("adasd: ", events[i].returnValues);
                     let waqfAddress = events[i].returnValues.senderAddress;
                     if(waqfAddress.toLowerCase() === acc){
                         this.setState({ 
@@ -57,7 +56,6 @@ class TrackWaqf extends Component {
                 //const uniqueNames = Array.from(new Set(this.state.waqfId));
                 this.state.IdWaqf.forEach((value) => {
                     for(let i = 0; i < this.state.products.length; i++) {
-                        console.log(this.state.products[i].id);
                         if(parseInt(value) === parseInt(this.state.products[i].id)) {
                             this.setState({ 
                                 waqfProducts: [...this.state.waqfProducts, this.state.products[i]]
