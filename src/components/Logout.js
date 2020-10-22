@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import './login.css';
+//import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
 
 class Logout extends Component {

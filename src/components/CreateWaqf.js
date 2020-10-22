@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import Apps from './App'
 import WaqfChain from '../abis/WaqfChain.json';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';

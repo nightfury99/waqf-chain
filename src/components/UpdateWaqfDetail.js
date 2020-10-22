@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import './login.css';
+//import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
@@ -67,11 +67,42 @@ class UpdateWaqfDetail extends Component {
             }
           });
 
+          waqfchain.getPastEvents('SendWaqfCreated', {
+            fromBlock: 0,
+            toBlock: 'latest'
+          }, (err, events) => {
+            let price = 0;
+            let acc = 0;
+  
+            events.forEach(element => {
+              let waqfId = parseInt(element.returnValues.waqfId);
+              if(waqfId === parseInt(this.props.match.params.id)) {
+                price += parseInt(element.returnValues.price);
+                acc += 1;
+                this.setState({
+                  senderFund: [...this.state.senderFund, element.returnValues.price]
+                });
+                this.setState({
+                  senderAddress: [...this.state.senderAddress, element.returnValues.senderAddress]
+                });
+              }
+
+            });
+            //console.log(this.state.senderAddress)
+            this.setState({ totalAccount: acc });
+            this.setState({ totalPrice: price });
+  
+            if(err) {
+                console.log(err);
+            }
+          });
+
           waqfchain.getPastEvents("accountCreated", {
             fromBlock: 0,
             toBlock: 'latest'
           }, (err, events) => {
             this.state.senderAddress.forEach((addr) => {
+              
               for(let i = 0; i < events.length; i++) {
                 let sendAddr = events[i].returnValues.userAddress;
                 if(sendAddr === addr) {
@@ -146,7 +177,6 @@ class UpdateWaqfDetail extends Component {
           maxHeight: "600px"
         };
         let count_name = 0;
-        let count_fund = 0;
         return (
             <div className="col-md-12">
               
@@ -183,6 +213,7 @@ class UpdateWaqfDetail extends Component {
                             <div className="card-footer bg-dark text-white text-center">
                                 Fund Collected
                             </div>
+                            
                         </div>
                       </div>
                       <div className="col-md-3">
@@ -231,7 +262,7 @@ class UpdateWaqfDetail extends Component {
                     <div>
                       {this.state.updateDetails.map((value, key) => {
                         return(
-                          <div class="col-md-12 shadow p-3 mb-5 bg-white rounded" key={key}>
+                          <div className="col-md-12 shadow p-3 mb-5 bg-white rounded" key={key}>
                             Details: {value.data_1} <br></br>
                             Date: {value.date_1} <br></br>
                             Location: {value.location} <br></br>
@@ -250,7 +281,7 @@ class UpdateWaqfDetail extends Component {
                     }
                     <hr></hr>
                     {this.state.disableButton
-                    ? <div class="alert alert-danger" role="alert">
+                    ? <div className="alert alert-danger" role="alert">
                         You've reached the limit. Only 10 updates is allowed!
                       </div>
                     :
@@ -293,17 +324,18 @@ class UpdateWaqfDetail extends Component {
                   
                   <div className="col-md-4">
                     <div className="card">
-                    <div class="card-header text-white bg-secondary mb-3">
-                      <h5>List of Sender</h5>
+                    <div className="card-header text-white bg-secondary mb-3">
+                      <h5>List of Donor</h5>
                     </div>
                     <div className="card-body" style={mystyle}>
                       <div className="list-group">
                         {this.state.username.map((value, key) => {
                           return(
-                            <div class="list-group-item" key={key}>
+                            <div className="list-group-item" key={key}>
                               {value}<br></br>
-                              <small>{this.state.name[count_name++]}</small><br></br>
-                              RM {parseInt(this.state.senderFund[count_fund++])}
+                              <small>{this.state.name[count_name]}</small><br></br>
+                              <small>{this.state.senderAddress[count_name]}</small><br></br>
+                              RM {parseInt(this.state.senderFund[count_name++])}
                             </div>
                           );
                         })}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import Apps from './App'
-import './login.css';
+//import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
 
 class Register extends Component {
@@ -69,7 +68,7 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="wrapper fadeInDown">
+            <div className="wrapper fadeInDown" id="login">
             <div id="formContent">
               <h2 className="active"> Sign Up </h2>
               <br></br>

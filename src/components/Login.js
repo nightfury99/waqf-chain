@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import './login.css';
+//import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
 
 
@@ -100,14 +100,14 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="wrapper fadeInDown">
-                <br></br><br></br><br></br>
+          <div className="wrapper fadeInDown" id="login">
+              <br></br><br></br><br></br>
             <div id="formContent">
               <h2 className="active"> Sign In </h2>
               <br></br><br></br>
 
               <div className="fadeIn first">
-                <img src="1.png"  id="icon" alt="User Icon" />
+                <img src="1.png"  id="icon" alt="User Icon"/>
               </div>
               <br></br>
               
@@ -127,7 +127,6 @@ class Login extends Component {
               <div id="formFooter">
                 <a className="underlineHover" href="#">Forgot Password?</a>
               </div>
-          
             </div>
           </div>     
         );

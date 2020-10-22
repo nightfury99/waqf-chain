@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import './App.css';
+//import './App.css';
 import WaqfChain from '../abis/WaqfChain.json';
 
 class WaqfDetails extends Component {

@@ -31,6 +31,14 @@
 ### [.] :id link must be number
 ### [.] If waqf is closed, user cannot donate
 ### [.] waqfDetails can make it more efficient on calling waqfEvents 
+### [.] Make back button
+
+### [x] List of donor
+### [.] Real waqf data //https://www.awqaf.gov.ae/en/waqfprojects
+### [.] Filter by label, education, foster
+
+### [.] Create dashboard
+    -> summarize all waqf project
 
 1. Normal user
 - project
@@ -39,9 +47,13 @@
 
 2. Registered user 
 - project
-- donator’s “fake name” with amount 
+- donator’s “fake name” with amount
+- multiple donation concantinate all
 Cth: user 1 400, user 2, 300
 donator 1
 
 3. Admin
 - nampak semua detail
+
+### ERROR HANDLING
+    -> http://localhost:3000/update-waqf/sign-out

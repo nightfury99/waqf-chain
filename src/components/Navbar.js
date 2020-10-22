@@ -44,8 +44,8 @@ class Navbar extends Component {
     const navStyle = {
       liststyle: 'none'
     }
-    return (
 
+    return (
         <nav className="navbar navbar-expand-md bg-dark navbar-dark">
 	        <a className="navbar-brand" href="#">Waqf Home</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">

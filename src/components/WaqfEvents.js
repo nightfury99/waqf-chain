@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import './App.css';
+//import './App.css';
 import WaqfChain from '../abis/WaqfChain.json';
 import { Link } from 'react-router-dom';
 
@@ -50,17 +50,15 @@ class CreateWaqf extends Component {
                 events.forEach(element => {
                     let waqfId = parseInt(element.returnValues.waqfId);
                     if(waqfId === j) {
-                      price = price + parseInt(element.returnValues.price);
-                      acc = acc + 1;
+                        price = price + parseInt(element.returnValues.price);
+                        acc = acc + 1;
                     }
                 });
-                
                 this.setState({
                     totalPrice: [...this.state.totalPrice, price]
                 });
+                price = 0;
             }
-
-            console.log(this.state.totalPrice);
             
             if(err) {
                 console.log(err);

@@ -17,6 +17,7 @@ import UpdateWaqfDetail from './UpdateWaqfDetail';
 import TrackWaqf from './TrackWaqf';
 import TrackWaqfDetails from './TrackWaqfDetails';
 import error from "./Error";
+import Sidebar from './Sidebar';
 
 class App extends Component {
   async componentWillMount() {
@@ -140,11 +141,12 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
         <link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'></link>
         <Router>
-        <Navbar 
+          <Sidebar/>
+        {/* <Navbar
           debug={this.state.debug} 
           onLinking={this.onChangedLink.bind(this)}
           account={this.state.account} 
@@ -153,7 +155,7 @@ class App extends Component {
           createWaqf={this.createWaqf}
           products={this.state.products}
           createAccountz={this.createAccountz}
-        />
+        /> */}
         
         { this.state.loading 
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div> 
@@ -193,7 +195,7 @@ class App extends Component {
                   </Switch>
               }
         </Router>
-      </div>
+      </>
     );
   }
 }
