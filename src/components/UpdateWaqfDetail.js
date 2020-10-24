@@ -3,6 +3,8 @@ import Web3 from 'web3';
 //import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
 
 class UpdateWaqfDetail extends Component {
  
@@ -193,18 +195,48 @@ class UpdateWaqfDetail extends Component {
                       <div className="col-md-12">
                         <hr></hr>
                       </div>
-                      <div className="col-md-3">
-                        <div className="card">
-                            <div className="card-body text-center">
-                              <h4>{parseInt(this.state.targetFund)}</h4>
-                            </div>
-                            <div className="card-footer bg-info text-white text-center">
-                                Targeted Fund
-                            </div>
-                        </div>
+                      <div className="col-md-3 myChartWU">
+                        <h5>Targeted Fund</h5>
+                        <h4 style={{color:"green"}}>RM {parseInt(this.state.targetFund)}</h4>
+                      </div>
+
+                      <div className="col-md-3 myChartWU">
+                        <h5>Fund Collected</h5>
+                        <h4 style={{color:"#353b48"}}>RM {this.state.totalPrice}</h4>
+                      </div>
+
+                      <div className="col-md-3 myChartWU">
+                        <h5>Waqf Status</h5>
+                        <h4 style={{color:"#e84118"}}>
+                        {this.state.closed
+                          ? <>Closed</>
+                          : <>Active</>
+                        }
+                        </h4>
+                      </div>
+
+                      <div className="col-md-3 myChartWU">
+                        <h5>Total Donor Transaction</h5>
+                        <h4 style={{color:"#fa983a"}}>{this.state.totalAccount}</h4>
                       </div>
 
                       <div className="col-md-3">
+                        <br></br>
+                      </div>
+
+                      <div className="col-md-3 myChartWU" style={{backgroundColor:"#dc3546", marginLeft: "15px"}}>
+                        <h5 style={{color: "white"}}>Close Waqf Project</h5>
+                        {this.state.products.closed
+                        ? <button type="button" className="btn btn-outline-light rounded-pill" disabled>closed</button>
+                        : <button type="button" className="btn btn-outline-light rounded-pill" name={this.state.products.id} onClick={(event) => {
+                          this.closeWaqf(this.state.products.id);
+                        }}>close
+                        </button>
+                        }
+                        
+                      </div>
+
+                      {/* <div className="col-md-3">
                         <div className="card">
                             <div className="card-body text-center">
                               <h4>RM {this.state.totalPrice}</h4>
@@ -239,36 +271,30 @@ class UpdateWaqfDetail extends Component {
                                 Waqf status
                             </div>
                         </div>
-                      </div>
+                      </div> */}
                     
                     </div>
-                    <br></br><br></br><br></br>
-                    { this.state.products.closed
-                      ? <div></div>
-                      :
-                      <p>Close waqf: <button type="button" className="btn btn-danger" name={this.state.products.id} onClick={(event) => {
-                        this.closeWaqf(this.state.products.id);
-                      }}>close
-                      </button>
-                      </p>
-                    }
+                    
                     <hr></hr>
-                    <h5>Waqf Status Preview</h5>
+                    <h4 style={{fontWeight: "700", color: "#3c3c41"}}>Waqf Status Preview</h4>
                     <br></br>
                     
                     {!this.state.updateEmpty
                     ? 
                     <div>
-                      {this.state.updateDetails.map((value, key) => {
-                        return(
-                          <div className="col-md-12 shadow p-3 mb-5 bg-white rounded" key={key}>
-                            Details: {value.data_1} <br></br>
-                            Date: {value.date_1} <br></br>
-                            Location: {value.location} <br></br>
-                            Money Used: {value.moneyUsed}
-                          </div>
-                        );
-                      })}
+                      <SimpleBar style={{maxHeight: 600 }}>
+                        {/* shadow p-3 mb-5 bg-white rounded */}
+                        {this.state.updateDetails.map((value, key) => {
+                          return(
+                            <div className="col-md-12 waqfPreview" key={key}>
+                              Details: {value.data_1} <br></br>
+                              <small>Date: {value.date_1}</small> <br></br>
+                              <small>Location: {value.location}</small> <br></br>
+                              Money Used: RM {value.moneyUsed}
+                            </div>
+                          );
+                        })}
+                      </SimpleBar>
                     </div>
                     : 
                     <div>
@@ -284,7 +310,7 @@ class UpdateWaqfDetail extends Component {
                         You've reached the limit. Only 10 updates is allowed!
                       </div>
                     :
-                    <div className="container">
+                    <div className="container myChart" style={{padding: "30px"}}>
                       <form onSubmit={(event) => {
                         event.preventDefault();
                         const date = event.target.dateofbirth.value;
@@ -294,26 +320,33 @@ class UpdateWaqfDetail extends Component {
 
                         this.updatingWaqf(parseInt(this.props.match.params.id),  data, date, location, moneyUsed);
                       }}>
-                        <h5>Update Waqf Status</h5>
+                        <h4 style={{fontWeight: "700", color: "#3c3c41", padding: "20px"}}>Update Waqf Status</h4>
                         <br></br>
                         <div className="form-group">
                           <label htmlFor="exampleFormControlTextarea1">Detail</label>
-                          <textarea className="form-control" name="dataDetails" id="exampleFormControlTextarea1" rows="4" placeholder="Update details..."></textarea>
+                          <textarea className="form-control textArea" name="dataDetails" id="exampleFormControlTextarea1" rows="4" placeholder="Update details..."></textarea>
+                        </div>
+                        <div className="col-md-12 updateInput">
+                          <div className="row">
+                            <div className="col-md-6">
+                              <label>Money Used</label>
+                              <input type="number" name="moneyUsed" id="moneyUsed" placeholder="MYR"></input>
+                            </div>
+                            <div className="col-md-6">
+                              <label htmlFor="dateofbirth">Date</label>
+                              <input type="date" name="dateofbirth" id="dateofbirth"></input>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-md-6">
+                              <label>Location</label>
+                              <input name="location" id="location" placeholder="Location..."></input>
+                            </div>
+                          </div>
                         </div>
 
-                        <label htmlFor="dateofbirth">Date</label>
-                        <input type="date" name="dateofbirth" id="dateofbirth"></input>
-                        
                         <br></br><br></br>
-                        <label>Location</label>
-                        <input name="location" id="location"></input>
-
-                        <br></br><br></br>
-                        <label>Money Used</label>
-                        RM <input type="number" name="moneyUsed" id="moneyUsed"></input>
-
-                        <br></br><br></br>
-                        <div>
+                        <div className="" style={{paddingBottom: "10px"}}>
                           <button type="submit" className="btn btn-primary"><i className="fas fa-paper-plane"></i> Update</button>
                         </div>
                       </form>
@@ -321,8 +354,30 @@ class UpdateWaqfDetail extends Component {
                     }
                   </div>
                   
-                  <div className="col-md-4">
-                    <div className="card">
+                  <div className="col-md-4 scrollPart">
+                    <h5>List of Donor</h5>
+                    <SimpleBar style={{maxHeight: 600 }}>
+                      {this.state.username.length === 0
+                      ? <>
+                        <div className="alert alert-danger" role="alert">
+                          There is no transaction yet, hence no info about donor.
+                        </div>
+                      </>
+                      : <>
+                        {this.state.username.map((value, key) => {
+                          return(
+                            <div className="myChartScrollWU" key={key}>
+                              {value}<br></br>
+                              <small>{this.state.name[count_name]}</small><br></br>
+                              <small>{this.state.senderAddress[count_name]}</small><br></br>
+                              RM {parseInt(this.state.senderFund[count_name++])}
+                            </div>
+                          );
+                        })}
+                      </>
+                      }
+                    </SimpleBar>
+                    {/* <div className="card">
                     <div className="card-header text-white bg-secondary mb-3">
                       <h5>List of Donor</h5>
                     </div>
@@ -340,7 +395,7 @@ class UpdateWaqfDetail extends Component {
                         })}
                       </div>
                     </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 {/**######################################################################################################################################### */}

@@ -111,6 +111,7 @@ class UpdateWaqf extends Component {
         super(props);
         this.state = {
           account: this.props.location.account,
+          productCount: 0,
           totalPrice: [],
           products: [],
           koboi: '🤠',
@@ -141,13 +142,18 @@ class UpdateWaqf extends Component {
         let num = 0;
 
         const mystyle = {
-            margin: "10px"
-          };
+            height: "250px"
+        };
+        const mystyles = {
+            top: "0",
+            width: "300px",
+            height: "50px"
+        };
         return (
             <div className="col-md-12">
                 <br></br>
                 <div className="col-md-12 text-center">
-                    <h2>Update Waqf Project.</h2>
+                    <h3>Update Waqf Project.</h3>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
@@ -160,7 +166,8 @@ class UpdateWaqf extends Component {
                                 <h5>Closed</h5>
                               <Active active={this.state.closed} />
                             </div>
-                            <div className="myChart" style={mystyle}>
+                            <div className="myChart">
+                            <h5>{parseInt(this.state.productCount)} Waqf Project</h5>
                                 <TypeChart
                                 ed={this.state.ed}
                                 fo={this.state.fo}
@@ -172,7 +179,9 @@ class UpdateWaqf extends Component {
                         
                     </div>
                 </div>
-                <br></br>
+                <div className="myChartUT">
+                    <h5>Update Project</h5>
+                </div>
                 <div className="col-md-12 div-neu">
                     <SimpleBar style={{maxHeight: 300 }}>
                         <table className="content-table">

@@ -9,10 +9,11 @@
 body {
   font-family: "Poppins", sans-serif;
   background-color: #ececec;
+  /* #ecedf1 */
   /* height: 100vh; */
 }
 
-h2 {
+h3 {
   font-weight: 800;
 }
 
@@ -20,7 +21,7 @@ h2 {
   border-radius: 10px;
   box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
               10px 10px 15px rgba(70, 70, 70, 0.12);
-  margin-top: 50px;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -59,6 +60,15 @@ h2 {
   /* border-bottom: 2px solid #333439; */
 }
 
+/* .content-table tbody tr:nth-of-type(even) {
+  background-color: rgb(230, 218, 218);
+} */
+
+h1 {
+  font-weight: 800;
+  color: #3c3c41;
+}
+
 .myChart h5 {
   margin-left: 20px;
   margin-top: 20px;
@@ -70,9 +80,100 @@ h2 {
 
 .myChart {
   border-radius: 25px;
-  /* background-color: white; */
+  margin: 10px;
+  /* background-color: #ecedf1; */
   box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
               10px 10px 15px rgba(70, 70, 70, 0.12);
+}
+
+.textArea {
+  /* background-color: #ececec; */
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+              10px 10px 15px rgba(70, 70, 70, 0.12);
+  /* box-shadow: inset 8px 8px 16px #cbced1,
+              inset -8px -8px 100px #ffffff; */
+}
+
+.updateInput input {
+  border: none;
+  border-radius: 4px;
+  padding: 6px;
+  margin-left: 10px;
+  margin-top: 10px;
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+              10px 10px 15px rgba(70, 70, 70, 0.12);
+}
+
+.myChartUT {
+  border-radius: 10px;
+  width: 20%;
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  /* background-color: #ecedf1; */
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+              10px 10px 15px rgba(70, 70, 70, 0.12),
+              inset -10px -10px 15px rgba(255, 255, 255, 0.5),
+              inset 10px 10px 15px rgba(70, 70, 70, 0.12)
+}
+
+.myChartUT h5 {
+  font-weight: 600;
+  color: #58585a;
+}
+
+.waqfPreview {
+  border-radius: 12px;
+  margin: 10px 0 15px 10px;
+  padding: 25px;
+  width: 95%;
+  background-color: #ecedf1;
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+              10px 10px 15px rgba(70, 70, 70, 0.12);
+}
+
+.myChartWU {
+  border-radius: 18px;
+  margin: 5px;
+  text-align: center;
+  /* background-color: #ecedf1; */
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+              10px 10px 15px rgba(70, 70, 70, 0.12);
+}
+
+.myChartWU h5 {
+  color: #5c5c5c;
+  font-weight: 600;
+  font-size: 15px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.myChartWU h4 {
+  font-weight: 800;
+  margin-left: 10px;
+  margin-top: 20px;
+  font-size: 30px;
+}
+
+.myChartScrollWU {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  background-color: #079992;
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+              10px 10px 20px rgba(70, 70, 70, 0.12);
+}
+
+.scrollPart h5 {
+  color: #5c5c5c;
+  font-weight: 600;
+  font-size: 25px;
 }
 
 .navbar {
@@ -87,6 +188,7 @@ h2 {
 .menu-bars {
   margin-left: 2rem;
   font-size: 20px;
+  
   background: none;
 }
 
