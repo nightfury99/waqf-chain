@@ -18,8 +18,8 @@
 ### [.] check if form is empty
 ### [.] user can print
 ### [x] update develop part and completed
-### [.] fix font
-### [.] put location on update phase
+### [x] fix font
+### [x] put location on update phase
 ### [x] track waqf page must have proper reload data, because once go back from child page, the data was gone, must be refresh to get all data
 ### [.] if track waqf is empty, display no waqf 
 
@@ -39,6 +39,9 @@
 
 ### [.] Create dashboard
     -> summarize all waqf project
+
+### NOTES DASHBOARD
+    -> 
 
 1. Normal user
 - project

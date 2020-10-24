@@ -213,7 +213,6 @@ class UpdateWaqfDetail extends Component {
                             <div className="card-footer bg-dark text-white text-center">
                                 Fund Collected
                             </div>
-                            
                         </div>
                       </div>
                       <div className="col-md-3">

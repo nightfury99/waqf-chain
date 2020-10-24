@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
-import Navbar from './Navbar';
 import CreateWaqf from './CreateWaqf';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import Debug from './Debug';

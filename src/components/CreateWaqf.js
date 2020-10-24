@@ -105,6 +105,7 @@ class CreateWaqf extends Component {
                                     <option value="Education">Education</option>
                                     <option value="Foster">Foster</option>
                                     <option value="Warzone">Warzone</option>
+                                    <option value="Welfare">Welfare</option>
                                 </select>
                             </div>
                         </div>

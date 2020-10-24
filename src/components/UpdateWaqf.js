@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-//import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Chart from "react-apexcharts";
+import Active from "./chart/Active";
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
+import TypeChart from './chart/Type';
 
 class UpdateWaqf extends Component {
     async componentWillMount() {
@@ -13,14 +17,19 @@ class UpdateWaqf extends Component {
     } 
 
     async debugging() {
-        /*
-        this.setState({ debug: 'changed' });
-        console.log(this.state.debug);*/
     }
 
     async loadBlockchainData() {
         const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
+        var active = 0;
+        var closed = 0;
+        var ed = 0;
+        var fo = 0 
+        var wa = 0 
+        var we = 0;
+        //var closed = 0;
+        const waqf_types = ["Education", "Foster", "Warzone", "Welfare"];
         // Load account
         //window.ethereum.enable();
         const accounts = await WEB3.eth.accounts;
@@ -37,10 +46,33 @@ class UpdateWaqf extends Component {
           // load waqf event
           for(var i = 1; i <= productCount; i++) {
             const waqf = await waqfchain.methods.waqfEvents(i).call();
+            if(waqf.product_type === "Education") {
+                ed += 1;
+            } else if(waqf.product_type === "Foster"){
+                fo += 1;
+            } else if(waqf.product_type === "Warzone"){
+                wa += 1;
+            } else if(waqf.product_type === "Welfare") {
+                we += 1;
+            }
+
             this.setState({
               products: [...this.state.products, waqf]
             });
+            if(waqf.closed) {
+              closed += 1;
+            }
           }
+          
+          closed = (closed / productCount) * 100;
+          active = 100 - closed;
+          this.setState({ active: active });
+          this.setState({ closed: closed });
+          this.setState({ ed: ed });
+          this.setState({ fo: fo });
+          this.setState({ wa: wa });
+          this.setState({ we: we });
+        
 
           waqfchain.getPastEvents('SendWaqfCreated', {
             fromBlock: 0,
@@ -67,6 +99,7 @@ class UpdateWaqf extends Component {
                 console.log(err);
             }
           });
+
           
           this.setState({ loading: false });
         } else {
@@ -80,7 +113,13 @@ class UpdateWaqf extends Component {
           account: this.props.location.account,
           totalPrice: [],
           products: [],
-          koboi: '🤠'
+          koboi: '🤠',
+          active: 0,
+          closed: 0,
+          wa: 0,
+          we: 0,
+          fo: 0,
+          ed: 0
         }
     }
     
@@ -96,24 +135,87 @@ class UpdateWaqf extends Component {
         }
     }
 
+    
     render() {
         let no = 1;
         let num = 0;
+
+        const mystyle = {
+            margin: "10px"
+          };
         return (
             <div className="col-md-12">
                 <br></br>
                 <div className="col-md-12 text-center">
-                    <h1>Update Waqf Project.</h1>
+                    <h2>Update Waqf Project.</h2>
                 </div>
-                <br></br><br></br>
-                <div className="col-md-12">
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="row">
+                            <div className="myChart" style={mystyle}>
+                                <h5>Active</h5>
+                              <Active active={this.state.active} />
+                            </div>
+                            <div className="myChart" style={mystyle}>
+                                <h5>Closed</h5>
+                              <Active active={this.state.closed} />
+                            </div>
+                            <div className="myChart" style={mystyle}>
+                                <TypeChart
+                                ed={this.state.ed}
+                                fo={this.state.fo}
+                                wa={this.state.wa}
+                                we={this.state.we}
+                                />
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <br></br>
+                <div className="col-md-12 div-neu">
+                    <SimpleBar style={{maxHeight: 300 }}>
+                        <table className="content-table">
+                            <thead>
+                                <tr>
+                                    <th className="text-center">No</th>
+                                    <th>Waqf Project</th>
+                                    <th className="text-center">Target Fund</th>
+                                    <th className="text-center">Collected Fund</th>
+                                    <th className="text-center">Status</th>
+                                    <th className="text-center">View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {this.state.products.map((product, key) => {
+                                return(
+                                    <tr key={key}>
+                                        <td className="text-center">{no++}</td>
+                                        <td>{product.name}</td>
+                                        <td className="text-center">RM {parseInt(product.price)}</td>
+                                        <td className="text-center">RM {parseInt(this.state.totalPrice[num++])}</td>
+                                        {this.checkStatus(JSON.stringify(product.closed))
+                                        ? <td className="text-center">Closed</td>
+                                        : <td className="text-center">Active</td>
+                                        }
+                                        <td className="text-center">
+                                        <Link to={{
+                                            pathname: `update-waqf/${product.id}`
+                                        }}>
+                                            <button className="btn btn-outline-info btn-sm rounded-pill"><i className="fas fa-pen"></i> Update</button>
+                                        </Link>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                            </tbody>
+                        </table>
+                    </SimpleBar>
+                </div>
+                {/* <div className="col-md-12">
                     <div className="card shadow p-3 mb-5 bg-white rounded">
-                        {/* <div className="card-header">
-                            <h5><span className="fa fa-list"></span> Waqf Project Dashboard</h5>
-                        </div> */}
-
                         <div className="card-body table-responsive">
-                            <table className="table table-hover table-fluid dataTable">
+                            <table className="table table-hover table-fluid dataTable table-sm">
                                 <thead className="thead-dark">
                                     <tr>
                                     <th scope="col" className="text-center">No</th>
@@ -152,7 +254,7 @@ class UpdateWaqf extends Component {
 
                         
                     </div>
-                </div>
+                </div> */}
                 <div className="wrapper fadeInDown"></div>
             </div>     
         );

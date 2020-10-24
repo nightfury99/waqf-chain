@@ -8,7 +8,71 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  background-color: #ececec;
   /* height: 100vh; */
+}
+
+h2 {
+  font-weight: 800;
+}
+
+.div-neu {
+  border-radius: 10px;
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+              10px 10px 15px rgba(70, 70, 70, 0.12);
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 0.9em;
+  min-width: 100%;
+  border-radius: 10px 10px 10px 10px;
+  overflow: hidden;
+  /* box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+              10px 10px 15px rgba(70, 70, 70, 0.12); */
+}
+
+.content-table thead tr {
+  background-color: #ececec;
+  color: black;
+  text-align: left;
+  font-weight: 700;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+/*border bottom line every tr*/
+.content-table tbody tr {
+  /* border-bottom: 1px solid #dddddd; */
+}
+
+.content-table tbody tr:last-of-type {
+  /* border-bottom: 2px solid #333439; */
+}
+
+.myChart h5 {
+  margin-left: 20px;
+  margin-top: 20px;
+  font-size: 22px;
+  color: #3c3c41;
+  font-weight: 800;
+  
+}
+
+.myChart {
+  border-radius: 25px;
+  /* background-color: white; */
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+              10px 10px 15px rgba(70, 70, 70, 0.12);
 }
 
 .navbar {
@@ -86,6 +150,8 @@ body {
 span {
   margin-left: 16px;
 }
+
+
 
 .trying {
   width: 20%;

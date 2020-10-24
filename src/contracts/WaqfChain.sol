@@ -113,13 +113,9 @@ contract WaqfChain {
         require(bytes(_product_types).length > 0, 'product types is empty');
         require(_price > 0, 'prices types is empty');
         productCount ++;
-        //updateCount ++;
         waqfEvents[productCount] = WaqfEvent(productCount, _name, _details, _product_types, _price, msg.sender, false);
         emit WaqfEventCreated(productCount, _name, _details, _product_types, _price, msg.sender, msg.sender, false);
-        // updateWaqfEvents[updateCount] = UpdateWaqfEvent(updateCount, productCount, '', '', '', '', msg.sender);
-        // emit updateWaqf(updateCount, productCount, '', '', '', '', msg.sender);
-        //updateWaqfEvents[productCount] = UpdateWaqfEvent(productCount, productCount, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', msg.sender);
-        //emit updatedWaqf(productCount, productCount, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', msg.sender);
+        
     }
 
     function sendWaqf(uint _id, uint _price) public payable{
