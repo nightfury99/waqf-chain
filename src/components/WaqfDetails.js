@@ -36,12 +36,15 @@ class WaqfDetails extends Component {
         const productCount = await waqfchain.methods.productCount().call();
         this.setState({ productCount });
         // load waqf event
-        for(var i = 1; i <= productCount; i++) {
-          const waqf = await waqfchain.methods.waqfEvents(i).call();
-          this.setState({
-            products: [...this.state.products, waqf]
-          });
-        }
+        // for(var i = 1; i <= productCount; i++) {
+        //   const waqf = await waqfchain.methods.waqfEvents(i).call();
+        //   this.setState({
+        //     products: [...this.state.products, waqf]
+        //   });
+        // }
+        
+        const waqf = await waqfchain.methods.waqfEvents(parseInt(this.props.match.params.id)).call();
+        this.setState({ products: waqf });
 
         waqfchain.getPastEvents('SendWaqfCreated', {
           fromBlock: 0,
@@ -104,54 +107,53 @@ class WaqfDetails extends Component {
 
     render() {
         return(
-          <div>
-            <br></br><br></br>
-            {this.state.products.map((product, key) => {
-              if(parseInt(product.id)==this.props.match.params.id) { 
-                return(
-                  <div className="container" key={key} >
-                    <div className="card">
-                      <div className="card-header text-center">
-                        <h1>{product.name}</h1>
-                      </div>
-                    
-                      <div className="card-body">
-                        <h4>name:</h4>
-                        <p>{product.name}</p>
-
-                        <h4>Details:</h4>
-                        <p>{product.details}</p>
-
-                        <h4>Type:</h4>
-                        <p>{product.product_type}</p>
-
-                        <h4>Target Price:</h4>
-                        <p>RM {parseInt(product.price)}</p>
-
-                        <h4>Fund Collected:</h4>
-                        <p>RM {this.state.totalPrice}</p>
-
-                        <form onSubmit={(event) => {
-                          event.preventDefault();
-                          let price = parseInt(this.price.value);
-                          let ether = price * 0.00066;
-                          this.sendWaqf(product.id, ether, price);
-                        }}>
-                          <div className="form-col col-md-12">
-                            <label>DONATE: </label>
-                            <input type="text" className="form-control" id="waqf_title" placeholder="price" ref={(input) => { this.price = input }}></input>
+          <div className="container myChartWaqfEvent" style={{marginTop: "70px", color: "#3c3c41"}}>
+            <div className="col-md-12" style={{padding: "40px 40px 0 40px"}}>
+              <h3>{this.state.products.name}</h3>
+            </div>
+            
+            <div className="updateInput" style={{
+                  padding: "30px",
+                  marginTop: "1%" 
+                  }}>
+                    <form onSubmit={(event) => {
+                        event.preventDefault();
+                        let price = parseInt(this.price.value);
+                        let ether = price * 0.00066;
+                        this.sendWaqf(this.state.products.id, ether, price);
+                    }}>
+                        <div className="form-row col-md-12">
+                            <div className="form-group col-md-12">
+                                <p>Details</p>
+                                {this.state.products.details}
+                            </div>
+                        </div>
+                        
+                        <div className="form-row col-md-12">
+                          <div className="form-group col-md-4">
+                            <p>Product Types</p>
+                            {this.state.products.product_type}
                           </div>
-                          <hr></hr><br></br>
-                          <div className="col-md-12 text-center">
-                            <button type="submit" className="btn btn-primary">Donate</button>
+                          <div className="form-group col-md-4">
+                            <p>Waqf Target Price</p>
+                            RM {parseInt(this.state.products.price)}
                           </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-            })}
+                          <div className="form-group col-md-4">
+                            <p>Fund Collected</p>
+                            RM {this.state.totalPrice}
+                          </div>
+
+                          <div className="col-md-4">
+                            <p>DONATE</p>
+                            <input type="number" className="form-control" id="waqf_title" placeholder="price" ref={(input) => { this.price = input }} style={{marginLeft:"0"}}></input>
+                          </div>
+
+                        </div>
+                        <div className="col-md-12">
+                          <button type="submit" className="btn btn-primary" style={{margin: "30px 0 10px 0"}}><i class="fas fa-hand-holding-usd"></i> Donate</button>
+                        </div>
+                    </form>
+                </div>
           </div>
         );
     }

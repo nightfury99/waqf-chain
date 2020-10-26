@@ -54,6 +54,7 @@ class CreateWaqf extends Component {
                         acc = acc + 1;
                     }
                 });
+
                 this.setState({
                     totalPrice: [...this.state.totalPrice, price]
                 });
@@ -75,7 +76,6 @@ class CreateWaqf extends Component {
         super(props);
         this.state = {
           account: this.props.location.account,
-          //productCount: 0,
           totalPrice: [],
           products: [],
           koboi: '🤠'
@@ -89,37 +89,40 @@ class CreateWaqf extends Component {
     render() {
         let i = 0;
         return (
-            <div className="card">
-                <h1 className="card-header text-center">Waqf Event {this.state.koboi}</h1>
-                <div className="card-body">
-                    <div className="col-md-12">
-                        <div className="column">
-                        {this.state.products.map((product, key) => {
-                            
-                            return(
-                                <div key={key}>
-                                    <br></br><br></br>
-                                    <div className="card">
-                                        <h4 className="card-header text-left">
-                                            <Link to={{
-                                                pathname: `/waqf-events/${product.id}`,
-                                                Id: product.id,
-                                                account: this.props.location.account
-                                                }}>{product.name}
-                                            </Link>
-                                        </h4>
-                                        <div className="card-body">
-                                            <p>{product.details}</p>
-                                            <p>{product.product_type}</p>
-                                            <p>RM {product.price.toString()}</p>
-                                            <p>Collected Fund: RM {this.state.totalPrice[i++]}</p>
-                                        </div>
-                                    </div>
+            <div className="container">
+                <div className="col-md-12 text-center" style={{padding: "10px", marginTop: "20px", color: "#5c5c5c"}}>
+                    <h1>Waqf Event</h1>
+                </div>
+                
+                <div className="card-list">
+                    {this.state.products.map((val, key) => {
+                        return(
+                            <div key={key} className="col-md-12 myChart" style={{padding: "10px 10px 30px 10px", marginBottom: "50px"}}>
+                                <div className="col-md-12" style={{padding: "10px"}}>
+                                    <h5>{val.name}</h5>
                                 </div>
-                            );
-                        })}
-                        </div>
-                    </div>
+                                <div className="col-md-12" style={{marginLeft: "15px"}}>
+                                    <p>{val.product_type}</p>
+                                </div>
+                                <div className="col-md-12" style={{marginLeft: "15px"}}>
+                                    <p>Target Fund: RM {val.price.toString()}</p>
+                                </div>
+                                <div className="col-md-12" style={{marginLeft: "15px"}}>
+                                    <p>Collected Fund: RM {this.state.totalPrice[i++]}</p>
+                                </div>
+                                <div className="col-md-12" style={{marginLeft: "15px"}}>
+                                    <Link to={{
+                                        pathname: `/waqf-events/${val.id}`,
+                                        Id: val.id,
+                                        account: this.props.location.account
+                                        }}>
+                                            <button className="btn btn-secondary rounded-pill"><i className="fas fa-eye"></i> View</button>
+                                    </Link>
+                                </div>
+                                
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
                  

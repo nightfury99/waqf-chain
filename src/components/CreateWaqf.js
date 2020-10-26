@@ -78,47 +78,54 @@ class CreateWaqf extends Component {
 
     render() {
         return (
-            <div className="card">
-                <div className="card-header text-center">
-                    <h1 className="card-title"><span className='ec ec-tired-face'></span> Create Waqf Event &#128518;</h1>
-                </div>
-                <div className="card-body">
+            <div className="container">
+                {/* <div className="col-md-12 text-center" style={{marginTop: "2%"}}>
+                  <h1>Create Waqf Event</h1>
+                </div> */}
+                <div className="myChart updateInput" style={{
+                  padding: "30px",
+                  marginTop: "5%" 
+                  }}>
                     <form onSubmit={(event) => {
                         event.preventDefault();
                         const price = parseInt(this.waqfPrice.value);
-                        console.log('price ', typeof(price));
                         const waqf_title = this.waqfTitle.value;
                         const waqf_detail = this.waqfDetails.value;
                         const waqf_type = this.waqfTypes.value;
-                        //alert(waqf_title.value);
                         this.createWaqf(waqf_title, waqf_detail, waqf_type, price);
                     }}>
                         <div className="form-row col-md-12">
-                            <div className="form-group col-md-6">
+                            <div className="col-md-12" style={{paddingBottom: "10px"}}>
+                              <h1>Create Waqf Event</h1>
+                            </div>
+                            <div className="form-group col-md-12">
                                 <label>Title</label>
                                 <input type="text" className="form-control" id="waqf_title" placeholder="Title" ref={(input) => { this.waqfTitle = input }}></input>
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label>Product Types</label>
-                                <select defaultValue='DEFAULT' ref={(input) => { this.waqfTypes = input }} id="waqf_type" className="form-control">
-                                    <option value="DEFAULT" disabled>Choose</option>
-                                    <option value="Education">Education</option>
-                                    <option value="Foster">Foster</option>
-                                    <option value="Warzone">Warzone</option>
-                                    <option value="Welfare">Welfare</option>
-                                </select>
                             </div>
                         </div>
                         <div className="form-group col-md-12">
                             <label>Waqf Details</label>
-                            <input type="text" className="form-control" id="waqf_details" placeholder="Details" ref={(input) => { this.waqfDetails = input }}></input>
+                            <textarea className="form-control textArea" name="dataDetails" id="waqf_details" rows="4" placeholder="Details..." ref={(input) => { this.waqfDetails = input }}></textarea>
                         </div>
-                        <div className="form-group col-md-6">
+                        <div className="form-row col-md-12">
+                          <div className="form-group col-md-6">
+                            <label>Product Types</label>
+                            <select defaultValue='DEFAULT' ref={(input) => { this.waqfTypes = input }} id="waqf_type" className="form-control">
+                                <option value="DEFAULT" disabled>Choose</option>
+                                <option value="Education">Education</option>
+                                <option value="Foster">Foster</option>
+                                <option value="Warzone">Warzone</option>
+                                <option value="Welfare">Welfare</option>
+                            </select>
+                          </div>
+                          <div className="form-group col-md-6">
                             <label>Waqf Target Price</label>
-                            <input type="text" className="form-control" id="waqf_details" placeholder="Price" ref={(input) => { this.waqfPrice = input }}></input>
+                            <input type="number" id="waqf_details" className="form-control" placeholder="Price" ref={(input) => { this.waqfPrice = input }}></input>
+                          </div>
+                            
                         </div>
                         <div className="col-md-12">
-                        <button type="submit" className="btn btn-primary">Create</button>
+                        <button type="submit" className="btn btn-primary" style={{margin: "10px 0 10px 0"}}><i className="fas fa-paper-plane"></i> Create</button>
                         </div>
                     </form>
                 </div>                

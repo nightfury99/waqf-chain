@@ -320,7 +320,7 @@ class UpdateWaqfDetail extends Component {
 
                         this.updatingWaqf(parseInt(this.props.match.params.id),  data, date, location, moneyUsed);
                       }}>
-                        <h4 style={{fontWeight: "700", color: "#3c3c41", padding: "20px"}}>Update Waqf Status</h4>
+                        <h1 style={{fontWeight: "700", color: "#3c3c41", padding: "20px 20px 20px 0"}}>Update Waqf Status</h1>
                         <br></br>
                         <div className="form-group">
                           <label htmlFor="exampleFormControlTextarea1">Detail</label>
