@@ -117,6 +117,7 @@ class CreateWaqf extends Component {
                                         account: this.props.location.account
                                         }}>
                                             <button className="btn btn-secondary rounded-pill"><i className="fas fa-eye"></i> View</button>
+                                            {/* 004275 */}
                                     </Link>
                                 </div>
                                 
