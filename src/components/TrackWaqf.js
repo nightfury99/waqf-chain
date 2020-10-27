@@ -117,7 +117,7 @@ class TrackWaqf extends Component {
                     :
                     <div>
                         <div className="col-md-12 text-center" style={{padding: "10px", marginTop: "20px", color: "#5c5c5c"}}>
-                            <h1>Track Waqf Project</h1>
+                            <h1>My Waqf Project</h1>
                         </div>
                         
                         <div className="card-list">

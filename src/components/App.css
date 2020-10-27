@@ -86,6 +86,8 @@ h1 {
               10px 10px 15px rgba(70, 70, 70, 0.12);
 }
 
+
+
 .myChartWaqfEvent {
   border-radius: 25px;
   /* background-color: #ecedf1; */
@@ -278,10 +280,41 @@ span {
   margin-left: 16px;
 }
 
+.myChartTrack {
+  border-radius: 25px;
+  margin: 10px 10px 30px 10px;
+  padding: 10px;
+  /* background-color: #ecedf1; */
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+              10px 10px 15px rgba(70, 70, 70, 0.12);
+}
 
+.test p {
+  padding: 20px 10px 2px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
 
-.trying {
-  width: 20%;
+.img0 {
+  padding: 50px;
+}
+.img1 {
+  padding: 70px;
+}
+.img2, .img3 {
+  padding: 60px 70px 70px 60px;
+}
+.img4, .img5 {
+  /* padding: 10px 10px 30px 10px;
+  width: 160px;
+  margin: 30px 0 0 70px; */
+  padding: 50px 80px 50px 80px;
+}
+.img6 {
+  padding: 70px 90px 70px 90px;
+}
+.img6, .img7 {
+  padding: 70px 90px 70px 90px;
 }
 
 /* Login */
