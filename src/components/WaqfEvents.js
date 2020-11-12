@@ -96,6 +96,14 @@ class CreateWaqf extends Component {
                 
                 <div className="card-list">
                     {this.state.products.map((val, key) => {
+                        let j = (parseInt(this.state.totalPrice[i]) / val.price * 100).toFixed(1);
+                        let m = j;
+                        if(j >= 100) {
+                            j = 100;
+                        } else if(j <= 3) {
+                            m = 3;
+                        }
+
                         return(
                             <div key={key} className="col-md-12 myChart" style={{padding: "10px 10px 30px 10px", marginBottom: "50px"}}>
                                 <div className="col-md-12" style={{padding: "10px"}}>
@@ -107,10 +115,20 @@ class CreateWaqf extends Component {
                                 <div className="col-md-12" style={{marginLeft: "15px"}}>
                                     <p>Target Fund: RM {val.price.toString()}</p>
                                 </div>
-                                <div className="col-md-12" style={{marginLeft: "15px"}}>
+
+                                {/* <div className="col-md-12" style={{marginLeft: "15px"}}>
                                     <p>Collected Fund: RM {this.state.totalPrice[i++]}</p>
+                                </div> */}
+                                {}
+                                <div className="col-md-12" style={{marginLeft: "0px", fontSize: "13px"}}>
+                                    <p><span style={{fontWeight: "800"}}>RM {this.state.totalPrice[i++]}</span> was raised from RM {val.price.toString()}</p>
                                 </div>
-                                <div className="col-md-12" style={{marginLeft: "15px"}}>
+                                
+                                <div className="progress" style={{marginLeft: "30px"}}>
+                                    <div className="progress-bar progress-bar-striped bg-info" role="progressbar" style={{width: m+"%"}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{j}%</div>
+                                </div>
+
+                                <div className="col-md-12" style={{marginLeft: "15px", marginTop: "10px"}}>
                                     <Link to={{
                                         pathname: `/waqf-events/${val.id}`,
                                         Id: val.id,

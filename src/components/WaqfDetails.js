@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 //import './App.css';
 import WaqfChain from '../abis/WaqfChain.json';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
 
 class WaqfDetails extends Component {
     async componentWillMount() {
@@ -56,6 +58,9 @@ class WaqfDetails extends Component {
           events.forEach(element => {
             let waqfId = parseInt(element.returnValues.waqfId);
             if(waqfId === parseInt(this.props.match.params.id)) {
+              this.setState({
+                senderPrice: [...this.state.senderPrice, element.returnValues.price]
+              });
               price = price + parseInt(element.returnValues.price);
               acc = acc + 1;
             }
@@ -96,6 +101,7 @@ class WaqfDetails extends Component {
         products: [],
         totalAccount: 0,
         totalPrice: 0,
+        senderPrice: [],
         hem: [],
         koboi: '🤠'
       }
@@ -107,12 +113,13 @@ class WaqfDetails extends Component {
 
     render() {
         return(
-          <div className="container myChartWaqfEvent" style={{marginTop: "70px", color: "#3c3c41"}}>
-            <div className="col-md-12" style={{padding: "40px 40px 0 40px"}}>
-              <h3>{this.state.products.name}</h3>
-            </div>
-            
-            <div className="updateInput" style={{
+          <div className="row">
+            <div className="col-md-8">
+              <div className="container myChartWaqfEvent" style={{margin: "70px 30px 0px 30px", color: "#3c3c41"}}>
+                <div className="col-md-12" style={{padding: "40px 40px 0 40px"}}>
+                  <h3>{this.state.products.name}</h3>
+                </div>
+                <div className="updateInput" style={{
                   padding: "30px",
                   marginTop: "1%" 
                   }}>
@@ -150,10 +157,36 @@ class WaqfDetails extends Component {
 
                         </div>
                         <div className="col-md-12">
-                          <button type="submit" className="btn btn-primary" style={{margin: "30px 0 10px 0"}}><i class="fas fa-hand-holding-usd"></i> Donate</button>
+                          <button type="submit" className="btn btn-primary" style={{margin: "30px 0 10px 0"}}><i className="fas fa-hand-holding-usd"></i> Donate</button>
                         </div>
                     </form>
                 </div>
+              </div>
+            </div>
+            <div className="col-md-4 scrollPart2">
+              <h5>List of Donor</h5>
+              <SimpleBar style={{maxHeight: 600 }}>
+                {this.state.senderPrice.length === 0
+                ? <>
+                  <div className="alert alert-danger" role="alert">
+                    There is no transaction yet, hence no info about donor.
+                  </div>
+                </>
+                : <>
+                  {this.state.senderPrice.map((value, key) => {
+                    return(
+                      <div className="myChartScrollWU" key={key}>
+                        Anonymous<br></br>
+                        {/* <small>{this.state.name[count_name]}</small><br></br>
+                        <small>{this.state.senderAddress[count_name]}</small><br></br> */}
+                        RM {parseInt(value)}
+                      </div>
+                    );
+                  })}
+                </>
+                }
+              </SimpleBar>
+            </div>
           </div>
         );
     }

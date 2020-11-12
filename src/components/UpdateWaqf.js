@@ -7,6 +7,7 @@ import Active from "./chart/Active";
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 import TypeChart from './chart/Type';
+import LineChart from'./chart/Line';
 
 class UpdateWaqf extends Component {
     async componentWillMount() {
@@ -156,31 +157,41 @@ class UpdateWaqf extends Component {
                     <h3>Update Waqf Project.</h3>
                 </div>
                 <div className="row">
-                    <div className="col-md-12">
-                        <div className="row">
-                            <div className="myChart" style={mystyle}>
-                                <h5>Active</h5>
-                              <Active active={this.state.active} />
-                            </div>
-                            <div className="myChart" style={mystyle}>
-                                <h5>Closed</h5>
-                              <Active active={this.state.closed} />
-                            </div>
-                            <div className="myChart">
-                            <h5>{parseInt(this.state.productCount)} Waqf Project</h5>
-                                <TypeChart
-                                ed={this.state.ed}
-                                fo={this.state.fo}
-                                wa={this.state.wa}
-                                we={this.state.we}
-                                />
+                    {/* <div className="col-md-4">
+                        
+                    </div> */}
+                    <div className="col-md-8">
+                        <div className="col-md-12">
+                            <div className="row">
+                                <div className=" myChart" style={mystyle}>
+                                    <h5>Active</h5>
+                                <Active active={this.state.active} />
+                                </div>
+                                <div className="myChart" style={mystyle}>
+                                    <h5>Closed</h5>
+                                <Active active={this.state.closed} />
+                                </div>
+                                <div className="myChart">
+                                    <h5>{parseInt(this.state.productCount)} Waqf Project</h5>
+                                    <TypeChart
+                                        ed={this.state.ed}
+                                        fo={this.state.fo}
+                                        wa={this.state.wa}
+                                        we={this.state.we}
+                                    />
+                                </div>
                             </div>
                         </div>
-                        
+                    </div>
+                    <div className="col-md-4">
+                        <div className="myChartS">
+                            {/* <h5>Active</h5> */}
+                            <LineChart active={this.state.active} />
+                        </div>
                     </div>
                 </div>
                 <div className="myChartUT">
-                    <h5>Update Project</h5>
+                    <h4>Update Project</h4>
                 </div>
                 <div className="col-md-12 div-neu">
                     <SimpleBar style={{maxHeight: 300 }}>

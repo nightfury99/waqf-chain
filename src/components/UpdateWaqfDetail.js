@@ -235,44 +235,6 @@ class UpdateWaqfDetail extends Component {
                         }
                         
                       </div>
-
-                      {/* <div className="col-md-3">
-                        <div className="card">
-                            <div className="card-body text-center">
-                              <h4>RM {this.state.totalPrice}</h4>
-                            </div>
-
-                            <div className="card-footer bg-dark text-white text-center">
-                                Fund Collected
-                            </div>
-                        </div>
-                      </div>
-                      <div className="col-md-3">
-                        <div className="card">
-                            <div className="card-body text-center">
-                              <h4>{this.state.totalAccount}</h4>
-                            </div>
-                            <div className="card-footer bg-success text-white text-center">
-                                Total Donor Transaction
-                            </div>
-                        </div>
-                      </div>
-
-                      <div className="col-md-3">
-                        <div className="card">
-                            <div className="card-body text-center">
-                              {this.state.closed
-                                ? <h4>Closed</h4>
-                                : <h4>Active</h4>
-                              }
-                            </div>
-
-                            <div className="card-footer bg-warning text-black text-center">
-                                Waqf status
-                            </div>
-                        </div>
-                      </div> */}
-                    
                     </div>
                     
                     <hr></hr>
@@ -377,25 +339,6 @@ class UpdateWaqfDetail extends Component {
                       </>
                       }
                     </SimpleBar>
-                    {/* <div className="card">
-                    <div className="card-header text-white bg-secondary mb-3">
-                      <h5>List of Donor</h5>
-                    </div>
-                    <div className="card-body" style={mystyle}>
-                      <div className="list-group">
-                        {this.state.username.map((value, key) => {
-                          return(
-                            <div className="list-group-item" key={key}>
-                              {value}<br></br>
-                              <small>{this.state.name[count_name]}</small><br></br>
-                              <small>{this.state.senderAddress[count_name]}</small><br></br>
-                              RM {parseInt(this.state.senderFund[count_name++])}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                    </div> */}
                   </div>
                 </div>
                 {/**######################################################################################################################################### */}
