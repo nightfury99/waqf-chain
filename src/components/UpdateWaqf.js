@@ -232,49 +232,6 @@ class UpdateWaqf extends Component {
                         </table>
                     </SimpleBar>
                 </div>
-                {/* <div className="col-md-12">
-                    <div className="card shadow p-3 mb-5 bg-white rounded">
-                        <div className="card-body table-responsive">
-                            <table className="table table-hover table-fluid dataTable table-sm">
-                                <thead className="thead-dark">
-                                    <tr>
-                                    <th scope="col" className="text-center">No</th>
-                                    <th scope="col">Waqf Project</th>
-                                    <th scope="col" className="text-center">Target Fund</th>
-                                    <th scope="col" className="text-center">Collected Fund</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col" className="text-center" width="10%">View</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.state.products.map((product, key) => {
-                                        return(
-                                            <tr key={key}>
-                                                <th scope="row" className="text-center">{no++}</th>
-                                                <td>{product.name}</td>
-                                                <td className="text-center">RM {parseInt(product.price)}</td>
-                                                <td className="text-center">RM {parseInt(this.state.totalPrice[num++])}</td>
-                                                {this.checkStatus(JSON.stringify(product.closed))
-                                                ? <td>Closed</td>
-                                                : <td>Active</td>
-                                                }
-                                                <td className="text-center">
-                                                <Link to={{
-                                                    pathname: `update-waqf/${product.id}`
-                                                }}>
-                                                    <button className="btn btn-outline-info"><i className="fas fa-pen"></i> Update</button>
-                                                </Link>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        
-                    </div>
-                </div> */}
                 <div className="wrapper fadeInDown"></div>
             </div>     
         );

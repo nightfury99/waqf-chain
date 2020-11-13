@@ -12,7 +12,7 @@ class Line extends Component {
             }],
             options: {
               chart: {
-                height: 350,
+                height: 250,
                 type: 'line',
                 zoom: {
                   enabled: false
