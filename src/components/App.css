@@ -13,6 +13,90 @@ body {
   /* height: 100vh; */
 }
 
+.front-charity {
+  /* padding: 50px; */
+  padding-top: 80px;
+  padding-left: 30px;
+  text-align: center;
+}
+
+.front-btn-1 {
+  border: none;
+  background-color: #004275;
+  padding: 10px 20px;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 23px;
+  transition-duration: 0.4s;
+  outline: none;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.25);
+}
+
+.front-font-2 h2{
+  font-weight: 600;
+  font-size: 40px;
+  color: #3c3c41;
+  /* 604D4D */
+}
+
+.home-wrap {
+  background-color: white;
+}
+
+.card-img-1 {
+  padding: 70px 70px 0px 70px;
+}
+
+.card-img-2 {
+  padding: 80px 70px 0px 70px;
+}
+
+.card-img-3 {
+  padding: 65px 70px 0px 70px;
+}
+
+.hem {
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  margin: 5px;
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 30px 10px 30px;
+  height: 420px;
+}
+
+.title-card {
+  padding: 15px 10px 10px 10px;
+}
+
+.card {
+  background-color: #ececec;
+}
+
+.front-btn-1:hover {
+  background-color: #ececec;
+  color: #004275;
+  border: 1px solid #004275;
+}
+
+.front-font {
+  padding: 90px 0px 0px 80px;
+}
+
+.front-font h1 {
+  font-size: 70px;
+  color: #004275;
+}
+
+.front-font h5 {
+  font-size: 19px;
+}
+
 h3 {
   font-weight: 800;
 }
