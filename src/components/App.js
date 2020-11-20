@@ -205,21 +205,25 @@ const HomePage = () => (
       <div className="col-md-12">
         <div className="col-md-12">
           <div className="col-md-12">
+
+
             <div className="row">
-              <div className="col-md-6 front-font">
+              <div className="col-md-6 front-font fadeInDown">
                 <br></br><br></br><br></br>
-                <h1>Donate Waqf.</h1>
-                <h1>Track Waqf</h1>
+                <div className="fadeIn first">
+                  <h1>Donate Waqf.</h1>
+                  <h1>Track Waqf</h1>
+                </div>
                 <br></br>
-                <h5>Giving is just about make a donation, it is about making<br></br> difference. Your kindness today could save a life tommorow</h5>
+                <h5 className="fadeIn second">Giving is just not about make a donation, it is about making<br></br> difference. Your kindness today could save a life tommorow</h5>
                 <br></br>
                 <div>
                   {/* <button type="button" className="btn btn-info rounded-pill"><i class="fab fa-bitcoin"></i> Join Us</button> */}
-                  <button className="front-btn-1"><i className="fab fa-bitcoin"></i> Join Us</button>
+                  <button className="front-btn-1 fadeIn third"><i className="fab fa-bitcoin"></i> Join Us</button>
                 </div>
               </div>
               <div className="col-md-6 front-charity">
-                <img src="Charity_1.png" className="img-fluid" alt="Responsive image"></img>
+                <img src="test.png" className="img-fluid" alt="Responsive image"></img>
               </div>
             </div>
 
@@ -300,7 +304,7 @@ const HomePage = () => (
                 </div>
               </div>
             </div> */}
-            <br></br><br></br><br></br>
+            <br></br><br></br><br></br><br></br><br></br><br></br>
           </div>
         </div>
       </div>
@@ -310,6 +314,11 @@ const HomePage = () => (
       <br></br><br></br><br></br>
       <h1>This is Waqf HomePage</h1>
     </div> */}
+    <footer className="page-footer font-small footer-custom">
+      <div className="footer-copyright text-center py-3">© 2020 Copyright by Ahmad Shauqi:
+        <p>WaqfHome.com</p>
+      </div>
+    </footer>
   </div>
 );
 
