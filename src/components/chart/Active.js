@@ -61,7 +61,7 @@ class Active extends Component {
                         return parseInt(val);
                       },
                       color: '#111',
-                      fontSize: '32px',
+                      fontSize: '30px',
                       show: true,
                     }
                   }

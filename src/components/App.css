@@ -16,8 +16,38 @@ body {
 .front-charity {
   /* padding: 50px; */
   padding-top: 80px;
-  padding-left: 30px;
+  /* padding-left: 30px; */
   text-align: center;
+}
+
+/* .front-charity-img {
+  width: 100%;
+} */
+
+.warzone-font {
+  padding: 100px 10px 0px 10px;
+}
+
+.warzone-font h2 {
+  font-weight: 800;
+  color: #B58159;
+  font-size: 50px;
+}
+
+.warzone-font p {
+  font-size: 20px;
+}
+
+.waqftype-font h4 {
+  font-weight: 800;
+  font-size: 18px;
+  color: #137958;
+}
+
+.waqftype-font h1 {
+  font-weight: 900;
+  font-size: 65px;
+  color: #464545;
 }
 
 .front-btn-1 {

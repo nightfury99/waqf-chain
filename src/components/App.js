@@ -223,7 +223,7 @@ const HomePage = () => (
                 </div>
               </div>
               <div className="col-md-6 front-charity">
-                <img src="test.png" className="img-fluid" alt="Responsive image"></img>
+                <img src="8.png" className="img-fluid front-charity-img" alt="Responsive image"></img>
               </div>
             </div>
 
@@ -235,35 +235,35 @@ const HomePage = () => (
                   <h2>Waqf Blockchain Features</h2>
                   <br></br><br></br>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 hem">
-                  <div class="box-part text-center">
+                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 hem">
+                  <div className="box-part text-center">
                     <img className="card-img-top card-img-1" src="card-1.svg" alt="Card Images"></img>      
-                    <div class="title-card">
+                    <div className="title-card">
                       <h2>Online Donation</h2>
                     </div>      
-                    <div class="text">
+                    <div className="text">
                       <span>All transaction and donation can be transfered online</span>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 hem">
-                  <div class="box-part text-center">
+                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 hem">
+                  <div className="box-part text-center">
                     <img className="card-img-top card-img-2" src="card-2.svg" alt="Card Images"></img>      
-                    <div class="title-card">
+                    <div className="title-card">
                       <h2>Blockchain</h2>
                     </div>      
-                    <div class="text">
+                    <div className="text">
                       <span>This website is powered by blockchain technology and everything is encrypted and recorded publicly</span>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 hem">
-                  <div class="box-part text-center">
+                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 hem">
+                  <div className="box-part text-center">
                     <img className="card-img-top card-img-3" src="card-3.svg" alt="Card Images"></img>      
-                    <div class="title-card">
+                    <div className="title-card">
                       <h2>Track Waqf</h2>
                     </div>      
-                    <div class="text">
+                    <div className="text">
                       <span>Track every waqf progress that you have been donated</span>
                     </div>
                   </div>
@@ -271,39 +271,21 @@ const HomePage = () => (
               </div>
             </div>
 
+            <br></br><br></br><br></br><br></br><br></br><br></br>
+            <div className="col-md-12 text-center waqftype-font">
+              <h4>DO NOT FORGET TO READ ABOUT WAQF TYPE</h4>
+              <h1>Four Types of Waqf</h1>
+            </div>
 
-            {/* <div className="row">
-              <div className="container"> 
-                <div className="col-md-12 text-center front-font-2">
-                  <br></br><br></br><br></br><br></br><br></br>
-                  <h2>Waqf Blockchain Features</h2>
-                  <br></br><br></br>
-                </div>
-                <div className="card-deck">
-                  <div className="card shadow p-3 mb-5 bg-white rounded">
-                    <img className="card-img-top card-img-1" src="card-1.svg" alt="Card Images"></img>
-                    <div className="card-body">
-                      <h2 className="card-title text-center">Online Donation</h2>
-                      <p className="card-text text-center">All transaction and donation can be transfered online</p>
-                    </div>
-                  </div>
-                  <div className="card shadow-sm p-3 mb-5 bg-white rounded">
-                    <img className="card-img-top card-img-2" src="card-2.svg" alt="Card Images"></img>
-                    <div className="card-body">
-                    <h2 className="card-title text-center">Blockchain</h2>
-                      <p className="card-text text-center">This website is powered by blockchain technology and everything is encrypted and recorded publicly</p>
-                    </div>
-                  </div>
-                  <div className="card shadow-sm p-3 mb-5 bg-white rounded">
-                    <img className="card-img-top card-img-3" src="card-3.svg" alt="Card Images"></img>
-                    <div className="card-body">
-                    <h2 className="card-title text-center">Track Waqf</h2>
-                      <p className="card-text text-center">Track every waqf progress that you have been donated</p>
-                    </div>
-                  </div>
-                </div>
+            <div className="row">
+              <div className="col-md-6">
+                <img src="warzone.jpg" className="img-fluid front-charity-img" alt="Responsive image"></img>
               </div>
-            </div> */}
+              <div className="col-md-6 warzone-font">
+                <h2>Warzone</h2>
+                <p>Start helping person who needs more food, shelter out there. They are waiting for you</p>
+              </div>
+            </div>
             <br></br><br></br><br></br><br></br><br></br><br></br>
           </div>
         </div>

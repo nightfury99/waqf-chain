@@ -31,12 +31,7 @@ contract('WaqfChain', ([deployer, seller, buyer]) => {
         let productCounts, result, closeCount, closeResult, updateCount, update;
         before(async () => {
             result = await waqfChain.createProduct('1 waqf event for children', 'Lorem ipsum the quick brown fox', 'educatio', web3.utils.toWei('0.62', 'Ether'), { from: seller });
-            //result = await waqfChain.createProduct('2 waqf event for children', 'Lorem ipsum the quick brown fox', 'educatio', web3.utils.toWei('0.62', 'Ether'), { from: seller });
-            //result = await waqfChain.createProduct('3 waqf event for children', 'Lorem ipsum the quick brown fox', 'educatio', web3.utils.toWei('0.62', 'Ether'), { from: seller });
-            //result = await waqfChain.createProduct('4 waqf event for children', 'Lorem ipsum the quick brown fox', 'educatio', web3.utils.toWei('0.62', 'Ether'), { from: seller });
-            // result = await waqfChain.updateWaqfManage(2, 'barang sedang dibeli', '34/3/2012', { from: seller });
-            // result = await waqfChain.updateWaqfDevelop(2, 'barang sedang dibuat', '24/3/2012', { from: seller });
-            // result = await waqfChain.updateWaqfCompleted(2, 'barang sudah', '2/6/2012', { from: seller });
+            
             update = await waqfChain.updatingWaqf(2, "first update for you guys", "17-10-2010", "Kuala Lumpur", "700", { from: seller });
             productCounts = await waqfChain.productCount();
             updateCount = await waqfChain.updateCount();
