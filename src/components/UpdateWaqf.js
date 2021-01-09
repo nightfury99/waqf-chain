@@ -31,7 +31,7 @@ class UpdateWaqf extends Component {
         var we = 0;
         var me = 0;
         //var closed = 0;
-        const waqf_types = ["Education", "Foster", "Humanitarian", "Welfare", "Medical"];
+        const waqf_types = ["Education", "Warzone", "Humanitarian", "Welfare", "Medical"];
         // Load account
         //window.ethereum.enable();
         const accounts = await WEB3.eth.accounts;

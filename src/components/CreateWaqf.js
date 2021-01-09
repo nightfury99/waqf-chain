@@ -113,7 +113,7 @@ class CreateWaqf extends Component {
                             <select defaultValue='DEFAULT' ref={(input) => { this.waqfTypes = input }} id="waqf_type" className="form-control">
                                 <option value="DEFAULT" disabled>Choose</option>
                                 <option value="Education">Education</option>
-                                <option value="Foster">Foster</option>
+                                <option value="warzone">Warzone</option>
                                 <option value="Humanitarian">Humanitarian</option>
                                 <option value="Welfare">Welfare</option>
                                 <option value="Medical">Medical</option>

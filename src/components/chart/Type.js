@@ -13,7 +13,7 @@ class UpdateWaqf extends Component {
               width: 380,
               type: 'pie',
             },
-            labels: ['Education', 'Foster', 'Humanitarian', 'Welfare', 'Medical'],
+            labels: ['Education', 'Humanitarian', 'Warzone', 'Welfare', 'Medical'],
             responsive: [{
               breakpoint: 480,
               options: {
@@ -28,7 +28,6 @@ class UpdateWaqf extends Component {
           },
         };
       }
-
     
     render() {
       
