@@ -31,52 +31,60 @@ class WaqfDetails extends Component {
       
       const networkId = await web3.eth.net.getId();
       const networkData = WaqfChain.networks[networkId];
+      let accept = true;
+      
+      if(isNaN(this.props.match.params.id)) {
+        accept = false;
+      }
+      this.setState({ accept: accept });
       // check if we are on developed network
-      if(networkData) {
-        const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);
-        this.setState({ waqfchain });
-        const productCount = await waqfchain.methods.productCount().call();
-        this.setState({ productCount });
-        // load waqf event
-        // for(var i = 1; i <= productCount; i++) {
-        //   const waqf = await waqfchain.methods.waqfEvents(i).call();
-        //   this.setState({
-        //     products: [...this.state.products, waqf]
-        //   });
-        // }
-        
-        const waqf = await waqfchain.methods.waqfEvents(parseInt(this.props.match.params.id)).call();
-        this.setState({ products: waqf });
-
-        waqfchain.getPastEvents('SendWaqfCreated', {
-          fromBlock: 0,
-          toBlock: 'latest'
-        }, (err, events) => {
-          let price = 0;
-          let acc = 0;
-
-          events.forEach(element => {
-            let waqfId = parseInt(element.returnValues.waqfId);
-            if(waqfId === parseInt(this.props.match.params.id)) {
-              this.setState({
-                senderPrice: [...this.state.senderPrice, element.returnValues.price]
-              });
-              price = price + parseInt(element.returnValues.price);
-              acc = acc + 1;
+      if(accept) {
+        if(networkData) {
+          const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);
+          this.setState({ waqfchain });
+          const productCount = await waqfchain.methods.productCount().call();
+          this.setState({ productCount });
+          // load waqf event
+          // for(var i = 1; i <= productCount; i++) {
+          //   const waqf = await waqfchain.methods.waqfEvents(i).call();
+          //   this.setState({
+          //     products: [...this.state.products, waqf]
+          //   });
+          // }
+          
+          const waqf = await waqfchain.methods.waqfEvents(parseInt(this.props.match.params.id)).call();
+          this.setState({ products: waqf });
+  
+          waqfchain.getPastEvents('SendWaqfCreated', {
+            fromBlock: 0,
+            toBlock: 'latest'
+          }, (err, events) => {
+            let price = 0;
+            let acc = 0;
+  
+            events.forEach(element => {
+              let waqfId = parseInt(element.returnValues.waqfId);
+              if(waqfId === parseInt(this.props.match.params.id)) {
+                this.setState({
+                  senderPrice: [...this.state.senderPrice, element.returnValues.price]
+                });
+                price = price + parseInt(element.returnValues.price);
+                acc = acc + 1;
+              }
+            });
+            
+            this.setState({ totalAccount: acc });
+            this.setState({ totalPrice: price });
+  
+            if(err) {
+                console.log(err);
             }
           });
           
-          this.setState({ totalAccount: acc });
-          this.setState({ totalPrice: price });
-
-          if(err) {
-              console.log(err);
-          }
-        });
-        
-        this.setState({ loading: false });
-      } else {
-        window.alert('WaqfChain contract is not deployed to detected network');
+          this.setState({ loading: false });
+        } else {
+          window.alert('WaqfChain contract is not deployed to detected network');
+        }
       }
     }
 
@@ -103,7 +111,8 @@ class WaqfDetails extends Component {
         totalPrice: 0,
         senderPrice: [],
         hem: [],
-        koboi: '🤠'
+        koboi: '🤠',
+        accept: false
       }
   }
 
@@ -114,7 +123,17 @@ class WaqfDetails extends Component {
     render() {
         return(
           <div className="row">
-            <div className="col-md-8">
+            { !this.state.accept 
+              ? <>
+              <div className="col-md-12">
+                <div className="container myChartWaqfEvent text-center" style={{margin: "70px auto 0px auto", color: "#3c3c41"}}>
+                  <p>Page was not found</p>
+                  <p>adsasdasds</p>
+                </div>
+              </div>
+              </>
+              : <>
+              <div className="col-md-8">
               <div className="container myChartWaqfEvent" style={{margin: "70px 30px 0px 30px", color: "#3c3c41"}}>
                 <div className="col-md-12" style={{padding: "40px 40px 0 40px"}}>
                   <h3>{this.state.products.name}</h3>
@@ -187,6 +206,8 @@ class WaqfDetails extends Component {
                 }
               </SimpleBar>
             </div>
+              </>
+             }
           </div>
         );
     }
