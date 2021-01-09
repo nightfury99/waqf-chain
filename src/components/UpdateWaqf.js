@@ -26,11 +26,12 @@ class UpdateWaqf extends Component {
         var active = 0;
         var closed = 0;
         var ed = 0;
-        var fo = 0 
-        var wa = 0 
+        var fo = 0; 
+        var wa = 0; 
         var we = 0;
+        var me = 0;
         //var closed = 0;
-        const waqf_types = ["Education", "Foster", "Warzone", "Welfare"];
+        const waqf_types = ["Education", "Foster", "Humanitarian", "Welfare", "Medical"];
         // Load account
         //window.ethereum.enable();
         const accounts = await WEB3.eth.accounts;
@@ -49,12 +50,14 @@ class UpdateWaqf extends Component {
             const waqf = await waqfchain.methods.waqfEvents(i).call();
             if(waqf.product_type === "Education") {
                 ed += 1;
-            } else if(waqf.product_type === "Foster"){
+            } else if(waqf.product_type === "Humanitarian"){
                 fo += 1;
             } else if(waqf.product_type === "Warzone"){
                 wa += 1;
             } else if(waqf.product_type === "Welfare") {
                 we += 1;
+            } else if(waqf.product_type === "Medical") {
+                me += 1;
             }
 
             this.setState({
@@ -73,6 +76,7 @@ class UpdateWaqf extends Component {
           this.setState({ fo: fo });
           this.setState({ wa: wa });
           this.setState({ we: we });
+          this.setState({ me: me });
         
 
           waqfchain.getPastEvents('SendWaqfCreated', {
@@ -121,7 +125,8 @@ class UpdateWaqf extends Component {
           wa: 0,
           we: 0,
           fo: 0,
-          ed: 0
+          ed: 0,
+          me: 0
         }
     }
     
@@ -178,6 +183,7 @@ class UpdateWaqf extends Component {
                                         fo={this.state.fo}
                                         wa={this.state.wa}
                                         we={this.state.we}
+                                        me={this.state.me}
                                     />
                                 </div>
                             </div>

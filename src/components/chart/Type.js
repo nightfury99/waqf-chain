@@ -13,7 +13,7 @@ class UpdateWaqf extends Component {
               width: 380,
               type: 'pie',
             },
-            labels: ['Education', 'Foster', 'Warzone', 'Welfare'],
+            labels: ['Education', 'Foster', 'Humanitarian', 'Welfare', 'Medical'],
             responsive: [{
               breakpoint: 480,
               options: {
@@ -26,15 +26,13 @@ class UpdateWaqf extends Component {
               }
             }]
           },
-        
-        
         };
       }
 
     
     render() {
       
-      var one = [this.props.ed, this.props.fo, this.props.wa, this.props.we];
+      var one = [this.props.ed, this.props.fo, this.props.wa, this.props.we, this.props.me];
         return (
             <div>
                 <div className="col-md-12">

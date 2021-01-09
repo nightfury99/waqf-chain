@@ -109,13 +109,14 @@ class CreateWaqf extends Component {
                         </div>
                         <div className="form-row col-md-12">
                           <div className="form-group col-md-6">
-                            <label>Product Types</label>
+                            <label>Waqf Types</label>
                             <select defaultValue='DEFAULT' ref={(input) => { this.waqfTypes = input }} id="waqf_type" className="form-control">
                                 <option value="DEFAULT" disabled>Choose</option>
                                 <option value="Education">Education</option>
                                 <option value="Foster">Foster</option>
-                                <option value="Warzone">Warzone</option>
+                                <option value="Humanitarian">Humanitarian</option>
                                 <option value="Welfare">Welfare</option>
+                                <option value="Medical">Medical</option>
                             </select>
                           </div>
                           <div className="form-group col-md-6">
