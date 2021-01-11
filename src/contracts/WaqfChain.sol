@@ -115,7 +115,6 @@ contract WaqfChain {
         productCount ++;
         waqfEvents[productCount] = WaqfEvent(productCount, _name, _details, _product_types, _price, msg.sender, false);
         emit WaqfEventCreated(productCount, _name, _details, _product_types, _price, msg.sender, msg.sender, false);
-        
     }
 
     function sendWaqf(uint _id, uint _price) public payable{
@@ -125,16 +124,7 @@ contract WaqfChain {
         sendCount ++;
         emit SendWaqfCreated(sendCount, _id, _waqfevent.name, _price, _owner, msg.sender, msg.sender);
     }
-
-    function closeWaqfStatus(uint _waqfId) onlyOwner public {
-        require(_waqfId > 0, 'waqf id is invalid');
-        closeCount++;
-        WaqfEvent memory _waqfevent = waqfEvents[_waqfId];
-        _waqfevent.closed = true;
-        waqfEvents[_waqfId] = _waqfevent;
-        emit waqfClosedCreated(closeCount, _waqfId, msg.sender);
-    }
-
+    
     function updatingWaqf(uint _waqfId, string memory _data, string memory _date, string memory _location, string memory _usedMoney) onlyOwner public {
         require(_waqfId > 0, 'waqf id is invalid');
         require(_waqfId > 0, 'waqf id is invalid');
@@ -147,6 +137,16 @@ contract WaqfChain {
         updateWaqfEvents[updateCount] = UpdateWaqfEvent(updateCount, _waqfId, _data, _date, _location, _usedMoney, msg.sender);
         emit updateWaqf(updateCount, _waqfId, _data, _date, _location, _usedMoney, msg.sender);
     }
+
+    function closeWaqfStatus(uint _waqfId) onlyOwner public {
+        require(_waqfId > 0, 'waqf id is invalid');
+        closeCount++;
+        WaqfEvent memory _waqfevent = waqfEvents[_waqfId];
+        _waqfevent.closed = true;
+        waqfEvents[_waqfId] = _waqfevent;
+        emit waqfClosedCreated(closeCount, _waqfId, msg.sender);
+    }
+
 
     // function updateWaqfManage(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
     //     require(_waqfId > 0, 'waqf id is invalid');
