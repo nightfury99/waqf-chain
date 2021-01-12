@@ -1,4 +1,4 @@
-    const { assert } = require("chai");
+const { assert } = require("chai");
 require('chai')
     .use(require('chai-as-promised'))
     .should();
@@ -52,6 +52,20 @@ contract('WaqfChain', ([deployer, seller, buyer]) => {
             assert.equal(event.admin, seller, "admin is not correct");
         });
 
+        it('update error', async() => {
+            await waqfChain.createProduct('', 'Lorem ipsum the quick brown fox', 'education', web3.utils.toWei('0.62', 'Ether'), { from: seller }).should.be.rejected;
+            await waqfChain.updatingWaqf(2, "", "17-10-2010", "Kuala Lumpur", "700", { from: seller }).should.be.rejected;
+            await waqfChain.updatingWaqf(2, "first update for you guys", "", "Kuala Lumpur", "700", { from: seller }).should.be.rejected;
+            await waqfChain.updatingWaqf(2, "first update for you guys", "17-10-2010", "", "700", { from: seller }).should.be.rejected;
+            await waqfChain.updatingWaqf(2, "first update for you guys", "17-10-2010", "Kuala Lumpur", "", { from: seller }).should.be.rejected;
+            await waqfChain.updatingWaqf(2, "first update for you guys", "17-10-2010", "Kuala Lumpur", "700", { from: buyer }).should.be.rejected;
+        });
+        
+        it('closed waqf', async () => {
+            assert.equal(closeCount, 1, 'closed count is invalid');
+            const event = await waqfChain.waqfEvents(1);
+            assert.equal(event.closed, true, 'not closed');    
+        });
         // it('update manage part', async () => {
         //     assert.equal(productCounts, 4);
         //     const event = result.logs[0].args;
@@ -66,39 +80,34 @@ contract('WaqfChain', ([deployer, seller, buyer]) => {
         //     assert.equal(event.completedData, 'barang sudah', 'completed data is incorrect');
         //     assert.equal(event.completedDate, '2/6/2012', 'completed date is incorrect');
         // });
-
-        it('closed waqf', async () => {
-            assert.equal(closeCount, 1, 'closed count is invalid');
-            const event = await waqfChain.waqfEvents(1);
-            assert.equal(event.closed, true, 'not closed');
-        });
     });
     
-    describe('products', async () => {
+    describe('waqf project', async () => {
         let result, productCount, sendCount;
         before(async () => {
-            result = await waqfChain.createProduct('waqf event for children', 'Lorem ipsum the quick brown fox', 'educatio', web3.utils.toWei('0.62', 'Ether'), { from: seller });
+            result = await waqfChain.createProduct('waqf event for children', 'Lorem ipsum the quick brown fox', 'education', web3.utils.toWei('0.62', 'Ether'), { from: seller });
             productCount = await waqfChain.productCount();
         });
         // SUCCESS
-        it('creates product', async () => {
-            //assert.equal(productCount, 1);
-            
+        it('creates waqf', async () => {
             const event = result.logs[0].args;
             assert.equal(event.id.toNumber(), productCount, 'ID is valid');
             assert.equal(event.name, 'waqf event for children', 'waqf name is valid');
             assert.equal(event.details, 'Lorem ipsum the quick brown fox', 'waqf details is valid');
-            assert.equal(event.product_type, 'educatio', 'waqf type is invalid');
+            assert.equal(event.product_type, 'education', 'waqf type is invalid');
             assert.equal(event.price, web3.utils.toWei('0.62', 'Ether'), 'price is valid');
             assert.equal(event.owner, seller, 'admin addr is invalid');
             assert.equal(event.ownerAddress, seller, 'admin addr is invalid');
             assert.equal(event.closed, false, 'is valid');
-            
+        });
+
+        it('failure create waqf', async () => {
             //FAILURE
             await waqfChain.createProduct('', 'Lorem ipsum the quick brown fox', 'education', web3.utils.toWei('0.62', 'Ether'), { from: seller }).should.be.rejected;
             await waqfChain.createProduct('asaada', '', 'education', web3.utils.toWei('0.62', 'Ether'), { from: seller }).should.be.rejected;
             await waqfChain.createProduct('swegrw', 'Lorem ipsum the quick brown fox', '', web3.utils.toWei('0.62', 'Ether'), { from: seller }).should.be.rejected;
             await waqfChain.createProduct('sddsfsf', 'Lorem ipsum the quick brown fox', 'education', web3.utils.toWei('0', 'Ether'), { from: seller }).should.be.rejected;
+            await waqfChain.createProduct('swegrw', 'Lorem ipsum the quick brown fox', '', web3.utils.toWei('0.62', 'Ether'), { from: buyer }).should.be.rejected;
         });
 
         it('lists products', async () => {
@@ -106,12 +115,12 @@ contract('WaqfChain', ([deployer, seller, buyer]) => {
             assert.equal(product.id.toNumber(), productCount, 'ID is valid');
             assert.equal(product.name, 'waqf event for children', 'waqf name is valid');
             assert.equal(product.details, 'Lorem ipsum the quick brown fox', 'waqf details is valid');
-            assert.equal(product.product_type, 'educatio', 'waqf type is invalid');
+            assert.equal(product.product_type, 'education', 'waqf type is invalid');
             assert.equal(product.price, web3.utils.toWei('0.62', 'Ether'), 'price is valid');
             assert.equal(product.closed, false, 'is valid');
         });
 
-        it('buy products', async () => {
+        it('donate waqf', async () => {
             result = await waqfChain.sendWaqf(productCount, 43, { from: buyer, value: web3.utils.toWei('0.001', 'Ether') });
             sendCount = await waqfChain.sendCount();
             const event = result.logs[0].args;

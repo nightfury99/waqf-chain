@@ -146,41 +146,4 @@ contract WaqfChain {
         waqfEvents[_waqfId] = _waqfevent;
         emit waqfClosedCreated(closeCount, _waqfId, msg.sender);
     }
-
-
-    // function updateWaqfManage(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
-    //     require(_waqfId > 0, 'waqf id is invalid');
-    //     require(bytes(_data).length > 0, 'data is empty');
-    //     require(bytes(_date).length > 0, 'date is empty');
-        
-    //     UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
-    //     _waqfevent.manageData = _data;
-    //     _waqfevent.manageDate = _date;
-    //     updateWaqfEvents[_waqfId] = _waqfevent;
-    //     emit updatedWaqf(_waqfevent.id, _waqfId, _data, _date, '', '', '', '', msg.sender);
-    // }
-
-    // function updateWaqfDevelop(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
-    //     require(_waqfId > 0, 'waqf id is invalid');
-    //     require(bytes(_data).length > 0, 'data is empty');
-    //     require(bytes(_date).length > 0, 'date is empty');
-        
-    //     UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
-    //     _waqfevent.developData = _data;
-    //     _waqfevent.developDate = _date;
-    //     updateWaqfEvents[_waqfId] = _waqfevent;
-    //     emit updatedWaqf(_waqfevent.id, _waqfId, _waqfevent.manageData,_waqfevent.manageDate, _data, _date, '', '', msg.sender);
-    // }
-
-    // function updateWaqfCompleted(uint _waqfId, string memory _data, string memory _date) onlyOwner public {
-    //     require(_waqfId > 0, 'waqf id is invalid');
-    //     require(bytes(_data).length > 0, 'data is empty');
-    //     require(bytes(_date).length > 0, 'date is empty');
-        
-    //     UpdateWaqfEvent memory _waqfevent = updateWaqfEvents[_waqfId];
-    //     _waqfevent.completedData = _data;
-    //     _waqfevent.completedDate = _date;
-    //     updateWaqfEvents[_waqfId] = _waqfevent;
-    //     emit updatedWaqf(_waqfevent.id, _waqfId, _waqfevent.manageData,_waqfevent.manageDate, _waqfevent.developData,_waqfevent.developDate, _data, _date, msg.sender);
-    // }
 }
