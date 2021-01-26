@@ -42,12 +42,14 @@ class App extends Component {
     const web3 = new Web3(Web3.givenProvider);
     // Load account
     //window.ethereum.enable();
-    const accounts = await WEB3.eth.accounts;
-    this.setState({ account: accounts[0] });
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    //const accounts = await web3.eth.accounts;
+    
     localStorage.setItem("account", accounts[0]);
     
     const networkId = await web3.eth.net.getId();
     const networkData = WaqfChain.networks[networkId];
+    console.log(networkId, networkData);
     // check if we are on developed network
     if(networkData) {
       const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);

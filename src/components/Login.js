@@ -27,7 +27,7 @@ class Login extends Component {
         const web3 = new Web3(Web3.givenProvider);
         // Load account
         //window.ethereum.enable();
-        const accounts = await WEB3.eth.accounts;
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         this.setState({ account: accounts[0] });
         
         const networkId = await web3.eth.net.getId();

@@ -34,7 +34,7 @@ class UpdateWaqf extends Component {
         const waqf_types = ["Education", "Warzone", "Humanitarian", "Welfare", "Medical"];
         // Load account
         //window.ethereum.enable();
-        const accounts = await WEB3.eth.accounts;
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         this.setState({ account: accounts[0] });
         
         const networkId = await web3.eth.net.getId();
