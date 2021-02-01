@@ -42,7 +42,10 @@ function Sidebar() {
             <div className="navbar">
                 <Link to="#" className="menu-bars">
                     <FaIcons.FaBars onClick={showSidebar} />
+                    
+                    <img src="logo2.png" className="img-fluid logos" alt="Responsive image"></img>
                 </Link>
+                
                 <div className="text-white">
                     {acc}
                 </div>

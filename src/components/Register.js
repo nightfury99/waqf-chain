@@ -38,6 +38,26 @@ class Register extends Component {
           this.setState({ productCount });
           // load waqf event
           
+          waqfchain.getPastEvents('accountCreated', {
+            fromBlock: 0,
+            toBlock: 'latest'
+          }, (err, events) => {
+            events.forEach(element => {
+              let waqfId = parseInt(element.returnValues.waqfId);
+              
+              this.setState({
+                registerUsername: [...this.state.registerUsername, element.returnValues.username]
+              });
+              
+            });
+            
+            // this.setState({ totalAccount: acc });
+            // this.setState({ totalPrice: price });
+  
+            if(err) {
+                // console.log(err);
+            }
+          });
           
         } else {
           window.alert('WaqfChain contract is not deployed to detected network');
@@ -50,6 +70,7 @@ class Register extends Component {
           account: '',
           productCount: 0,
           products: [],
+          registerUsername: [],
           loading: true,
           debug: 'RECEIVED'
         }
@@ -57,12 +78,28 @@ class Register extends Component {
       }
       
     createAccountz(name, username, email, password) {
-        var acc = localStorage.getItem("account");
-        this.setState({ loading: true });
-        this.state.waqfchain.methods.createAccounts(name, username, email, password).send({ from: acc })
-        .once('receipt', (receipt) => {
-          this.setState({ loading: false });
-        });
+        if(name === "" || username === "" || email === "" || password === "") {
+          window.alert("please fill");
+        } else {
+          var duplicate = false;
+          var acc = localStorage.getItem("account");
+          this.setState({ loading: true });
+          this.state.registerUsername.forEach(el => {
+            if(el === username) {
+              duplicate = true;
+            }
+          });
+
+          if(duplicate) {
+            window.alert("Username has been taken!");
+          }else {
+            this.state.waqfchain.methods.createAccounts(name, username, email, password).send({ from: acc })
+            .once('receipt', (receipt) => {
+              this.setState({ loading: false });
+            });
+          }
+        }
+        
         //this.state.account
       }
 
@@ -88,7 +125,7 @@ class Register extends Component {
               }}>
                 <input type="text" id="login" className="fadeIn second" name="login" placeholder="Name" ref={(input) => { this.accName = input }}></input>
                 <input type="text" id="username" className="fadeIn second" name="login" placeholder="username" ref={(input) => { this.accUsername = input }}></input>
-                <input type="text" id="username" className="fadeIn second" name="login" placeholder="email" ref={(input) => { this.accEmail = input }}></input>
+                <input type="email" id="username" className="fadeIn second" name="login" placeholder="email" ref={(input) => { this.accEmail = input }}></input>
                 <input type="password" id="password" className="fadeIn third" name="login" placeholder="password" ref={(input) => { this.accPassword = input }}></input>
                 <br></br>
                 <br></br>

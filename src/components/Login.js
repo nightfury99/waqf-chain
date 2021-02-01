@@ -107,7 +107,9 @@ class Login extends Component {
               <br></br><br></br>
 
               <div className="fadeIn first">
-                <img src="1.png"  id="icon" alt="User Icon"/>
+                {/* <img src="logo.png"  id="icon" alt="User Icon"/> */}
+                {/* <img src="logo.png" className="img-fluid Login" alt="Responsive image"></img> */}
+                <h1><span className="a">Waqf</span><span className="b">Home</span></h1>
               </div>
               <br></br>
               

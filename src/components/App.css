@@ -24,6 +24,62 @@ body {
   width: 100%;
 } */
 
+.medical-font {
+  padding: 100px 10px 0px 10px;
+}
+
+.medical-font h2 {
+  font-weight: 800;
+  color: #F03D5F;
+  font-size: 50px;
+}
+
+.medical-font p {
+  font-size: 20px;
+}
+
+.education-font {
+  padding: 100px 10px 0px 10px;
+}
+
+.education-font h2 {
+  font-weight: 800;
+  color: #2E1375;
+  font-size: 50px;
+}
+
+.education-font p {
+  font-size: 20px;
+}
+
+.welfare-font {
+  padding: 100px 10px 0px 10px;
+}
+
+.welfare-font h2 {
+  font-weight: 800;
+  color: #FC7941;
+  font-size: 50px;
+}
+
+.welfare-font p {
+  font-size: 20px;
+}
+
+.humanitarian-font {
+  padding: 100px 10px 0px 10px;
+}
+
+.humanitarian-font h2 {
+  font-weight: 800;
+  color: #87443E;
+  font-size: 50px;
+}
+
+.humanitarian-font p {
+  font-size: 20px;
+}
+
 .warzone-font {
   padding: 100px 10px 0px 10px;
 }
@@ -366,6 +422,25 @@ h1 {
   
 }
 
+span.a {
+  color: #494949;
+}
+
+span.b {
+  color: #ffffff;
+  font-size: 40px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #494949;
+}
+
+.Login {
+  width: 50%;
+}
+
+.logos {
+  padding-left: 20px;
+}
+
 .menu-bars {
   margin-left: 2rem;
   font-size: 20px;
@@ -601,6 +676,36 @@ h2.active {
   transition: all 0.5s ease-in-out;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
+}
+
+#login input[type=email] {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+#login input[type=email]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
+#login input[type=email]:placeholder {
+  color: #cccccc;
 }
 
 #login input[type=text]:focus {

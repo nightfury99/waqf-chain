@@ -4,7 +4,7 @@ import './App.css';
 import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
 import CreateWaqf from './CreateWaqf';
-import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
 import Debug from './Debug';
 import WaqfEvents from './WaqfEvents';
 import WaqfDetails from './WaqfDetails';
@@ -49,7 +49,7 @@ class App extends Component {
     
     const networkId = await web3.eth.net.getId();
     const networkData = WaqfChain.networks[networkId];
-    console.log(networkId, networkData);
+    
     // check if we are on developed network
     if(networkData) {
       const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);
@@ -207,8 +207,7 @@ const HomePage = () => (
       <div className="col-md-12">
         <div className="col-md-12">
           <div className="col-md-12">
-
-
+            
             <div className="row">
               <div className="col-md-6 front-font fadeInDown">
                 <br></br><br></br><br></br>
@@ -221,7 +220,11 @@ const HomePage = () => (
                 <br></br>
                 <div>
                   {/* <button type="button" className="btn btn-info rounded-pill"><i class="fab fa-bitcoin"></i> Join Us</button> */}
-                  <button className="front-btn-1 fadeIn third"><i className="fab fa-bitcoin"></i> Join Us</button>
+                  <Link to={{
+                    pathname: `sign-up`
+                  }}>
+                    <button className="front-btn-1 fadeIn third"><i className="fab fa-bitcoin"></i> Join Us</button>
+                  </Link>
                 </div>
               </div>
               <div className="col-md-6 front-charity">
@@ -276,7 +279,7 @@ const HomePage = () => (
             <br></br><br></br><br></br><br></br><br></br><br></br>
             <div className="col-md-12 text-center waqftype-font">
               <h4>DO NOT FORGET TO READ ABOUT WAQF TYPE</h4>
-              <h1>Four Types of Waqf</h1>
+              <h1>Five Types of Waqf</h1>
             </div>
 
             <div className="row">
@@ -288,6 +291,47 @@ const HomePage = () => (
                 <p>Start helping person who needs more food, shelter out there. They are waiting for you</p>
               </div>
             </div>
+
+            <div className="row">
+              <div className="col-md-6 education-font">
+                <h2>Education</h2>
+                <p>Contribute for student studies and comfort such as book, Al-Quran, chair and table</p>
+              </div>
+              <div className="col-md-6">
+                <img src="as.png" className="img-fluid front-charity-img" alt="Responsive image"></img>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                <img src="humanitarian.png" className="img-fluid front-charity-img" alt="Responsive image"></img>
+              </div>
+              <div className="col-md-6 humanitarian-font">
+                <h2>Humanitarian</h2>
+                <p>Every orphan deserves to get perfect love. Make them happy by giving their essentials.</p>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6 welfare-font">
+                <h2>Welfare</h2>
+                <p>Start helping person who needs more food, shelter out there. They are waiting for you</p>
+              </div>
+              <div className="col-md-6">
+                <img src="welfare.jpg" className="img-fluid front-charity-img" alt="Responsive image"></img>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                <img src="medical.png" className="img-fluid front-charity-img" alt="Responsive image"></img>
+              </div>
+              <div className="col-md-6 medical-font">
+                <h2>Medical</h2>
+                <p>Our donations aim to increase access to medicine and medical supplies for those who cannot afford them.</p>
+              </div>
+            </div>
+
             <br></br><br></br><br></br><br></br><br></br><br></br>
           </div>
         </div>
