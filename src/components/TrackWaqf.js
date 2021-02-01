@@ -22,7 +22,7 @@ class TrackWaqf extends Component {
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         this.setState({ account: accounts[0] });
         
-        const networkId = await window.ethereum.eth.net.getId();
+        const networkId = await web3.eth.net.getId();
         const networkData = WaqfChain.networks[networkId];
         var acc = localStorage.getItem("account");
         // check if we are on developed network

@@ -62,3 +62,8 @@ donator 1
     -> http://localhost:3000/update-waqf/sign-out
 
 - [x] waqf-events
+
+
+
+
+- [] check duplicate create account
