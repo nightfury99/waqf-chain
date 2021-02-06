@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
+import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
 
 
 class Error extends Component {
@@ -99,16 +100,18 @@ class Error extends Component {
     render() {
         return (
             <div className="container">
-                <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-                <div className="col-md-12 text-center">
-                    <h1>404</h1>
-                    <p><span className="ec ec-nerd-face"></span></p>
-                    { this.state.waqfProducts.map((waqf, key) => {
-                        return(
-                        <p key={key}>{parseInt(waqf.id)}</p>
-                        );
-                    })}
-                </div>        
+                <br></br>
+                <div className="col-md-12 text-center fadeIn first">
+                    <img src="error_404.svg" className="img-fluid Login" alt="Responsive image"></img>
+                </div>
+                <br></br>
+                <div className="text-center">
+                 <Link to={{
+                    pathname: `/`
+                  }}>
+                    <button className="error-btn fadeIn second">return home</button>
+                  </Link>
+                </div>
             </div>
         );
     }

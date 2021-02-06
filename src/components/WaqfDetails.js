@@ -14,9 +14,6 @@ class WaqfDetails extends Component {
     } 
 
     async debugging() {
-        /*
-        this.setState({ debug: 'changed' });
-        console.log(this.state.debug);*/
         const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider); 
     }
@@ -35,6 +32,7 @@ class WaqfDetails extends Component {
       
       if(isNaN(this.props.match.params.id)) {
         accept = false;
+        window.location.replace("http://localhost:3000/error");
       }
       this.setState({ accept: accept });
       // check if we are on developed network
@@ -123,17 +121,7 @@ class WaqfDetails extends Component {
     render() {
         return(
           <div className="row">
-            { !this.state.accept 
-              ? <>
-              <div className="col-md-12">
-                <div className="container myChartWaqfEvent text-center" style={{margin: "70px auto 0px auto", color: "#3c3c41"}}>
-                  <p>Page was not found</p>
-                  <p>adsasdasds</p>
-                </div>
-              </div>
-              </>
-              : <>
-              <div className="col-md-8">
+            <div className="col-md-8">
               <div className="container myChartWaqfEvent" style={{margin: "70px 30px 0px 30px", color: "#3c3c41"}}>
                 <div className="col-md-12" style={{padding: "40px 40px 0 40px"}}>
                   <h3>{this.state.products.name}</h3>
@@ -206,8 +194,6 @@ class WaqfDetails extends Component {
                 }
               </SimpleBar>
             </div>
-              </>
-             }
           </div>
         );
     }

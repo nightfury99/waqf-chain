@@ -122,6 +122,28 @@ body {
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.25);
 }
 
+.error-btn {
+  border: none;
+  background-color: #ed7a79;
+  padding: 10px 20px;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 23px;
+  transition-duration: 0.4s;
+  outline: none;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.25);
+}
+
+.error-btn:hover {
+  background-color: #ececec;
+  color: #ed7a79;
+  border: 1px solid #ed7a79;
+}
+
 .front-font-2 h2{
   font-weight: 600;
   font-size: 40px;

@@ -168,7 +168,7 @@ class App extends Component {
                         <Route path="/waqf-events" exact component={WaqfEvents}/>
                         <Route path="/waqf-events/:id" component={WaqfDetails}/>
                         <Route path="/create-waqf" component={CreateWaqf}/>
-                        <Route path="/sign-in" component={Login} />
+                        {/* <Route path="/sign-in" component={Login} /> */}
                         <Route path="/sign-out" component={Logout} />
                         <Route path="/update-waqf" exact component={UpdateWaqf} />
                         <Route path="/update-waqf/:id" component={UpdateWaqfDetail} />
@@ -187,7 +187,7 @@ class App extends Component {
                       </Switch>
                   : 
                   <Switch>
-                    <Route path="/" exact component={HomePage} />
+                    <Route path="/" exact component={HomePageLogin} />
                     <Route path="/waqf-events" exact component={WaqfEvents} />
                     <Route path="/sign-up" component={Register} />
                     <Route path="/sign-in" component={Login} />
@@ -201,7 +201,7 @@ class App extends Component {
   }
 }
 
-const HomePage = () => (
+const HomePageLogin = () => (
   <div className="col-md-12 home-wrap">
     <div className="col-md-12">
       <div className="col-md-12">
@@ -225,6 +225,151 @@ const HomePage = () => (
                   }}>
                     <button className="front-btn-1 fadeIn third"><i className="fab fa-bitcoin"></i> Join Us</button>
                   </Link>
+                </div>
+              </div>
+              <div className="col-md-6 front-charity">
+                <img src="8.png" className="img-fluid front-charity-img" alt="Responsive image"></img>
+              </div>
+            </div>
+
+
+            <div className="container">
+              <div className="row">
+                <div className="col-md-12 text-center front-font-2">
+                  <br></br><br></br><br></br><br></br><br></br>
+                  <h2>Waqf Blockchain Features</h2>
+                  <br></br><br></br>
+                </div>
+                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 hem">
+                  <div className="box-part text-center">
+                    <img className="card-img-top card-img-1" src="card-1.svg" alt="Card Images"></img>      
+                    <div className="title-card">
+                      <h2>Online Donation</h2>
+                    </div>      
+                    <div className="text">
+                      <span>All transaction and donation can be transfered online</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 hem">
+                  <div className="box-part text-center">
+                    <img className="card-img-top card-img-2" src="card-2.svg" alt="Card Images"></img>      
+                    <div className="title-card">
+                      <h2>Blockchain</h2>
+                    </div>      
+                    <div className="text">
+                      <span>This website is powered by blockchain technology and everything is encrypted and recorded publicly</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 hem">
+                  <div className="box-part text-center">
+                    <img className="card-img-top card-img-3" src="card-3.svg" alt="Card Images"></img>      
+                    <div className="title-card">
+                      <h2>Track Waqf</h2>
+                    </div>      
+                    <div className="text">
+                      <span>Track every waqf progress that you have been donated</span>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+            </div>
+
+            <br></br><br></br><br></br><br></br><br></br><br></br>
+            <div className="col-md-12 text-center waqftype-font">
+              <h4>DO NOT FORGET TO READ ABOUT WAQF TYPE</h4>
+              <h1>Five Types of Waqf</h1>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                <img src="warzone.jpg" className="img-fluid front-charity-img" alt="Responsive image"></img>
+              </div>
+              <div className="col-md-6 warzone-font">
+                <h2>Warzone</h2>
+                <p>Start helping person who needs more food, shelter out there. They are waiting for you</p>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6 education-font">
+                <h2>Education</h2>
+                <p>Contribute for student studies and comfort such as book, Al-Quran, chair and table</p>
+              </div>
+              <div className="col-md-6">
+                <img src="as.png" className="img-fluid front-charity-img" alt="Responsive image"></img>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                <img src="humanitarian.png" className="img-fluid front-charity-img" alt="Responsive image"></img>
+              </div>
+              <div className="col-md-6 humanitarian-font">
+                <h2>Humanitarian</h2>
+                <p>Every orphan deserves to get perfect love. Make them happy by giving their essentials.</p>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6 welfare-font">
+                <h2>Welfare</h2>
+                <p>Start helping person who needs more food, shelter out there. They are waiting for you</p>
+              </div>
+              <div className="col-md-6">
+                <img src="welfare.jpg" className="img-fluid front-charity-img" alt="Responsive image"></img>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                <img src="medical.png" className="img-fluid front-charity-img" alt="Responsive image"></img>
+              </div>
+              <div className="col-md-6 medical-font">
+                <h2>Medical</h2>
+                <p>Our donations aim to increase access to medicine and medical supplies for those who cannot afford them.</p>
+              </div>
+            </div>
+
+            <br></br><br></br><br></br><br></br><br></br><br></br>
+          </div>
+        </div>
+      </div>
+    </div>
+    {/* <div className="col-md-12 text-center wrapper fadeInDown">
+      <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+      <br></br><br></br><br></br>
+      <h1>This is Waqf HomePage</h1>
+    </div> */}
+    <footer className="page-footer font-small footer-custom">
+      <div className="footer-copyright text-center py-3">© 2020 Copyright by Ahmad Shauqi:
+        <p>WaqfHome.com</p>
+      </div>
+    </footer>
+  </div>
+);
+
+const HomePage = () => (
+  <div className="col-md-12 home-wrap">
+    <div className="col-md-12">
+      <div className="col-md-12">
+        <div className="col-md-12">
+          <div className="col-md-12">
+            
+            <div className="row">
+              <div className="col-md-6 front-font fadeInDown">
+                <br></br><br></br><br></br>
+                <div className="fadeIn first">
+                  <h1>Donate Waqf.</h1>
+                  <h1>Track Waqf</h1>
+                </div>
+                <br></br>
+                <h5 className="fadeIn second">Giving is just not about make a donation, it is about making<br></br> difference. Your kindness today could save a life tommorow</h5>
+                <br></br>
+                <div>
+                  {/* <button type="button" className="btn btn-info rounded-pill"><i class="fab fa-bitcoin"></i> Join Us</button> */}
+                  
                 </div>
               </div>
               <div className="col-md-6 front-charity">

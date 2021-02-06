@@ -25,6 +25,10 @@ class TrackWaqfDetails extends Component {
         const networkId = await web3.eth.net.getId();
         const networkData = WaqfChain.networks[networkId];
         // check if we are on developed network
+        if(isNaN(this.props.match.params.id)) {
+          
+          window.location.replace("http://localhost:3000/error");
+        }
         if(networkData) {
           const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);
           this.setState({ waqfchain });

@@ -66,4 +66,6 @@ donator 1
 
 
 
-- [] check duplicate create account
+- [ ] check duplicate create account
+- [x] waqfDetails
+- [x] updateDetails

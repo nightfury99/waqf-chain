@@ -84,7 +84,9 @@ class CreateWaqf extends Component {
     }
     
     updateSearch(event) {
-        
+        this.setState({
+            search: event.target.value.substr(0, 20)
+        })
     }
 
     onChangeLink() {
@@ -93,10 +95,18 @@ class CreateWaqf extends Component {
 
     render() {
         let i = 0;
+        // let filteredSearch = this.state.products.filter(
+            
+        // );
         return (
             <div className="container">
                 <div className="col-md-12 text-center" style={{padding: "10px", marginTop: "20px", color: "#5c5c5c"}}>
                     <h1>Waqf Event</h1>
+                    {/* <input 
+                    type="text" 
+                    value={this.state.search} 
+                    onChange={this.updateSearch.bind(this)}
+                    class="form-control"/> */}
                 </div>
                 
                 <div className="card-list">
