@@ -37,6 +37,7 @@ class Login extends Component {
           const waqfchain = web3.eth.Contract(WaqfChain.abi, networkData.address);
           this.setState({ waqfchain });
           const accountCount = await waqfchain.methods.accountCount().call();
+          
           this.setState({ accountCount });
           // load waqf event
           for(var i = 1; i <= accountCount; i++) {
@@ -45,7 +46,7 @@ class Login extends Component {
               accounts: [...this.state.accounts, acc]
             });
           }
-          //console.log(this.state.accounts);
+          console.log(this.state.accounts);
           this.setState({ loading: false });
           
         } else {
@@ -77,6 +78,7 @@ class Login extends Component {
         this.setState({ loading: true });
         var realAccount = localStorage.getItem("account");
         let passed = 0;
+
         this.state.accounts.map((acc, key) => {
           if(username === 'admin' && password === acc.password && realAccount === acc.userAddress.toLowerCase()) {
             passed = 1;

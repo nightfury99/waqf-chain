@@ -78,10 +78,15 @@ class CreateWaqf extends Component {
           account: this.props.location.account,
           totalPrice: [],
           products: [],
-          koboi: '🤠'
+          koboi: '🤠',
+          search: ''
         }
     }
     
+    updateSearch(event) {
+        
+    }
+
     onChangeLink() {
         this.props.onLinking(this.state.debug);
     }
