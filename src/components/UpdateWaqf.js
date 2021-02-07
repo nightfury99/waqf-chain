@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Chart from "react-apexcharts";
+import { BrowserRouter as Link } from 'react-router-dom';
+// import Chart from "react-apexcharts";
 import Active from "./chart/Active";
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
@@ -21,7 +21,7 @@ class UpdateWaqf extends Component {
     }
 
     async loadBlockchainData() {
-        const WEB3 = window.web3;
+        // const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         var active = 0;
         var closed = 0;
@@ -31,7 +31,7 @@ class UpdateWaqf extends Component {
         var we = 0;
         var me = 0;
         //var closed = 0;
-        const waqf_types = ["Education", "Warzone", "Humanitarian", "Welfare", "Medical"];
+        // const waqf_types = ["Education", "Warzone", "Humanitarian", "Welfare", "Medical"];
         // Load account
         //window.ethereum.enable();
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 //import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
+import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
 
 
 class Login extends Component {
@@ -46,7 +47,6 @@ class Login extends Component {
               accounts: [...this.state.accounts, acc]
             });
           }
-          console.log(this.state.accounts);
           this.setState({ loading: false });
           
         } else {
@@ -129,7 +129,11 @@ class Login extends Component {
               </form>
           
               <div id="formFooter">
-                <a className="underlineHover" href="#">Forgot Password?</a>
+                <Link to={{
+                    pathname: `sign-up`
+                  }}>
+                    <a className="underlineHover">Sign Up</a>
+                </Link>
               </div>
             </div>
           </div>     

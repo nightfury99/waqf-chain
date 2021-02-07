@@ -13,12 +13,12 @@ function Sidebar() {
     var acc = localStorage.getItem("account");
 
     const checkLogin = () => {
-        const allCookie = document.cookie;
-        let huhu = allCookie.split('=');
-        const cook = huhu[1];
+        // const allCookie = document.cookie;
+        // let huhu = allCookie.split('=');
+        // const cook = huhu[1];
         
         var lastname = localStorage.getItem("key");
-        if(lastname != '') {
+        if(lastname !== '') {
           return true;
         } else {
           return false;
@@ -26,9 +26,9 @@ function Sidebar() {
     }
 
     const checkAdmin = () => {
-        const allCookie = document.cookie;
-        let huhu = allCookie.split('=');
-        const cook = huhu[1];
+        // const allCookie = document.cookie;
+        // let huhu = allCookie.split('=');
+        // const cook = huhu[1];
         var lastname = localStorage.getItem("key");
         if(lastname === 'admin') {
           return true;

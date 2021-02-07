@@ -8,18 +8,12 @@ import 'simplebar/dist/simplebar.min.css';
 class WaqfDetails extends Component {
     async componentWillMount() {
         await this.loadBlockchainData();
-        await this.debugging();
         //await this.onChangeLink.bind(this);
         window.web3 = new Web3(window.web3.currentProvider);
     } 
 
-    async debugging() {
-        const WEB3 = window.web3;
-        const web3 = new Web3(Web3.givenProvider); 
-    }
-
     async loadBlockchainData() {
-      const WEB3 = window.web3;
+      // const WEB3 = window.web3;
       const web3 = new Web3(Web3.givenProvider);
       // Load account
       //swindow.ethereum.enable();

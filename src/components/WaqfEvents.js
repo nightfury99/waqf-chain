@@ -16,7 +16,7 @@ class CreateWaqf extends Component {
     }
 
     async loadBlockchainData() {
-        const WEB3 = window.web3;
+        // const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
         //window.ethereum.enable();
@@ -82,6 +82,18 @@ class CreateWaqf extends Component {
           search: ''
         }
     }
+
+    checkLogin() {
+        // const allCookie = document.cookie;
+        // let huhu = allCookie.split('=');
+        //const cook = huhu[1];
+        var lastname = localStorage.getItem("key");
+        if(lastname !== '') {
+          return true;
+        } else {
+          return false;
+        }
+      }
     
     updateSearch(event) {
         this.setState({
@@ -95,22 +107,29 @@ class CreateWaqf extends Component {
 
     render() {
         let i = 0;
-        // let filteredSearch = this.state.products.filter(
-            
-        // );
+        let filteredSearch = this.state.products.filter(
+            (product) => {
+                return product.name.toLowerCase().indexOf(this.state.search) !== -1;
+            }
+        );
         return (
             <div className="container">
-                <div className="col-md-12 text-center" style={{padding: "10px", marginTop: "20px", color: "#5c5c5c"}}>
+                <div className="col-md-12 text-center" style={{padding: "10px", marginTop: "20px", color: "#5c5c5c", border: "none"}}>
                     <h1>Waqf Event</h1>
-                    {/* <input 
-                    type="text" 
-                    value={this.state.search} 
-                    onChange={this.updateSearch.bind(this)}
-                    class="form-control"/> */}
+                </div>
+
+                <div className="col-md-12 text-center searchBar">
+                    <input 
+                        type="text" 
+                        placeholder="Search waqf project"
+                        value={this.state.search} 
+                        onChange={this.updateSearch.bind(this)}
+                        className="searchbar"/>
+                    <label for="check"><i className="fas fa-search"></i></label>
                 </div>
                 
                 <div className="card-list">
-                    {this.state.products.map((val, key) => {
+                    {filteredSearch.map((val, key) => {
                         let j = (parseInt(this.state.totalPrice[i]) / val.price * 100).toFixed(1);
                         let m = j;
                         if(j >= 100) {
@@ -143,6 +162,8 @@ class CreateWaqf extends Component {
                                     <div className="progress-bar progress-bar-striped bg-info" role="progressbar" style={{width: m+"%"}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{j}%</div>
                                 </div>
 
+                                { this.checkLogin()
+                                ?
                                 <div className="col-md-12" style={{marginLeft: "15px", marginTop: "10px"}}>
                                     <Link to={{
                                         pathname: `/waqf-events/${val.id}`,
@@ -153,6 +174,8 @@ class CreateWaqf extends Component {
                                             {/* 004275 */}
                                     </Link>
                                 </div>
+                                : <></>
+                                }
                                 
                             </div>
                         );

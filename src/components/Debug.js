@@ -22,7 +22,7 @@ class Debug extends Component {
     } 
     
     async loadBlockchainData() {
-        const WEB3 = window.web3;
+        // const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
@@ -54,7 +54,7 @@ class Debug extends Component {
                 //console.log(events[0].returnValues.name.toString());
                 for(let i = 0; i < events.length; i++) {
                     let waqfAddress = events[i].returnValues.senderAddress;
-                    if(waqfAddress.toLowerCase() == this.state.account){
+                    if(waqfAddress.toLowerCase() === this.state.account){
                         this.setState({ 
                             IdWaqf: [...this.state.IdWaqf, events[i].returnValues.id]
                         });

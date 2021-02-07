@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-//import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
+//import './login.css';
+// import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 class UpdateWaqfDetail extends Component {
  
@@ -19,7 +19,7 @@ class UpdateWaqfDetail extends Component {
     }
 
     async loadBlockchainData() {
-        const WEB3 = window.web3;
+        // const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
         window.ethereum.enable();
@@ -41,7 +41,7 @@ class UpdateWaqfDetail extends Component {
           const waqf = await waqfchain.methods.waqfEvents(this.props.match.params.id).call();
           this.setState({ targetFund: waqf.price });
           
-          const waqfUpdate = await waqfchain.methods.updateWaqfEvents(this.props.match.params.id).call();
+          // const waqfUpdate = await waqfchain.methods.updateWaqfEvents(this.props.match.params.id).call();
           this.setState({ products: waqf });
           this.setState({ closed: waqf.closed });
           
@@ -177,10 +177,10 @@ class UpdateWaqfDetail extends Component {
     }
 
     render() {
-        const mystyle = {
-          overflowY: "scroll",
-          maxHeight: "600px"
-        };
+        // const mystyle = {
+        //   overflowY: "scroll",
+        //   maxHeight: "600px"
+        // };
         let count_name = 0;
         return (
             <div className="col-md-12">

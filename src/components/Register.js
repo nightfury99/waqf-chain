@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 //import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 class Register extends Component {
   async componentWillMount() {
@@ -22,7 +23,7 @@ class Register extends Component {
   } 
 
       async loadBlockchainData() {
-        const WEB3 = window.web3;
+        // const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
@@ -43,7 +44,7 @@ class Register extends Component {
             toBlock: 'latest'
           }, (err, events) => {
             events.forEach(element => {
-              let waqfId = parseInt(element.returnValues.waqfId);
+              // let waqfId = parseInt(element.returnValues.waqfId);
               
               this.setState({
                 registerUsername: [...this.state.registerUsername, element.returnValues.username]
@@ -111,7 +112,8 @@ class Register extends Component {
               <br></br>
               <br></br>
               <div className="fadeIn first">
-                <img src="1.png"  id="icon" alt="User Icon" />
+                {/* <img src="1.png"  id="icon" alt="User Icon" /> */}
+                <h1><span className="a">Waqf</span><span className="b">Home</span></h1>
               </div>
               <br></br>
               
@@ -133,7 +135,12 @@ class Register extends Component {
               </form>
           
               <div id="formFooter">
-                <a className="underlineHover" href="#">Forgot Password?</a>
+                <Link to={{
+                  pathname: `sign-in`
+                }}>
+                  <a className="underlineHover">Sign In</a>
+                </Link>
+                
               </div>
           
             </div>

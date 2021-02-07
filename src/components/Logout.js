@@ -22,7 +22,7 @@ class Logout extends Component {
     } 
     
     async loadBlockchainData() {
-        const WEB3 = window.web3;
+        // const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
         //window.ethereum.enable();

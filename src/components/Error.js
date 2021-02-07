@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
-import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 
 class Error extends Component {
@@ -23,7 +23,7 @@ class Error extends Component {
     } 
     
     async loadBlockchainData() {
-        const WEB3 = window.web3;
+        // const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
@@ -55,7 +55,7 @@ class Error extends Component {
                 //console.log(events[0].returnValues.name.toString());
                 for(let i = 0; i < events.length; i++) {
                     let waqfAddress = events[i].returnValues.senderAddress;
-                    if(waqfAddress.toLowerCase() == this.state.account){
+                    if(waqfAddress.toLowerCase() === this.state.account){
                         this.setState({ 
                             IdWaqf: [...this.state.IdWaqf, events[i].returnValues.id]
                         });

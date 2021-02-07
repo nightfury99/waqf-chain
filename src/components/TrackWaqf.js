@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 class TrackWaqf extends Component {
     async componentWillMount() {
@@ -15,7 +15,7 @@ class TrackWaqf extends Component {
     }
 
     async loadBlockchainData() {
-        const WEB3 = window.web3;
+        // const WEB3 = window.web3;
         const web3 = new Web3(Web3.givenProvider);
         // Load account
         window.ethereum.enable();

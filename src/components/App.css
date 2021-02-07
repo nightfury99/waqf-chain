@@ -283,12 +283,46 @@ h1 {
   font-size: 22px;
   color: #3c3c41;
   font-weight: 800;
-  
 }
+
+.searchBar {
+  box-shadow: -3px -3px 7px #fcfbfb, 3px 3px 7px #bbb8b8;
+  background: #ECECEC;
+  border-radius: 38px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
+.searchBar input {
+  padding: 15px;
+  margin-right: 10px;
+  width: 90%;
+  background-color: transparent;
+  outline: none;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+}
+
+.searchBar label {
+  color: gray;
+}
+
+/* .searchbar {
+  padding: 10px;
+  margin-right: 10px;
+  width: 90%;
+  background-color: transparent;
+  outline: none;
+} */
 
 .myChart {
   border-radius: 25px;
-  margin: 10px 20px 10px 30px;
+  margin: 20px 20px 10px 0px;
   /* background-color: #ecedf1; */
   box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
               10px 10px 15px rgba(70, 70, 70, 0.12);
