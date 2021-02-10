@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
 
 
 class Error extends Component {

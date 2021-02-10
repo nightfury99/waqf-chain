@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import ReactApexChart from "react-apexcharts";
 
+
 class Line extends Component {  
     constructor(props) {
         super(props);
         this.state = {
           
             series: [{
-                name: "Desktops",
-                data: [10, 41, 35, 51, 49, 62, 34, 91, 77]
+                name: "waqf ",
+                data: [3, 5, 15, 3, 24, 20, 33, 11, parseInt(this.props.totalTransaction)]
             }],
             options: {
               chart: {
@@ -35,7 +36,7 @@ class Line extends Component {
                 },
               },
               xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                categories: ['Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dis', 'Jan', 'Feb'],
               }
             },
         };
@@ -43,11 +44,16 @@ class Line extends Component {
 
     render() {
         // var test = [this.props.active];
+        var two = [{
+          name: "waqf transaction",
+          data: [10, 41, 35, 51, 49, 62, 34, 91, parseInt(this.props.totalTransaction)]
+        }];
+        console.log(two);
         return (
             <div>
                 <div className="col-md-12">
                     <div className="" id="chart">
-                        <ReactApexChart options={this.state.options} series={this.state.series} type="line" height={259} />
+                        <ReactApexChart options={this.state.options} series={two} type="line" height={259} />
                     </div>
                 </div>
             </div>     

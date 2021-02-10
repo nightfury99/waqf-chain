@@ -1,0 +1,9 @@
+name, purpose of the system
+user and role
+
+error handling, security
+advantages of blockchain
+
+application of blockchain
+
+create current info

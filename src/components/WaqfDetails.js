@@ -151,14 +151,21 @@ class WaqfDetails extends Component {
                             RM {this.state.totalPrice}
                           </div>
 
-                          <div className="col-md-4">
+                          <div className="form-group col-md-4">
                             <p>DONATE</p>
-                            <input type="number" className="form-control" id="waqf_title" placeholder="price" ref={(input) => { this.price = input }} style={{marginLeft:"0"}}></input>
+                            {this.state.products.closed
+                            ?<><input type="number" className="form-control" id="waqf_title" placeholder="price" ref={(input) => { this.price = input }} style={{marginLeft:"0"}} disabled></input></>
+                            :<><input type="number" className="form-control" id="waqf_title" placeholder="price" ref={(input) => { this.price = input }} style={{marginLeft:"0"}} required></input></>
+                            }
                           </div>
 
                         </div>
                         <div className="col-md-12">
-                          <button type="submit" className="btn btn-primary" style={{margin: "30px 0 10px 0"}}><i className="fas fa-hand-holding-usd"></i> Donate</button>
+                          {this.state.products.closed
+                          ?<><button type="" className="btn btn-primary" style={{margin: "30px 0 10px 0"}} disabled><i className="fas fa-hand-holding-usd"></i> Closed</button></>
+                          :<><button type="submit" className="btn btn-primary" style={{margin: "30px 0 10px 0"}}><i className="fas fa-hand-holding-usd"></i> Donate</button></>
+                          }
+                          
                         </div>
                     </form>
                 </div>

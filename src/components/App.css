@@ -24,6 +24,10 @@ body {
   width: 100%;
 } */
 
+.strength {
+  margin-left: 39px;
+}
+
 .medical-font {
   padding: 100px 10px 0px 10px;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
 
 class TrackWaqf extends Component {
     async componentWillMount() {
@@ -121,6 +121,14 @@ class TrackWaqf extends Component {
                         </div>
                         
                         <div className="card-list">
+                            { parseInt(this.state.waqfProducts.length) === 0
+                            ?<>
+                            <br></br>
+                            <div className="alert alert-info" role="alert">
+                                You don't donate anything yet!
+                            </div>
+                            </>
+                            :<>
                             {this.state.waqfProducts.map((val, key) => {
                                 return(
                                     <div key={key} className="col-md-12 myChart" style={{padding: "10px 10px 30px 10px", marginBottom: "50px"}}>
@@ -149,6 +157,8 @@ class TrackWaqf extends Component {
                                     </div>
                                 );
                             })}
+                            </>
+                            }
                         </div>
                     </div>
                     // <div>

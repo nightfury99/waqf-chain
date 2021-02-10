@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
 // import Chart from "react-apexcharts";
 import Active from "./chart/Active";
 import SimpleBar from 'simplebar-react';
@@ -85,7 +85,7 @@ class UpdateWaqf extends Component {
           }, (err, events) => {
             let price = 0;
             let acc = 0;
-            
+            this.setState({ totalTransaction: events.length });
             for(let j = 1; j <= parseInt(productCount); j++) {
                 events.forEach(element => {
                     let waqfId = parseInt(element.returnValues.waqfId);
@@ -126,7 +126,8 @@ class UpdateWaqf extends Component {
           we: 0,
           fo: 0,
           ed: 0,
-          me: 0
+          me: 0,
+          totalTransaction: 0
         }
     }
     
@@ -192,7 +193,7 @@ class UpdateWaqf extends Component {
                     <div className="col-md-4">
                         <div className="myChartS">
                             {/* <h5>Active</h5> */}
-                            <LineChart active={this.state.active} />
+                            <LineChart active={this.state.active} totalTransaction={ this.state.totalTransaction }/>
                         </div>
                     </div>
                 </div>

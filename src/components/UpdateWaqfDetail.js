@@ -3,6 +3,8 @@ import Web3 from 'web3';
 import WaqfChain from '../abis/WaqfChain.json';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
+import Swal from 'sweetalert2';
+
 //import './login.css';
 // import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
@@ -157,10 +159,18 @@ class UpdateWaqfDetail extends Component {
         .once('receipt', (receipt) => {
           this.setState({ loading: false });
         }).catch((error) => {
-          window.alert("cannot load your account, Please refresh the page!");
+          Swal.fire(
+            'Cannot Load Account',
+            'Cannot load your account, Please refresh again',
+            'info'
+          );
         });
       } else {
-        window.alert("waqf event can be closed if it reached the limit!");
+        Swal.fire(
+          'Cannot Closed',
+          'Current fund must exceed target fund',
+          'info'
+        );
       }
       this.setState({ loading: false });
     }
@@ -289,23 +299,23 @@ class UpdateWaqfDetail extends Component {
                         <br></br>
                         <div className="form-group">
                           <label htmlFor="exampleFormControlTextarea1">Detail</label>
-                          <textarea className="form-control textArea" name="dataDetails" id="exampleFormControlTextarea1" rows="4" placeholder="Update details..."></textarea>
+                          <textarea className="form-control textArea" name="dataDetails" id="exampleFormControlTextarea1" rows="4" placeholder="Update details..." required></textarea>
                         </div>
                         <div className="col-md-12 updateInput">
                           <div className="row">
                             <div className="col-md-6">
                               <label>Money Used</label>
-                              <input type="number" name="moneyUsed" id="moneyUsed" placeholder="MYR"></input>
+                              <input type="number" name="moneyUsed" id="moneyUsed" placeholder="MYR" required></input>
                             </div>
                             <div className="col-md-6">
                               <label htmlFor="dateofbirth">Date</label>
-                              <input type="date" name="dateofbirth" id="dateofbirth"></input>
+                              <input type="date" name="dateofbirth" id="dateofbirth" required></input>
                             </div>
                           </div>
                           <div className="row">
                             <div className="col-md-6">
                               <label>Location</label>
-                              <input name="location" id="location" placeholder="Location..."></input>
+                              <input name="location" id="location" placeholder="Location..." required></input>
                             </div>
                           </div>
                         </div>

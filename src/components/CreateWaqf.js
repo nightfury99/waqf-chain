@@ -100,20 +100,20 @@ class CreateWaqf extends Component {
                             </div>
                             <div className="form-group col-md-12">
                                 <label>Title</label>
-                                <input type="text" className="form-control" id="waqf_title" placeholder="Title" ref={(input) => { this.waqfTitle = input }}></input>
+                                <input type="text" className="form-control" id="waqf_title" placeholder="Title" ref={(input) => { this.waqfTitle = input }} required></input>
                             </div>
                         </div>
                         <div className="form-group col-md-12">
                             <label>Waqf Details</label>
-                            <textarea className="form-control textArea" name="dataDetails" id="waqf_details" rows="4" placeholder="Details..." ref={(input) => { this.waqfDetails = input }}></textarea>
+                            <textarea className="form-control textArea" name="dataDetails" id="waqf_details" rows="4" placeholder="Details..." ref={(input) => { this.waqfDetails = input }} required></textarea>
                         </div>
                         <div className="form-row col-md-12">
                           <div className="form-group col-md-6">
                             <label>Waqf Types</label>
-                            <select defaultValue='DEFAULT' ref={(input) => { this.waqfTypes = input }} id="waqf_type" className="form-control">
+                            <select defaultValue='DEFAULT' ref={(input) => { this.waqfTypes = input }} id="waqf_type" className="form-control" required>
                                 <option value="DEFAULT" disabled>Choose</option>
                                 <option value="Education">Education</option>
-                                <option value="warzone">Warzone</option>
+                                <option value="Warzone">Warzone</option>
                                 <option value="Humanitarian">Humanitarian</option>
                                 <option value="Welfare">Welfare</option>
                                 <option value="Medical">Medical</option>
@@ -121,7 +121,7 @@ class CreateWaqf extends Component {
                           </div>
                           <div className="form-group col-md-6">
                             <label>Waqf Target Price</label>
-                            <input type="number" id="waqf_details" className="form-control" placeholder="Price" ref={(input) => { this.waqfPrice = input }}></input>
+                            <input type="number" id="waqf_details" className="form-control" placeholder="Price" ref={(input) => { this.waqfPrice = input }} required></input>
                           </div>
                             
                         </div>

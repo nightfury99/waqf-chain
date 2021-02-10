@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from 'react-icons/ai';
 import { SidebarDataA } from './SidebarDataA';
@@ -42,7 +42,7 @@ function Sidebar() {
             <div className="navbar">
                 <Link to="#" className="menu-bars">
                     <FaIcons.FaBars onClick={showSidebar} />
-                    <img src="logo2.png" className="img-fluid logos" alt="Responsive image"></img>
+                    <img src="logo2.png" className="img-fluid logos" alt="Waqf Home"></img>
                 </Link>
                 
                 <div className="text-white">

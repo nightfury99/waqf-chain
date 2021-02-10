@@ -3,7 +3,7 @@ import Web3 from 'web3';
 //import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
 import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 
 class Login extends Component {
     async componentWillMount() {
@@ -95,7 +95,11 @@ class Login extends Component {
         if(passed === 1) {
           window.location.replace("http://localhost:3000/");
         } else {
-          alert('wrong');
+          Swal.fire(
+            'Wrong',
+            'Wrong username or password',
+            'info'
+          );
           //window.location.replace("http://localhost:3000/sign-in")
         }
     }
@@ -119,10 +123,18 @@ class Login extends Component {
                 event.preventDefault();
                 const username = this.username.value;
                 const password = this.password.value;
-                this.checkCredentials(username, password);
+                if(username === "" || password === "") {
+                  Swal.fire(
+                    'Empty',
+                    'Please fill all the forms',
+                    'info'
+                  );
+                }else {
+                  this.checkCredentials(username, password);
+                }
               }}>
-                <input type="text" id="username" className="fadeIn second" name="login" placeholder="username" ref={(input) => { this.username = input }}></input>
-                <input type="password" id="password" className="fadeIn third" name="login" placeholder="password" ref={(input) => { this.password = input }}></input>
+                <input type="text" id="username" className="fadeIn second" name="login" placeholder="username" ref={(input) => { this.username = input }} required></input>
+                <input type="password" id="password" className="fadeIn third" name="login" placeholder="password" ref={(input) => { this.password = input }} required></input>
                 <br></br>
                 <br></br>
                 <input type="submit" className="fadeIn fourth" value="Login"></input>

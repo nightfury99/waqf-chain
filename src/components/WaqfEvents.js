@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 //import './App.css';
 import WaqfChain from '../abis/WaqfChain.json';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
 
 class CreateWaqf extends Component {
     async componentWillMount() {

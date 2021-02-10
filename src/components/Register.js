@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 //import './login.css';
 import WaqfChain from '../abis/WaqfChain.json';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, Link } from 'react-router-dom';
+import PasswordStrengthBar from 'react-password-strength-bar';
+import Swal from 'sweetalert2';
 
 class Register extends Component {
   async componentWillMount() {
@@ -73,14 +75,25 @@ class Register extends Component {
           products: [],
           registerUsername: [],
           loading: true,
-          debug: 'RECEIVED'
+          debug: 'RECEIVED',
+          password: ''
         }
         this.createAccountz = this.createAccountz.bind(this);
       }
-      
+    
+      updatePassword(event) {
+        this.setState({
+            password: event.target.value
+        })
+        //console.log(event.target.value);
+    }
     createAccountz(name, username, email, password) {
         if(name === "" || username === "" || email === "" || password === "") {
-          window.alert("please fill");
+          Swal.fire(
+            'Empty',
+            'Please fill all the forms',
+            'info'
+          );
         } else {
           var duplicate = false;
           var acc = localStorage.getItem("account");
@@ -101,7 +114,7 @@ class Register extends Component {
           }
         }
         
-        //this.state.account
+       
       }
 
     render() {
@@ -125,13 +138,14 @@ class Register extends Component {
                 const password = this.accPassword.value;
                 this.createAccountz(name, username, email, password);
               }}>
-                <input type="text" id="login" className="fadeIn second" name="login" placeholder="Name" ref={(input) => { this.accName = input }}></input>
-                <input type="text" id="username" className="fadeIn second" name="login" placeholder="username" ref={(input) => { this.accUsername = input }}></input>
-                <input type="email" id="username" className="fadeIn second" name="login" placeholder="email" ref={(input) => { this.accEmail = input }}></input>
-                <input type="password" id="password" className="fadeIn third" name="login" placeholder="password" ref={(input) => { this.accPassword = input }}></input>
+                <input type="text" id="login" className="fadeIn second" name="login" placeholder="Name" ref={(input) => { this.accName = input }} required></input>
+                <input type="text" id="username" className="fadeIn second" name="login" placeholder="username" ref={(input) => { this.accUsername = input }} required></input>
+                <input type="email" id="username" className="fadeIn second" name="login" placeholder="email" ref={(input) => { this.accEmail = input }} autoComplete="off" required></input>
+                <input type="password" id="password" className="fadeIn third" name="login" placeholder="password" ref={(input) => { this.accPassword = input }} onChange={this.updatePassword.bind(this) } autocomplete="new-password" required></input>
+                <div className="col-md-10 strength"><PasswordStrengthBar password={this.state.password} /></div>
                 <br></br>
                 <br></br>
-                <input type="submit" className="fadeIn fourth" value="Register"></input>
+                <input type="submit" className="fadeIn fourth" value="Register" required></input>
               </form>
           
               <div id="formFooter">
